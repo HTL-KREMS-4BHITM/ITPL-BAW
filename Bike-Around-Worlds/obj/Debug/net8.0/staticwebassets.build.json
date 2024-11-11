@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Bv+1M5PBbkuIBFaC2PG9hpA3E+sxYmOm+TkuvEiwrgQ=",
+  "Hash": "4jwZAmjAdEQN5OsEqzqMZ6ZkbymS+UrhuX8X/pXNOT8=",
   "Source": "Bike-Around-Worlds",
   "BasePath": "_content/Bike-Around-Worlds",
   "Mode": "Default",
@@ -131,12 +131,12 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\favicon.png",
+      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\favicon.png",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
-      "RelativePath": "favicon.png",
+      "RelativePath": "Resources/favicon.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,7 +147,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.png"
+      "OriginalItemSpec": "wwwroot\\Resources\\favicon.png"
     }
   ]
 }

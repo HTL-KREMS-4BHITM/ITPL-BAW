@@ -1,0 +1,15 @@
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\bin\Debug\net8.0\BAWLib.deps.json
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\bin\Debug\net8.0\BAWLib.runtimeconfig.json
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\bin\Debug\net8.0\BAWLib.dll
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\bin\Debug\net8.0\BAWLib.pdb
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.csproj.AssemblyReference.cache
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.AssemblyInfoInputs.cache
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.AssemblyInfo.cs
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.csproj.CoreCompileInputs.cache
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.sourcelink.json
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.dll
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\refint\BAWLib.dll
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.pdb
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\BAWLib.genruntimeconfig.cache
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\BAWLib\obj\Debug\net8.0\ref\BAWLib.dll

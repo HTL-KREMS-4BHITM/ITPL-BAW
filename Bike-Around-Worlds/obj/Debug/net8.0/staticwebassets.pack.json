@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Bike-Around-Worlds.bundle.scp.css"
     },
     {
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\favicon.png",
+      "PackagePath": "staticwebassets\\Resources\\favicon.png"
+    },
+    {
       "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
@@ -19,10 +23,6 @@
     {
       "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
-    },
-    {
-      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\favicon.png",
-      "PackagePath": "staticwebassets\\favicon.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Bike-Around-Worlds.Microsoft.AspNetCore.StaticWebAssets.props",
