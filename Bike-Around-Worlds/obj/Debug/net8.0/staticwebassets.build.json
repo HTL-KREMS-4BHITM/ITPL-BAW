@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4jwZAmjAdEQN5OsEqzqMZ6ZkbymS+UrhuX8X/pXNOT8=",
+  "Hash": "MYWYs9sUR7UHRtCfr2EDGafWanpCAFZGn4lnfkUiFf0=",
   "Source": "Bike-Around-Worlds",
   "BasePath": "_content/Bike-Around-Worlds",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\bike1.jpg",
+      "SourceId": "Bike-Around-Worlds",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "BasePath": "_content/Bike-Around-Worlds",
+      "RelativePath": "Resources/bike1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Resources\\bike1.jpg"
     },
     {
       "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\favicon.png",

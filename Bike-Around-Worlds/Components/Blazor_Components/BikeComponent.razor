@@ -1,0 +1,44 @@
+<h3>@Id</h3>
+<ul>
+    <li>@Ps</li>
+    <li>
+        @Weight
+    </li>
+    <li>
+        @Seatheight
+    </li>
+    <li>
+        @Model
+    </li>
+    <li>
+        @Manufacturer
+    </li>
+    <li>
+        @CurrentLeasingRate
+    </li>
+    <li>
+        @Kilomerter
+    </li>
+    <li>
+        <img src="@ImgOne" alt="Das is ein bild">
+    </li>
+    <li>
+        <img src="@ImgTwo" alt="Das is ein bild">
+    </li>
+    <li>
+        <img src="@ImgThree" alt="Das is ein bild">
+    </li>
+</ul>
+@code {
+    [Parameter] public int Id {get; set;}
+    [Parameter] public int Ps { get; set; }
+    [Parameter] public int Weight { get; set; }
+    [Parameter] public int Seatheight { get; set; }
+    [Parameter] public string Model { get; set; }
+    [Parameter] public string Manufacturer { get; set; }
+    [Parameter] public double CurrentLeasingRate { get; set; }
+    [Parameter] public double Kilomerter { get; set; }
+    [Parameter] public string ImgOne { get; set; }
+    [Parameter] public string ImgTwo { get; set; }
+    [Parameter] public string ImgThree { get; set; }
+}
