@@ -551,10 +551,7 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.0"
         },
         "runtime": {
-          "BAWLib.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "BAWLib.dll": {}
         }
       }
     }

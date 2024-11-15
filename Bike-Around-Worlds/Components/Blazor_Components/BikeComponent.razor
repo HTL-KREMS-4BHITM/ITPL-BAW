@@ -1,4 +1,26 @@
-<h3>@Id</h3>
+<div class="row">
+    <div class="col-4">
+        <img class="img-holder" src=@ImgOne alt="Das is ein bild">
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12">
+                
+            </div>
+            <div class="col-12">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<h3>@Id</h3>
 <ul>
     <li>@Ps</li>
     <li>
@@ -20,25 +42,25 @@
         @Kilomerter
     </li>
     <li>
-        <img src="@ImgOne" alt="Das is ein bild">
+        <img src=@ImgOne alt="Das is ein bild">
     </li>
     <li>
-        <img src="@ImgTwo" alt="Das is ein bild">
+        <img src=@ImgTwo alt="Das is ein bild">
     </li>
     <li>
-        <img src="@ImgThree" alt="Das is ein bild">
+        <img src=@ImgThree alt="Das is ein bild">
     </li>
-</ul>
+</ul>*@
 @code {
     [Parameter] public int Id {get; set;}
     [Parameter] public int Ps { get; set; }
     [Parameter] public int Weight { get; set; }
     [Parameter] public int Seatheight { get; set; }
-    [Parameter] public string Model { get; set; }
-    [Parameter] public string Manufacturer { get; set; }
+    [Parameter] public string? Model { get; set; }
+    [Parameter] public string? Manufacturer { get; set; }
     [Parameter] public double CurrentLeasingRate { get; set; }
     [Parameter] public double Kilomerter { get; set; }
-    [Parameter] public string ImgOne { get; set; }
-    [Parameter] public string ImgTwo { get; set; }
-    [Parameter] public string ImgThree { get; set; }
+    [Parameter] public string? ImgOne { get; set; }
+    [Parameter] public string? ImgTwo { get; set; }
+    [Parameter] public string? ImgThree { get; set; }
 }

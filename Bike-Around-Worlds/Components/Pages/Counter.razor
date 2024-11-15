@@ -8,32 +8,23 @@
 <h1>Counter</h1>
 
 
-<p role="status">Current count: @currentCount</p>
+<p role="status">Current count: @_currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<button class="btn btn-primary" @onclick="Tom">Click Tom</button>
 <ul>
     @foreach(var bike in _bikes)
     {
-        <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne"></BikeComponent>
+        <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>
     }
 </ul>
 @code {
-    private int currentCount = 0;
+    private int _currentCount;
     private List<Bike> _bikes = new();
-
-    private void Tom()
-    {
-        _bikes.Add(new Bike(0, 30, 160, 20, "Eins", "MEins", 3000, 4500));
-        _bikes.Add(new Bike(0, 30, 160, 20, "Zewi", "MZwei", 3000, 4500));
-
-    }
     
     private void IncrementCount()
     {
-        _bikes.Add(new Bike(0, 30, 160, 20, "Model", "Manufacturer", 3000, 4500, @"D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\bike1.jpg", "../../wwwroot/Resources/bike1.jpg", "../../wwwroot/Resources/bike1.jpg"));
+        _bikes.Add(new Bike(0, 30, 160, 20, "Model", "Manufacturer", 3000, 4500, "Resources/bike1.jpg", "Resources/bike1.jpg", "Resources/bike1.jpg"));
         
-        currentCount++;
+        _currentCount++;
     }
-
 }
