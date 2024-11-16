@@ -2,6 +2,6 @@
 // @use "[Name of the file]"; => //du kannst optional auch [Name of the file].sccs schreiben für die Uebersichtlichkeit
 // npm run watch
 
-
+@use "variables";//todo There is a way to import the file to all used files 
 @use "home";
 @use "bikeComponent";
