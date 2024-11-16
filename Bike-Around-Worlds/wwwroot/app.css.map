@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../Scss/bikeComponent.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EACA","file":"app.css"}
+{"version":3,"sourceRoot":"","sources":["../Scss/bikeComponent.scss","../Scss/variables.scss"],"names":[],"mappings":"AACA;EACE,OCEK;EDDL,kBCFQ;EDGR;EACA;;AACA;EACE;EACA;EACA;EACA;;AAEF;EAEE,OCVG;EDYD;;AAGJ;EACE,OClBO","file":"app.css"}

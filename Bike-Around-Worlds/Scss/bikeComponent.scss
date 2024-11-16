@@ -1,5 +1,24 @@
-.img-holder{
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
+@import "variables"; //todo there is a way to import better see index.scss 
+.bike-element{
+  color: $text;
+  background-color: $primary;
+  border-radius: 49px;
+  max-width: 700px;
+  .img-holder{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 33px;// border - padding
+  }
+  .rename{
+    //todo rename
+    color: $text;
+    font:{
+      weight: 500;
+    }
+  }
+  p{
+    color: $secondary;
+  }
+  
 }
