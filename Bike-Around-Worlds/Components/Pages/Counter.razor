@@ -15,6 +15,8 @@
     @foreach(var bike in _bikes)
     {
         <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>
+        <br/>
+        <br/>
     }
 </ul>
 @code {

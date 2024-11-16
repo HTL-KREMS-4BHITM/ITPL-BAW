@@ -10,15 +10,17 @@
     width: 100%;
     border-radius: 33px;// border - padding
   }
-  .rename{
-    //todo rename
-    color: $text;
+  .search-tag{
     font:{
       weight: 500;
     }
   }
-  p{
+  .price{
     color: $secondary;
+    font:{
+      weight: bold;
+      size: large;
+    }
   }
   
 }

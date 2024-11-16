@@ -1,5 +1,5 @@
 <div class="bike-element p-3">
-    //todo replace the hard text with component code stuff
+    <!--todo replace the hard search-tag with properties-->
     <div class="row">
         <div class="col-5">
             <img class="img-holder" src=@ImgOne alt="Das is ein bild">
@@ -8,16 +8,16 @@
             <div class="row h-100">
                 <div class="col-12 d-flex flex-column mb-2">
                     <h1>
-                        Ducati Panigali V4
+                        @Manufacturer @Model
                     </h1>
-                    <p class="rename">
+                    <p class="search-tag">
                         #Austria Wien
                     </p>
                 </div>
-                <div class="col-12 d-flex justify-content-between mt-auto mb-2">
-                    <i>icon</i>
+                <div class="col-12 d-flex justify-content-between mt-auto mb-2 align-content-end">
+                    <i class="bi @Icon mt-auto mb-3" @onclick="ChangeIcon"></i>
                     <p class="me-5">
-                        price tag per day
+                         <i class="price">@CurrentLeasingRate€</i> <br>/Tag
                     </p>
                 </div>
             </div>
@@ -74,4 +74,11 @@
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }
+    private string? Icon { get; set; } = "bi-star";
+
+
+    private void ChangeIcon()
+    {
+        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
+    }
 }
