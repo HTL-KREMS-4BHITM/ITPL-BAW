@@ -1,6 +1,10 @@
 .section-header {
   background-color: #2C2C2C;
-  font-family: Contrail One;
+}
+.section-header .navbar-logo {
+  font-family: "Contrail One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 .section-header .navbar-brand {
   color: #FF4500;
@@ -17,6 +21,7 @@
   width: 35px;
   height: 35px;
 }
+
 .bike-element {
   color: #EAEAEA;
   background-color: #3A3A3A;

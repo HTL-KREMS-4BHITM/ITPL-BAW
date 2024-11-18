@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BAWLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03d29647732611c918676a8cd2195b99ac5c39ce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b44b87b55c4b5959f01fa2c10c5161a99d23544")]
 [assembly: System.Reflection.AssemblyProductAttribute("BAWLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BAWLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Bike-Around-Worlds.bundle.scp.css"
     },
     {
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\CustomScripts\\script.js",
+      "PackagePath": "staticwebassets\\CustomScripts\\script.js"
+    },
+    {
       "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\bike1.jpg",
       "PackagePath": "staticwebassets\\Resources\\bike1.jpg"
     },

@@ -1,10 +1,13 @@
 .section-header{
   background-color: #2C2C2C;
- 
-  
-  font:{
-    family: Contrail One;
+
+
+  .navbar-logo {
+    font-family: "Contrail One", serif;
+    font-weight: 400;
+    font-style: normal;
   }
+
   .navbar-brand {
     color: #FF4500;
     font-weight: bold;

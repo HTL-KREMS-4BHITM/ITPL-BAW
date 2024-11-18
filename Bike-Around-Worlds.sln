@@ -20,5 +20,7 @@ Global
 		{ADA3F534-4EF3-4A05-9321-29657A1EBB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA3F534-4EF3-4A05-9321-29657A1EBB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA3F534-4EF3-4A05-9321-29657A1EBB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4D93636-EC54-4876-9A04-C18C16E078B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D93636-EC54-4876-9A04-C18C16E078B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

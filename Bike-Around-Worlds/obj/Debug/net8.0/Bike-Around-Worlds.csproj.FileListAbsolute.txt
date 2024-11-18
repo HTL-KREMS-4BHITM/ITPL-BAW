@@ -109,3 +109,5 @@ D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\bin\Debug\net8.0\BAWLib.
 D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\bin\Debug\net8.0\BAWLib.pdb
 D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\obj\Debug\net8.0\Bike-Around-Worlds.csproj.AssemblyReference.cache
 D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\obj\Debug\net8.0\Bike-Aro.D7A1F6B9.Up2Date
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\bin\Debug\net8.0\Domain.dll
+D:\_PRIVATE\HTL\4BHITM\ITPL\ITPL-BAW\Bike-Around-Worlds\bin\Debug\net8.0\Domain.pdb
