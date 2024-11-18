@@ -4,4 +4,6 @@
 
 @use "variables";//todo There is a way to import the file to all used files 
 @use "home";
+@use "header";
+@use "footer";
 @use "bikeComponent";
