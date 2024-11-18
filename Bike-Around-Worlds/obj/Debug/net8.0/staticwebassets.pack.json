@@ -1,28 +1,32 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css",
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css",
       "PackagePath": "staticwebassets\\Bike-Around-Worlds.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css",
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\bike1.jpg",
+      "PackagePath": "staticwebassets\\Resources\\bike1.jpg"
+    },
+    {
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\Resources\\favicon.png",
+      "PackagePath": "staticwebassets\\Resources\\favicon.png"
+    },
+    {
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css.map",
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css.map",
       "PackagePath": "staticwebassets\\app.css.map"
     },
     {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
-    },
-    {
-      "Id": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\favicon.png",
-      "PackagePath": "staticwebassets\\favicon.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Bike-Around-Worlds.Microsoft.AspNetCore.StaticWebAssets.props",

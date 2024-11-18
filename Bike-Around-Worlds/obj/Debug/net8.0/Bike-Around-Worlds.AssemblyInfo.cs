@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bike-Around-Worlds")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2519ee168ffef738d4a776722a6137b0083bea6c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f236089c2ff6e1d2ba84232d973cbb9f76d8ec6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bike-Around-Worlds")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bike-Around-Worlds")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
