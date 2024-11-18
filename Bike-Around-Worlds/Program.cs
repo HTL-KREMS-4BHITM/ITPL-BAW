@@ -1,10 +1,24 @@
+using BAWLib;
 using Bike_Around_Worlds.Components;
+using Domain.Interfaces;
+using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddDbContextFactory<MotorContext>(
+    options => options.UseMySql(builder.Configuration
+            .GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 36))
+    )
+    .LogTo(Console.WriteLine)
+);
+
+builder.Services.AddTransient<IRepository<Motorbike>,BikeRepository>();
 
 var app = builder.Build();
 

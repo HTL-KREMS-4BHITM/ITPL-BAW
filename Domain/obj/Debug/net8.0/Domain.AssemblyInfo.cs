@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("BAWLib")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55dd749675df3b25d5052093582def6465272f54")]
-[assembly: System.Reflection.AssemblyProductAttribute("BAWLib")]
-[assembly: System.Reflection.AssemblyTitleAttribute("BAWLib")]
+[assembly: System.Reflection.AssemblyProductAttribute("Domain")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Von der MSBuild WriteCodeFragment-Klasse generiert.
