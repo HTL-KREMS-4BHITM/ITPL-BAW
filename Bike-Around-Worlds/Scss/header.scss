@@ -1,26 +1,35 @@
+@use "variables" as *;
 .section-header{
-  background-color: #2C2C2C;
+  .navbar{
 
-
-  .navbar-logo {
-    font-family: "Contrail One", serif;
-    font-weight: 400;
-    font-style: normal;
+    background-color: $header-bg;
   }
 
-  .navbar-brand {
-    color: #FF4500;
-    font-weight: bold;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    
+  .navbar-brand{
+    * {
+      color: $header-logo;
+      line-height: 1.2;
+      font:{
+        family: "Contrail One", serif;
+        weight: 400;
+        style: normal;
+        size: 1.5rem;
+      }
+    }
+    & :hover{
+      //color: ; find good color todo
+    }
   }
   
   .nav-link {
-    color: #D9D9D9!important;
+    color: $header-text;
     font-size: 1.2rem;
     margin: 0 20px;
-    
+    font:{
+      family: "Contrail One", serif;
+      weight: 400;
+      style: normal;
+    }
   }
   
   .nav-item:last-child .nav-link svg {

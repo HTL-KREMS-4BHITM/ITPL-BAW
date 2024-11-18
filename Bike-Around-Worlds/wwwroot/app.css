@@ -1,21 +1,21 @@
-.section-header {
+.section-header .navbar {
   background-color: #2C2C2C;
 }
-.section-header .navbar-logo {
+.section-header .navbar-brand * {
+  color: #FF4500;
+  line-height: 1.2;
   font-family: "Contrail One", serif;
   font-weight: 400;
   font-style: normal;
-}
-.section-header .navbar-brand {
-  color: #FF4500;
-  font-weight: bold;
   font-size: 1.5rem;
-  line-height: 1.2;
 }
 .section-header .nav-link {
-  color: #D9D9D9 !important;
+  color: #D9D9D9;
   font-size: 1.2rem;
   margin: 0 20px;
+  font-family: "Contrail One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 .section-header .nav-item:last-child .nav-link svg {
   width: 35px;

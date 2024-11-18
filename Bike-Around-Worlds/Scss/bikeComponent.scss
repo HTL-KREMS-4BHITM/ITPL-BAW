@@ -1,4 +1,5 @@
-@import "variables"; //todo there is a way to import better see index.scss 
+@use "variables" as *;
+// make toRem function use toRem function todo
 .bike-element{
   color: $text;
   background-color: $primary;
