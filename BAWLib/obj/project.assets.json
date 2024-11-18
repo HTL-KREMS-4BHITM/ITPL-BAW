@@ -2493,19 +2493,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carin\\.nuget\\packages\\": {}
+    "C:\\Users\\raphael\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carin\\RiderProjects\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
+      "projectUniqueName": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
       "projectName": "BAWLib",
-      "projectPath": "C:\\Users\\carin\\RiderProjects\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
-      "packagesPath": "C:\\Users\\carin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carin\\RiderProjects\\ITPL-BAW\\BAWLib\\obj\\",
+      "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
+      "packagesPath": "C:\\Users\\raphael\\.nuget\\packages\\",
+      "outputPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\raphael\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2574,7 +2574,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
