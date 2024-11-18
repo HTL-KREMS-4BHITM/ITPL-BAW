@@ -11,13 +11,13 @@
                         @Manufacturer @Model
                     </h1>
                     <p class="search-tag">
-                        #Austria Wien
+                        @SearchTag
                     </p>
                 </div>
                 <div class="col-12 d-flex justify-content-between mt-auto mb-2 align-content-end">
-                    <i class="bi @Icon mt-auto mb-3" @onclick="ChangeIcon"></i>
+                    <i class="bi @Icon mt-auto mb-1" style="font-size: 2rem;" @onclick="ChangeIcon"></i>
                     <p class="me-5">
-                         <i class="price">@CurrentLeasingRate€</i> <br>/Tag
+                         <span class="price">@CurrentLeasingRate€</span> <br>/Tag
                     </p>
                 </div>
             </div>
@@ -26,42 +26,6 @@
 </div>
 
 
-
-
-
-
-
-@*<h3>@Id</h3>
-<ul>
-    <li>@Ps</li>
-    <li>
-        @Weight
-    </li>
-    <li>
-        @Seatheight
-    </li>
-    <li>
-        @Model
-    </li>
-    <li>
-        @Manufacturer
-    </li>
-    <li>
-        @CurrentLeasingRate
-    </li>
-    <li>
-        @Kilomerter
-    </li>
-    <li>
-        <img src=@ImgOne alt="Das is ein bild">
-    </li>
-    <li>
-        <img src=@ImgTwo alt="Das is ein bild">
-    </li>
-    <li>
-        <img src=@ImgThree alt="Das is ein bild">
-    </li>
-</ul>*@
 @code {
     [Parameter] public int Id {get; set;}
     [Parameter] public int Ps { get; set; }
@@ -71,6 +35,7 @@
     [Parameter] public string? Manufacturer { get; set; }
     [Parameter] public double CurrentLeasingRate { get; set; }
     [Parameter] public double Kilomerter { get; set; }
+    [Parameter] public string? SearchTag { get; set; }
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }

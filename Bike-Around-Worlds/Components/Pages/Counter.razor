@@ -14,7 +14,7 @@
 <ul>
     @foreach(var bike in _bikes)
     {
-        <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>
+        <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" SearchTag="@bike.SearchTag" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>
         <br/>
         <br/>
     }
@@ -25,7 +25,7 @@
     
     private void IncrementCount()
     {
-        _bikes.Add(new Bike(0, 30, 160, 20, "Model", "Manufacturer", 3000, 4500, "Resources/bike1.jpg", "Resources/bike1.jpg", "Resources/bike1.jpg"));
+        _bikes.Add(new Bike(0, 30, 160, 20, "Model", "Manufacturer", 3000, 4500, "#Austria Wien", "Resources/bike1.jpg", "Resources/bike1.jpg", "Resources/bike1.jpg"));
         
         _currentCount++;
     }
