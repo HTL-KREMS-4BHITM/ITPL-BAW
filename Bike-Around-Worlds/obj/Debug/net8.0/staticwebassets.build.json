@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Bv+1M5PBbkuIBFaC2PG9hpA3E+sxYmOm+TkuvEiwrgQ=",
+  "Hash": "IBHwFF56G8WyKt7N39VYN+GgCYAnTrembGhH3wFkMgE=",
   "Source": "Bike-Around-Worlds",
   "BasePath": "_content/Bike-Around-Worlds",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Bike-Around-Worlds\\wwwroot",
       "Source": "Bike-Around-Worlds",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Bike-Around-Worlds.styles.css",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Bike-Around-Worlds.styles.css",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "Bike-Around-Worlds.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Bike-Around-Worlds.styles.css"
+      "OriginalItemSpec": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Bike-Around-Worlds.styles.css"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "Bike-Around-Worlds.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Bike-Around-Worlds.bundle.scp.css"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css.map",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\app.css.map",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "app.css.map",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\app.css.map"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\favicon.png",
       "SourceId": "Bike-Around-Worlds",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\wwwroot\\",
       "BasePath": "_content/Bike-Around-Worlds",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
