@@ -965,6 +965,19 @@
         "runtime": {
           "bin/placeholder/BAWLib.dll": {}
         }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BAWLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
       }
     }
   },
@@ -2501,11 +2514,17 @@
       "type": "project",
       "path": "../BAWLib/BAWLib.csproj",
       "msbuildProject": "../BAWLib/BAWLib.csproj"
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "BAWLib >= 1.0.0",
+      "Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0",
       "Pomelo.EntityFrameworkCore.MySql >= 8.0.0",
@@ -2513,24 +2532,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emilm\\.nuget\\packages\\": {}
+    "C:\\Users\\raphael\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
+      "projectUniqueName": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
       "projectName": "Bike-Around-Worlds",
-      "projectPath": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
-      "packagesPath": "C:\\Users\\emilm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\",
+      "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
+      "packagesPath": "C:\\Users\\raphael\\.nuget\\packages\\",
+      "outputPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\emilm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\raphael\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2539,6 +2561,9 @@
           "projectReferences": {
             "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {
               "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj"
+            },
+            "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Domain\\Domain.csproj"
             }
           }
         }
@@ -2598,7 +2623,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
