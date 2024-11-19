@@ -1,3 +1,11 @@
+p {
+  font-family: "Contrail One";
+}
+
+h3 {
+  font-family: "Contrail One";
+}
+
 .section-header .navbar {
   background-color: #2C2C2C;
 }
@@ -20,6 +28,11 @@
 .section-header .nav-item:last-child .nav-link svg {
   width: 35px;
   height: 35px;
+}
+
+.section-footer {
+  background-color: #1A1A1A;
+  color: #EAEAEA;
 }
 
 .bike-element {
