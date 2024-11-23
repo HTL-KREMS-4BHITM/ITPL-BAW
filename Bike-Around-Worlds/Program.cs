@@ -1,8 +1,13 @@
+using System;
 using BAWLib;
 using Bike_Around_Worlds.Components;
 using Domain.Interfaces;
 using Domain.Repositories;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +20,6 @@ builder.Services.AddDbContextFactory<MotorContext>(
             .GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 36))
     )
-    .LogTo(Console.WriteLine)
 );
 
 builder.Services.AddTransient<IRepository<Motorbike>,BikeRepository>();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BAWLib;
@@ -15,5 +16,6 @@ public class Motorbike
     public string Federal_State { get; set; }
     public string Address { get; set; }
     
-    public List<Leasing_Contract_Jt> Leasing_Contract_Jts { get; set; }
+    public ICollection<LeasingContract> LeasingContracts { get; set; }
+    public ICollection<Favorite> Favorites { get; set; }
 }

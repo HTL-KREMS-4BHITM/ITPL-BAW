@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BAWLib;
 [Table("FAVORITES_JT")]
-public class Favorites_JT
+public class Favorite
 {
     public User User { get; set; }
     public int UserID { get; set; }

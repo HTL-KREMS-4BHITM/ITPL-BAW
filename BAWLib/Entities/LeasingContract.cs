@@ -1,6 +1,9 @@
-namespace BAWLib;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Leasing_Contract_Jt
+namespace BAWLib;
+[Table("LEASING_CONTRACT_JT")]
+public class LeasingContract
 {
     public User User { get; set; }
     public int UserID { get; set; }
