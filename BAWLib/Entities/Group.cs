@@ -13,6 +13,7 @@ public class Group
     public DateTime To_Date { get; set; }
     public string Description { get; set; }
     public string RouteData { get; set; }
+    public DateTime Created_At { get; set; } = DateTime.Now;
     public ICollection<User> Users { get; set; }
     public ICollection<Waypoint> Waypoints { get; set; }
 }
