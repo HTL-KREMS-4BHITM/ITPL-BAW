@@ -39,7 +39,7 @@ h3 {
   color: #EAEAEA;
   background-color: #3A3A3A;
   border-radius: 49px;
-  max-width: 700px;
+  min-height: 260px;
 }
 .bike-element .img-holder {
   object-fit: cover;
@@ -47,13 +47,20 @@ h3 {
   width: 100%;
   border-radius: 33px;
 }
-.bike-element .search-tag {
-  font-weight: 500;
+.bike-element .federal-state {
+  font-weight: 100;
+  font-style: italic;
+  font-family: calibri;
+  font-size: 1.3rem;
+}
+.bike-element h1 {
+  font-weight: 600;
+  font-size: 1.9rem;
 }
 .bike-element .price {
   color: #FF4500;
   font-weight: bold;
-  font-size: large;
+  font-size: 2rem;
 }
 
 .section-login .form-height {

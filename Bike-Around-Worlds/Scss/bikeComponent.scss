@@ -4,24 +4,33 @@
   color: $text;
   background-color: $primary;
   border-radius: 49px;
-  max-width: 700px;
+  //max-width: 700px;
+  min-height: 260px;
   .img-holder{
     object-fit: cover;
     height: 100%;
     width: 100%;
     border-radius: 33px;// border - padding
-
   }
-  .search-tag{
+  .federal-state{
     font:{
-      weight: 500; 
+      weight: 100;
+      style: italic;
+      family: calibri;
+      size: 1.3rem;
+    }
+  }
+  h1{
+    font:{
+      weight: 600;
+      size: 1.90rem;
     }
   }
   .price{
     color: $secondary;
     font:{
       weight: bold;
-      size: large;
+      size: 2rem;
     }
   }
 
