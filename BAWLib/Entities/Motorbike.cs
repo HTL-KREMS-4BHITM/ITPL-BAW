@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BAWLib;
 [Table("MOTORBIKES")]
 public class Motorbike
 {
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Motorbike_ID { get; set; }
     public string Model { get; set; }
     public int Ps {get; set;}

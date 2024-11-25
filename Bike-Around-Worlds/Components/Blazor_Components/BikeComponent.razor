@@ -11,7 +11,7 @@
                         @Manufacturer @Model
                     </h1>
                     <p class="search-tag">
-                        @SearchTag
+                        @Federal_State
                     </p>
                 </div>
                 <div class="col-12 d-flex justify-content-between mt-auto mb-2 align-content-end">
@@ -27,15 +27,16 @@
 
 
 @code {
-    [Parameter] public int Id {get; set;}
-    [Parameter] public int Ps { get; set; }
-    [Parameter] public int Weight { get; set; }
-    [Parameter] public int Seatheight { get; set; }
-    [Parameter] public string? Model { get; set; }
-    [Parameter] public string? Manufacturer { get; set; }
-    [Parameter] public double CurrentLeasingRate { get; set; }
-    [Parameter] public double Kilomerter { get; set; }
-    [Parameter] public string? SearchTag { get; set; }
+    [Parameter] public int Motorbike_ID { get; set; }
+    [Parameter] public string Model { get; set; }
+    [Parameter] public int Ps {get; set;}
+    [Parameter] public string Manufacturer { get; set; }
+    [Parameter] public decimal CurrentLeasingRate { get; set; }
+    [Parameter] public int Weight{get; set;}
+    [Parameter] public int SeatHeight{get; set;}
+    [Parameter] public decimal Kilometer { get; set; }
+    [Parameter] public string Address { get; set; }
+    [Parameter] public string? Federal_State { get; set; }
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }

@@ -1,32 +1,36 @@
 ﻿@page "/counter"
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
+@using Domain.Interfaces
+@using Domain.Repositories
 @rendermode InteractiveServer
+@inject IRepository<Motorbike> BikeRepository;
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Bikes</PageTitle>
 
-<h1>Counter</h1>
+<h1>Bikes</h1>
 
 
-<p role="status">Current count: @_currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
 <ul>
     @foreach(var bike in _bikes)
     {
-        <BikeComponent Id="bike.Id" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.Seatheight" Kilomerter="bike.Kilomerter" SearchTag="@bike.SearchTag" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>
+        <!-- has to run trough another loop to get the img from a second list-->
+        <!--<BikeComponent Id="bike.Motorbike_ID" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.SeatHeight" Kilomerter="bike.Kilometer" Federal_State="@bike.Federal_State" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>-->
+        <BikeComponent Motorbike_ID="bike.Motorbike_ID" Ps="bike.Ps" Weight="bike.Weight" Seatheight="@bike.SeatHeight" Kilometer="@bike.Kilometer" Federal_State="@bike.Federal_State" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="/Resources/bike1.jpg"></BikeComponent>
         <br/>
         <br/>
     }
 </ul>
 @code {
-    private int _currentCount;
-    private List<Bike> _bikes = new();
-    
-    private void IncrementCount()
+    private List<Motorbike> _bikes = new();
+
+    protected override void OnInitialized()
     {
-        _bikes.Add(new Bike(0, 30, 160, 20, "Model", "Manufacturer", 3000, 4500, "#Austria Wien", "Resources/bike1.jpg", "Resources/bike1.jpg", "Resources/bike1.jpg"));
-        
-        _currentCount++;
+        base.OnInitialized();
+        _bikes = BikeRepository.ReadAll();
     }
+
 }
+
