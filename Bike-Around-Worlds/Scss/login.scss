@@ -1,12 +1,15 @@
 @use "colors" as *;
 
+
+
+
 .section-login {
   background-color: $background !important;
 
   .login_container{
     background-color: black !important;
   }
-  &.h3 {
+  h3 {
     color: white;
   }
 }

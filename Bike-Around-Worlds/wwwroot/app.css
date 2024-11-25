@@ -62,7 +62,7 @@ h3 {
 .section-login .login_container {
   background-color: black !important;
 }
-.section-login.h3 {
+.section-login h3 {
   color: white;
 }
 
