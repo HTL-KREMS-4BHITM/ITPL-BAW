@@ -19,6 +19,7 @@
   "homepage": "https://github.com/HTL-KREMS-4BHITM/ITPL-BAW#readme",
   "dependencies": {
     "pgk": "^0.0.1-security",
+    "sass": "^1.81.0",
     "update": "^0.7.4"
   }
 }

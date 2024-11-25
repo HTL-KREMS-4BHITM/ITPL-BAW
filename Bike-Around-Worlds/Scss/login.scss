@@ -1,12 +1,28 @@
 @use "colors" as *;
 
+
+
+%base-override-img{
+  .form-height {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .section-login {
+  @extend %base-override-img;
   background-color: $background !important;
 
+
+  
   .login_container{
-    background-color: black !important;
+    background-color: $footer-bg !important;
   }
-  &.h3 {
+  h3 {
     color: white;
+  }
+  button{
+    background-color:$secondary;
+    border: none;
   }
 }

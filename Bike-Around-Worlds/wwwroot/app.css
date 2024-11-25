@@ -51,9 +51,28 @@ h3 {
   font-weight: 500;
 }
 .bike-element .price {
-  color: #FF5733;
+  color: #FF4500;
   font-weight: bold;
   font-size: large;
+}
+
+.section-login .form-height {
+  height: 100%;
+  object-fit: cover;
+}
+
+.section-login {
+  background-color: #2C2C2C !important;
+}
+.section-login .login_container {
+  background-color: #1A1A1A !important;
+}
+.section-login h3 {
+  color: white;
+}
+.section-login button {
+  background-color: #FF4500;
+  border: none;
 }
 
 /*# sourceMappingURL=app.css.map */
