@@ -20,7 +20,18 @@
     color: white;
   }
   button{
-    background-color:$secondary;
+    background-color:$header-logo !important;
     border: none;
+    
+    &:hover{
+      background-color: $hovercolor !important;
+    }
   }
+  input{
+    background-color: $primary !important;
+  }
+  ::placeholder{
+    color: white;
+  }
+  
 }
