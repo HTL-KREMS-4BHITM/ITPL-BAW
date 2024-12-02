@@ -5,7 +5,16 @@
     <main>
         <div>
             <Header></Header>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <a href="/login">Login</a>
+                </NotAuthorized>
+                <Authorized>
+                    <a href="/logout">Logout</a>
+                </Authorized>
+            </AuthorizeView>
             @Body
+            
             <Footer></Footer>
             <a href="/Counter">counter</a>
         </div>

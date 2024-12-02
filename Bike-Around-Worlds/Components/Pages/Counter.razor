@@ -5,12 +5,17 @@
 @using Domain.Repositories
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
+@inject IJSRuntime js
 
 <PageTitle>Bikes</PageTitle>
 
 <h1>Bikes</h1>
 
-
+<AuthorizeView>
+    <Authorized>
+        <button class="btn btn-outline-danger" @onclick="DisplayGreeting">Display</button>
+    </Authorized>
+</AuthorizeView>
 
 
 <ul>
@@ -24,12 +29,23 @@
     }
 </ul>
 @code {
+    
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
     private List<Motorbike> _bikes = new();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         _bikes = BikeRepository.ReadAll();
+    }
+
+    private async Task DisplayGreeting()
+    {
+        var authenticationState = await authState;
+        var message = $"Hello {authenticationState.User.Identity.Name}";
+        await js.InvokeVoidAsync("alert", message);
+        
     }
 
 }
