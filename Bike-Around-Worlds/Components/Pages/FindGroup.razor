@@ -1,9 +1,27 @@
 @page "/FindGroup"
+@using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
+@using Domain.Interfaces
+@rendermode InteractiveServer
+@inject IRepository<Group> GroupRepository
 <h3>Gruppen</h3>
+<PageTitle>Gruppen</PageTitle>
 
-<GroupComponent></GroupComponent>
+@foreach (var group in Groups)
+{
+    <GroupComponent Name = "@group.Name" Description="@group.Description" From_Date="@group.From_Date" To_Date="@group.To_Date" Members="@group.GetMemberCount()" Federal_State="@group.Federal_State"></GroupComponent>
+    
+}
+
 
 @code {
-    
+    private List<Group> Groups = new();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Groups = GroupRepository.ReadAll();
+    }
+
+
+}
 }

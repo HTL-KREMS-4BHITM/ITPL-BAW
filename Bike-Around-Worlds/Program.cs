@@ -38,6 +38,8 @@ builder.Services.AddDbContextFactory<MotorContext>(
 );
 
 builder.Services.AddTransient<IRepository<Motorbike>,BikeRepository>();
+builder.Services.AddTransient<IRepository<Group>,GroupRepository>();
+
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 var app = builder.Build();
