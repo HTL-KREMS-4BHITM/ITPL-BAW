@@ -1,8 +1,13 @@
 <div class="card bike-element ">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
     <div class="card-body">
-        <h1>@Manufacturer @Model</h1>
-        <p class="card-text"><span class="price">@CurrentLeasingRate</span> /tag</p>
+        <h1>@Manufacturer @Model </h1>
+        <div class="d-flex justify-content-between">
+            
+            <p class="card-text"><span class="price">@CurrentLeasingRate</span> /tag</p>
+            <i class="bi @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
+        </div>
+
         <p class="federal-state">@Federal_State</p>
     </div>
 </div>
