@@ -35,34 +35,31 @@ h3 {
   color: #EAEAEA;
 }
 
-.bike-element {
-  color: #EAEAEA;
-  background-color: #3A3A3A;
-  border-radius: 49px;
-  min-height: 260px;
-}
-.bike-element .img-holder {
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-  border-radius: 33px;
-}
-.bike-element .federal-state {
-  font-weight: 100;
-  font-style: italic;
-  font-family: calibri;
-  font-size: 1.3rem;
-}
-.bike-element h1 {
-  font-weight: 600;
-  font-size: 1.9rem;
-}
-.bike-element .price {
-  color: #FF4500;
-  font-weight: bold;
-  font-size: 2rem;
+.row {
+  margin: 0;
 }
 
+.bike-element {
+  height: 100%;
+  width: 100%;
+}
+.bike-element .card-body {
+  color: #EAEAEA;
+  background-color: #2C2C2C;
+}
+.bike-element .card-body h1 {
+  font-family: "Contrail One", serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+.bike-element .card-body p {
+  font-family: Calibri;
+  font-weight: 200;
+  font-size: 0.8rem;
+}
+.bike-element .card-body .price {
+  color: #FF4500;
+}
 .section-login .form-height {
   height: 100%;
   object-fit: cover;

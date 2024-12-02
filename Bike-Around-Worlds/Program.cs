@@ -40,7 +40,6 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 
-builder.Services.AddAuthentication("Identity.Application").AddCookie();
 
 
 app.MapRazorComponents<App>()

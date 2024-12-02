@@ -11,18 +11,31 @@
 <h1>Bikes</h1>
 
 
+<div class="row">
+    <div class="col-3">
+        <div style="background-color: black">
+            filter
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="row g-3">^1
+            
+
+        @foreach (var bike in _bikes)
+        {
+            <div class="col-3">
+            <!-- has to run trough another loop to get the img from a second list-->
+            <CardComponent CurrentLeasingRate="@bike.CurrentLeasingRate" Manufacturer="@bike.Manufacturer" Model="@bike.Model" Federal_State="@bike.Federal_State" ImgOne="/Resources/bike1.jpg"></CardComponent>
+            </div>
+        }
+        </div>
+    </div>
+
+</div>
 
 
-<ul>
-    @foreach(var bike in _bikes)
-    {
-        <!-- has to run trough another loop to get the img from a second list-->
-        <!--<BikeComponent Id="bike.Motorbike_ID" Ps="bike.Ps" Weight="bike.Weight" Seatheight="bike.SeatHeight" Kilomerter="bike.Kilometer" Federal_State="@bike.Federal_State" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="@bike.ImgOne" ImgTwo="@bike.ImgTwo" ImgThree="@bike.ImgThree"></BikeComponent>-->
-        <BikeComponent Motorbike_ID="bike.Motorbike_ID" Ps="bike.Ps" Weight="bike.Weight" Seatheight="@bike.SeatHeight" Kilometer="@bike.Kilometer" Federal_State="@bike.Federal_State" Model="@bike.Model" Manufacturer="@bike.Manufacturer" CurrentLeasingRate="bike.CurrentLeasingRate" ImgOne="/Resources/bike1.jpg"></BikeComponent>
-        <br/>
-        <br/>
-    }
-</ul>
+
+
 @code {
     private List<Motorbike> _bikes = new();
 
