@@ -2,13 +2,13 @@
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
     <div class="card-body">
         <h1>@Manufacturer @Model </h1>
-        <div class="d-flex justify-content-between">
+        <p class="card-text"><span class="price">@CurrentLeasingRate</span> /tag</p>
+        <div class="d-flex justify-content-between m align-content-end justify-content-end">
+            <p class="federal-state pb-0 mb-0">#@Federal_State</p>
             
-            <p class="card-text"><span class="price">@CurrentLeasingRate</span> /tag</p>
-            <i class="bi @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
+            <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
         </div>
 
-        <p class="federal-state">@Federal_State</p>
     </div>
 </div>
 
