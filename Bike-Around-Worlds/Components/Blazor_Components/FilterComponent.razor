@@ -1,0 +1,131 @@
+<section class="section-filter">
+    <div class="container mt-5">
+        <div class="filter-container  w-100">
+            <div class="d-flex row">
+                <div class="col-lg-6 col-12 ">
+                    <h5>
+                        Region
+                    </h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="wien">
+                        <label class="form-check-label" for="wien">
+                            Wien
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="niederoesterreich">
+                        <label class="form-check-label" for="niederoesterreich">
+                            Niederösterreich
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="oberösterreich">
+                        <label class="form-check-label" for="oberösterreich">Oberösterreich</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="salzburg">
+                        <label class="form-check-label" for="salzburg">Salzburg</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="steiermark">
+                        <label class="form-check-label" for="steiermark">Steiermark</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="burgenland">
+                        <label class="form-check-label" for="burgenland">Burgenland</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="kärnten">
+                        <label class="form-check-label" for="kärnten">Kärnten</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="tirol">
+                        <label class="form-check-label" for="tirol">Tirol</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="vorarlberg">
+                        <label class="form-check-label" for="vorarlberg">Vorarlberg</label>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-12">
+                    <h5 class="mt-4">Marke</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="yamaha">
+                        <label class="form-check-label" for="yamaha">Yamaha</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="kawasaki">
+                        <label class="form-check-label" for="kawasaki">Kawasaki</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="suzuki">
+                        <label class="form-check-label" for="suzuki">Suzuki</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="harley-davidson">
+                        <label class="form-check-label" for="harley-davidson">Harley_Davidson</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="ducati">
+                        <label class="form-check-label" for="ducati">Ducati</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="honda">
+                        <label class="form-check-label" for="honda">Honda</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="benelli">
+                        <label class="form-check-label" for="benelli">Benelli</label>
+                    </div>
+                </div>
+                </div>
+         
+
+           
+
+            <div class="container mt-5">
+                <!-- Leistung Slider -->
+                <div class="d-flex align-content-center justify-content-around">
+                    
+                <h5 class="mt-4">Leistung (PS)</h5>
+                <div class="slider-label d-flex justify-content-between">
+                    <span>6</span>
+                    <span>250</span>
+                </div>
+                </div>
+                <input type="range" class="form-range" id="leistung-slider" min="6" max="250" value="128">
+                <h5 class="mt-4">Preis (EUR)</h5>
+                <div class="slider-label d-flex justify-content-between">
+                    <span>0</span>
+                    <span>300</span>
+                </div>
+                <input type="range" class="form-range" id="preis-slider" min="0" max="300" value="150">
+
+                <!--Date Picker-->
+                <div class="d-flex date-picker justify-content-center flex-column align-content-center">
+                    <h5 class="mt-4">Verfügbarkeit</h5>
+                    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018"/>
+
+                    <script>
+                $(function() {
+                    $('input[name="daterange"]').daterangepicker({
+                        opens: 'left'
+                    }, function(start, end, label) {
+                        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                    });
+                });
+            </script>
+                </div>
+
+                <button class="btn btn-submit w-100 mt-4">FilterComponent
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                         viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
