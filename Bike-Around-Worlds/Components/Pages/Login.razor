@@ -1,31 +1,144 @@
 @page "/login"
+@rendermode InteractiveServer
+@using System.Runtime.CompilerServices
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using BAWLib
+@using BAWLib.Configs
+@using BAWLib.ViewModels
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+
+@inject MotorContext DbContext
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+
 
 <div class="section-login py-5">
     <div class="container">
         <h3 class="text-center mb-4">Login</h3>
         <div class="row justify-content-center align-items-stretch">
             <div class="col-lg-4 d-flex me-0 ps-0 pe-0 border border-end-0 align-items-center">
-                <img src="Resources/bike1.jpg" class="img-fluid shadow form-height" alt="Bike Pic">
+                <img src="Resources/login.jpeg" class="img-fluid shadow form-height" alt="Bike Pic">
             </div>
 
             <div class="login_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
-                <form class="p-4 border border-start-0 rounded-end-2 shadow">
-                    <div class="mb-4 mt-5 pt-4  border-bottom border-secondary">
-                        <input type="text" class="form-control text-light" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Benutzername">
+                <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm" class="p-4 border rounded shadow">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
+                        <input type="text" @bind="@Model.Username" class="form-control text-light" placeholder="Benutzername">
+                        <ValidationMessage For="() => Model.Username"></ValidationMessage>
                     </div>
                     <div class="mb-5 mt-3 border-bottom border-secondary">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
+                        <input type="password" @bind="@Model.Password" class="form-control" placeholder="Passwort">
+                        <ValidationMessage For="() => Model.Password"></ValidationMessage>
                     </div>
-                    <button type="submit" class=" w-50 btn text-light w-100 mb-5 mt-3 pb-2">Log In</button>
-                </form>
+                    
+                    <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Log In</button>
+                </EditForm>
+                </div>
+            <div>
+                <p>@errormessage</p>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
 @code {
+    [Parameter] public LoginViewModel Model { get; set; } = new();
+    
 
+    private string? errormessage;
+    
+    
+    private async Task Authenticate()
+    {
+        try
+        {
+            if (DbContext == null)
+            {
+                throw new Exception("DbContext is null");
+            }
+
+            if (DbContext.Users == null)
+            {
+                throw new Exception("DbSet Users is null");
+            }
+
+            if (string.IsNullOrEmpty(Model.Username))
+            {
+                throw new Exception("Username is null or empty");
+            }
+
+            var userAccount = await DbContext.Users
+                .FirstOrDefaultAsync(u => u.Username.ToLower() == Model.Username.ToLower());
+
+            if (userAccount == null)
+            {
+                Console.WriteLine("No user found with the provided username.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            errormessage = "An unexpected error occurred. Please try again later.";
+        }
+
+    }
+    
+    private void LogInputChange(ChangeEventArgs e)
+    {
+        throw new Exception($"Input Changed: {e.Value}");
+    }
+
+    private void HandleSubmit()
+    {
+        
+        if (Model.Username== null)//        if (usern == null)
+        {
+            throw new Exception("Username  not value!");
+        }
+        
+        System.Diagnostics.Debug.Print($"{Model.Username}, {Model.Password}");
+    }
+    
+    /*private async Task Authenticate()
+    {
+        if (DbContext.Users == null)c
+        {
+            throw new Exception("Users DbSet is null");
+        }
+        Console.WriteLine("Authenticate method triggered");
+
+        // Retrieve user from database
+        var userAccount = DbContext.Users.FirstOrDefault(u => u.Username.ToLower() == Model.Username.ToLower());
+
+        if (userAccount == null || !BCrypt.Net.BCrypt.Verify(Model.Password, userAccount.Password))
+        {
+            errormessage = "Invalid Username or Password";
+            return;
+        }
+
+        // Create claims for the authenticated user
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, userAccount.Username),
+        };
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+
+        // Set the authenticated user
+        if (AuthStateProvider is CustomAuthStateProvider authStateProvider)
+        {
+            authStateProvider.SetUser(principal);
+        }
+
+        //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+        // Navigate to the home page
+        NavigationManager.NavigateTo("/");
+    }*/
 }

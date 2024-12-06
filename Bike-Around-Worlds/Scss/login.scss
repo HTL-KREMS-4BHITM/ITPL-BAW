@@ -2,6 +2,8 @@
 
 
 
+
+
 %base-override-img{
   .form-height {
     height: 100%;
@@ -12,6 +14,7 @@
 .section-login {
   @extend %base-override-img;
   background-color: $background !important;
+  
 
   .login_container{
     background-color: $footer-bg !important;
@@ -29,9 +32,14 @@
   }
   input{
     background-color: $primary !important;
+    color: white !important;
+    &::placeholder {
+      color: #9E9D9D;
+    }
   }
-  ::placeholder{
-    color: white;
-  }
+  
+    p{
+      color: white !important;
+    }
   
 }

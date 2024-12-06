@@ -8,5 +8,5 @@ public class Waypoint
     public string Address{ get; set; }
     public int Sequence{get;set;}
     public int RouteID{get;set;}
-    public Group Group{get;set;}
+    public Groups Groups{get;set;}
 }

@@ -1,15 +1,21 @@
-﻿@page "/counter"
+@page "/counter"
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
 @using Domain.Repositories
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
+@inject IJSRuntime js
 
 <PageTitle>Bikes</PageTitle>
 
 <h1>Bikes</h1>
 
+<AuthorizeView>
+    <Authorized>
+        <button class="btn btn-outline-danger" @onclick="DisplayGreeting">Display</button>
+    </Authorized>
+</AuthorizeView>
 
 <div class="row">
     <div class="col-3">
@@ -18,7 +24,7 @@
         </div>
     </div>
     <div class="col-9">
-        <div class="row g-3">^1
+        <div class="row g-3">
             
 
         @foreach (var bike in _bikes)
@@ -37,12 +43,23 @@
 
 
 @code {
+    
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
     private List<Motorbike> _bikes = new();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         _bikes = BikeRepository.ReadAll();
+    }
+
+    private async Task DisplayGreeting()
+    {
+        var authenticationState = await authState;
+        var message = $"Hello {authenticationState.User.Identity.Name}";
+        await js.InvokeVoidAsync("alert", message);
+        
     }
 
 }
