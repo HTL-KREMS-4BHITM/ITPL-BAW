@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices.JavaScript;
 
@@ -7,7 +8,8 @@ namespace BAWLib;
 [Table("GROUPS")]
 public class Groups
 {
-    public int GroupId { get; set; }
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column("GROUP_ID")]
+    public int Group_Id { get; set; }
     public string Name { get; set; }
     public DateTime From_Date { get; set; }
     public DateTime To_Date { get; set; }
@@ -20,6 +22,10 @@ public class Groups
 
     public int GetMemberCount()
     {
+        if (Users == null)
+        {
+            return 0;
+        }
         return Users.Count;
     }
 }
