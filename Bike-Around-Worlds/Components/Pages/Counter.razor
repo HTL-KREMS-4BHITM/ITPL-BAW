@@ -17,21 +17,21 @@
     </Authorized>
 </AuthorizeView>
 
-<div class="row">
+<div class="row "style="background-color: #2c2c2c">
     <div class="col-3">
-        <div style="background-color: black">
+        <div style="background-color: gray">
             filter
         </div>
     </div>
     <div class="col-9">
-        <div class="row g-3">
+        <div class="row g-5">
             
 
         @foreach (var bike in _bikes)
         {
             <div class="col-3">
             <!-- has to run trough another loop to get the img from a second list-->
-            <CardComponent CurrentLeasingRate="@bike.CurrentLeasingRate" Manufacturer="@bike.Manufacturer" Model="@bike.Model" Federal_State="@bike.Federal_State" ImgOne="/Resources/bike1.jpg"></CardComponent>
+            <BikeComponent CurrentLeasingRate="@bike.CurrentLeasingRate" Manufacturer="@bike.Manufacturer" Model="@bike.Model" Federal_State="@bike.Federal_State" ImgOne="/Resources/bike1.jpg"></BikeComponent>
             </div>
         }
         </div>
