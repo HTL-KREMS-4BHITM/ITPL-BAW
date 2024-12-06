@@ -1,4 +1,5 @@
 using BAWLib;
+using BAWLib.Configs;
 
 namespace Domain.Repositories;
 

@@ -1,6 +1,6 @@
-using System.ComponentModel.Design;
-using BAWLib;
 using Microsoft.EntityFrameworkCore;
+
+namespace BAWLib.Configs;
 
 public class MotorContext : DbContext
 {

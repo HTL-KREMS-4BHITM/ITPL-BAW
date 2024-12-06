@@ -1,5 +1,6 @@
 using System;
 using BAWLib;
+using BAWLib.Configs;
 using Bike_Around_Worlds;
 using Bike_Around_Worlds.Components;
 using Domain.Interfaces;
