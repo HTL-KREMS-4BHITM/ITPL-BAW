@@ -13,7 +13,7 @@ public class MotorContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Motorbike> Motorbikes { get; set; }
-    public virtual DbSet<Group> Groups { get; set; }
+    public virtual DbSet<Groups> Groups { get; set; }
     public virtual DbSet<Waypoint> Waypoints { get; set; }
     public virtual DbSet<Favorite> Favorites_JT { get; set; }
     public virtual DbSet<LeasingContract> LeasingContractsJts { get; set; }
@@ -28,10 +28,10 @@ public class MotorContext : DbContext
         modelBuilder.Entity<LeasingContract>()
             .HasKey(lc => new{lc.MotorbikeID, lc.UserID, lc.FROM_DATE});
         modelBuilder.Entity<User>()
-            .HasOne(u => u.Group)
+            .HasOne(u => u.Groups)
             .WithMany(g =>g.Users)
             .HasForeignKey(u => u.GroupID);
-        modelBuilder.Entity<Group>()
+        modelBuilder.Entity<Groups>()
             .HasMany(g => g.Waypoints)
             .WithOne()
             .HasForeignKey(w => w.RouteID);

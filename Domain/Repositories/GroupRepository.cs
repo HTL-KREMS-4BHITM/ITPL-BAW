@@ -1,9 +1,9 @@
-using System.Text.RegularExpressions;
+using BAWLib;
 using Domain.Interfaces;
 
 namespace Domain.Repositories;
 
-public class GroupRepository:ARepository<Group>
+public class GroupRepository:ARepository<Groups>
 {
     public GroupRepository(MotorContext context) : base(context)
     {
