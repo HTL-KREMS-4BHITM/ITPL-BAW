@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.JavaScript;
 
 namespace BAWLib;
 [Table("GROUPS")]
-public class Group
+public class Groups
 {
     public int GroupId { get; set; }
     public string Name { get; set; }

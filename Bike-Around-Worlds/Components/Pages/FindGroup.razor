@@ -3,7 +3,7 @@
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
 @rendermode InteractiveServer
-@inject IRepository<Group> GroupRepository
+@inject IRepository<Groups> GroupRepository
 <h3>Gruppen</h3>
 <PageTitle>Gruppen</PageTitle>
 
@@ -15,7 +15,7 @@
 
 
 @code {
-    private List<Group> Groups = new();
+    private List<Groups> Groups = new();
     protected override void OnInitialized()
     {
         base.OnInitialized();

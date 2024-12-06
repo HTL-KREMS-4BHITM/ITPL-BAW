@@ -14,7 +14,7 @@ public class User
     
     [Column("GROUP_ID")]
     public int? GroupID { get; set; }
-    public Group Group { get; set; }
+    public Groups Groups { get; set; }
     
     
     public ICollection<LeasingContract> LeasingContracts { get; set; }
