@@ -1,8 +1,6 @@
 @using BAWLib
 @using Domain.Interfaces
 @inject IRepository<Favorite> FavoriteRepository;
-@inject IRepository<Motorbike> BikeRepository;
-
 
 <div class="card bike-element ">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
@@ -22,16 +20,19 @@
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }
     private string? Icon { get; set; } = "bi-star";
-    public List<Favorite>? Favorites { get; set; }
-    public List<Motorbike>? Bikes { get; set; }
     [Parameter] public Motorbike? ThisBike { get; set; }
-    public Favorite? Favorite { get; set; }
+    public List<Favorite>? Favorites { get; set; }
+    private Favorite? Favorite { get; set; }
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Bikes = BikeRepository.ReadAll();
         Favorites = FavoriteRepository.ReadAll();
+
+    }
+    
+    private void ChangeIcon()
+    {
         Favorite = new()
         {
             Motorbike = ThisBike!,
@@ -41,21 +42,18 @@
             //UserID = ??
             // Create a user then get the user Todo
         };
-    }
-    
-    private void ChangeIcon()
-    {
-
-        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
+        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star"; // when you first load the side the default icon is empty =>needs to be ste in the other If Todo
         
         if (Favorites ==null)
             return; 
         if (Favorites.Contains(Favorite!)!= true)
         {
+            //there is no user so there is an insert Error for the userId feld
             FavoriteRepository.Create(Favorite!);
         }
         else
         {
+            //there is no user so there is an insert Error for the userId feld
             FavoriteRepository.Delete(Favorite!);
         }
 
