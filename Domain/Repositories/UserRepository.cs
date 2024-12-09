@@ -5,7 +5,7 @@ namespace Domain.Repositories;
 
 public class UserRepository:ARepository<User>
 {
-    protected UserRepository(MotorContext context) : base(context)
+    public UserRepository(MotorContext context) : base(context)
     {
     }
 }
