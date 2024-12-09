@@ -41,6 +41,7 @@ builder.Services.AddDbContextFactory<MotorContext>(
 builder.Services.AddTransient<IRepository<Motorbike>,BikeRepository>();
 builder.Services.AddTransient<IRepository<Groups>,GroupRepository>();
 builder.Services.AddTransient<IRepository<Favorite>, FavoriteRepository>();
+builder.Services.AddTransient<IRepository<User>, UserRepository>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
