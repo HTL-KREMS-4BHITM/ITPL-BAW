@@ -1,36 +1,64 @@
+@using BAWLib
+@using Domain.Interfaces
+@inject IRepository<Favorite> FavoriteRepository;
+@inject IRepository<Motorbike> BikeRepository;
+
+
 <div class="card bike-element ">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
     <div class="card-body">
-        <h1>@Manufacturer @Model </h1>
-        <p class="card-text"><span class="price">@CurrentLeasingRate</span> /tag</p>
+        <h1>@ThisBike!.Manufacturer @ThisBike.Model </h1>
+        <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
-            <p class="federal-state pb-0 mb-0">#@Federal_State</p>
+            <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
             
             <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
         </div>
-
     </div>
 </div>
 
 @code {
-    [Parameter] public int Motorbike_ID { get; set; }
-    [Parameter] public string Model { get; set; }
-    [Parameter] public int Ps {get; set;}
-    [Parameter] public string Manufacturer { get; set; }
-    [Parameter] public decimal CurrentLeasingRate { get; set; }
-    [Parameter] public int Weight{get; set;}
-    [Parameter] public int SeatHeight{get; set;}
-    [Parameter] public decimal Kilometer { get; set; }
-    [Parameter] public string Address { get; set; }
-    [Parameter] public string? Federal_State { get; set; }
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }
     private string? Icon { get; set; } = "bi-star";
-
-
+    public List<Favorite>? Favorites { get; set; }
+    public List<Motorbike>? Bikes { get; set; }
+    [Parameter] public Motorbike? ThisBike { get; set; }
+    public Favorite? Favorite { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Bikes = BikeRepository.ReadAll();
+        Favorites = FavoriteRepository.ReadAll();
+        Favorite = new()
+        {
+            Motorbike = ThisBike!,
+            MotorbikeID = ThisBike!.Motorbike_ID
+            //, 
+            //User = ??,
+            //UserID = ??
+            // Create a user then get the user Todo
+        };
+    }
+    
     private void ChangeIcon()
     {
+
         Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
+        
+        if (Favorites ==null)
+            return; 
+        if (Favorites.Contains(Favorite!)!= true)
+        {
+            FavoriteRepository.Create(Favorite!);
+        }
+        else
+        {
+            FavoriteRepository.Delete(Favorite!);
+        }
+
     }
+
 }
