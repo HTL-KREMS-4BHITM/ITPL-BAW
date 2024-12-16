@@ -9,7 +9,7 @@
 
 
     .container{
-      background-color: green;
+      background-color: $primary;
       .date-picker{
         border-radius: 6px;
         border: 1px solid $primary;
@@ -46,6 +46,8 @@
       display: flex;
       justify-content: space-between;
     }
+    
+    
 
   }
 

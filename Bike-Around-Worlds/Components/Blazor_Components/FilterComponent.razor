@@ -1,6 +1,6 @@
 <section class="section-filter">
     <div class="container mt-5">
-        <div class="filter-container  w-100">
+        <div class="filter-container  w-100 p-1">
             <div class="d-flex row">
                 <div class="col-lg-6 col-12 ">
                     <h5>
@@ -48,7 +48,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6 col-12 ">
                     <h5 class="mt-4">Marke</h5>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="yamaha">
@@ -78,6 +78,14 @@
                         <input class="form-check-input" type="checkbox" id="benelli">
                         <label class="form-check-label" for="benelli">Benelli</label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="ktm">
+                        <label class="form-check-label" for="ktm">KTM</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="bmw">
+                        <label class="form-check-label" for="bmw">BMW</label>
+                    </div>
                 </div>
                 </div>
          
@@ -86,21 +94,23 @@
 
             <div class="container mt-5">
                 <!-- Leistung Slider -->
-                <div class="d-flex align-content-center justify-content-around">
+               
                     
                 <h5 class="mt-4">Leistung (PS)</h5>
-                <div class="slider-label d-flex justify-content-between">
-                    <span>6</span>
-                    <span>250</span>
-                </div>
-                </div>
+                    <div class="slider-label d-flex justify-content-end">
+                        <span>6-</span>
+                        <span>250</span>
+                    </div>
+                
                 <input type="range" class="form-range" id="leistung-slider" min="6" max="250" value="128">
+                
                 <h5 class="mt-4">Preis (EUR)</h5>
-                <div class="slider-label d-flex justify-content-between">
-                    <span>0</span>
+                <div class="slider-label d-flex justify-content-end">
+                    <span>0-</span>
                     <span>300</span>
                 </div>
                 <input type="range" class="form-range" id="preis-slider" min="0" max="300" value="150">
+                </div>
 
                 <!--Date Picker-->
                 <div class="d-flex date-picker justify-content-center flex-column align-content-center">
@@ -118,7 +128,7 @@
             </script>
                 </div>
 
-                <button class="btn btn-submit w-100 mt-4">FilterComponent
+                <button class="btn btn-submit w-100 mt-4">Filter
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                          viewBox="0 0 16 16">
                         <path
@@ -127,5 +137,5 @@
                 </button>
             </div>
         </div>
-    </div>
+    
 </section>
