@@ -24,7 +24,7 @@ public class MotorContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Favorite>()
-            .HasKey(f => new {f.MotorbikeID, f.UserID});
+            .HasKey(f => new { MotorbikeID = f.Motorbike_ID, UserID = f.User_ID});
         modelBuilder.Entity<LeasingContract>()
             .HasKey(lc => new{lc.MotorbikeID, lc.UserID, lc.FROM_DATE});
         modelBuilder.Entity<User>()
@@ -46,11 +46,11 @@ public class MotorContext : DbContext
         modelBuilder.Entity<Favorite>()
             .HasOne(f => f.User)
             .WithMany(u => u.Favorites)
-            .HasForeignKey(f => f.UserID);
+            .HasForeignKey(f => f.User_ID);
         modelBuilder.Entity<Favorite>()
             .HasOne(f => f.Motorbike)
             .WithMany(m => m.Favorites)
-            .HasForeignKey(f => f.MotorbikeID); 
+            .HasForeignKey(f => f.Motorbike_ID); 
     }
         
 }
