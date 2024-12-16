@@ -5,7 +5,7 @@ namespace BAWLib;
 public class Favorite
 {
     public User User { get; set; }
-    public int UserID { get; set; }
+    public int User_ID { get; set; }
     public Motorbike Motorbike { get; set; }
-    public int MotorbikeID { get; set; }
+    public int Motorbike_ID { get; set; }
 }

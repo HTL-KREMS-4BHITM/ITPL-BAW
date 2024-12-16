@@ -1,6 +1,7 @@
 @using BAWLib
 @using Domain.Interfaces
 @inject IRepository<Favorite> FavoriteRepository;
+@inject IRepository<User> UserRepository;
 
 <div class="card bike-element ">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
@@ -23,11 +24,14 @@
     [Parameter] public Motorbike? ThisBike { get; set; }
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
+    public List<User> Users { get; set; }
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Favorites = FavoriteRepository.ReadAll();
+        //Error Todo
+        //Favorites = FavoriteRepository.ReadAll();
+        Users = UserRepository.ReadAll();
 
     }
     
@@ -36,27 +40,26 @@
         Favorite = new()
         {
             Motorbike = ThisBike!,
-            MotorbikeID = ThisBike!.Motorbike_ID
+            Motorbike_ID = ThisBike!.Motorbike_ID,
+            User=Users.First(),
+            User_ID = Users.First().User_Id
             //, 
             //User = ??,
-            //UserID = ??
-            // Create a user then get the user Todo
+            //User_ID = ??
+            
+            // Get the current user Todo
+            //currently hard coded user and user id testing
         };
-        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star"; // when you first load the side the default icon is empty =>needs to be ste in the other If Todo
-        
-        if (Favorites ==null)
-            return; 
-        if (Favorites.Contains(Favorite!)!= true)
-        {
-            //there is no user so there is an insert Error for the userId feld
-            FavoriteRepository.Create(Favorite!);
-        }
-        else
-        {
-            //there is no user so there is an insert Error for the userId feld
-            FavoriteRepository.Delete(Favorite!);
-        }
+        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star"; // when you first load the side the default icon is empty =>needs to be set in the other If Todo
 
+        if (Favorite == null && Favorites == null)
+            return; 
+            
+        if (Favorites!.Contains(Favorite!)!= true)
+            FavoriteRepository.Create(Favorite!);
+        else
+            FavoriteRepository.Delete(Favorite!);
+        
     }
 
 }
