@@ -5,3 +5,5 @@ obj/
 app.css
 app.css.map
 appsettings.json
+package-lock.json
+node_modules/
