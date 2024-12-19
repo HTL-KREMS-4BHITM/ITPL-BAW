@@ -16,7 +16,7 @@ public class Groups
     public string Description { get; set; }
     public string RouteData { get; set; }
     public DateTime Created_At { get; set; } = DateTime.Now;
-    public string Federal_State { get; set; }
+    //public string Federal_State { get; set; }
     public ICollection<User> Users { get; set; }
     public ICollection<Waypoint> Waypoints { get; set; }
 

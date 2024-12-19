@@ -1,0 +1,44 @@
+@use "variables" as *;
+
+
+
+// Grundlegendes Styling für die Pagination
+.pagination {
+  background-color: $background;
+  padding: 10px;
+  border-radius: 5px;
+
+  // Styling für die Page-Links
+  .page-link {
+    color: $pagination-text;
+    background-color: transparent;
+    border: 1px solid $pagination-text;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $secondary;
+      border-color: $pagination-border;
+      background-color: $primary;
+    }
+  }
+
+  // Styling für die aktive Seite
+  .page-item {
+    &.active .page-link {
+      background-color: $secondary;
+      border-color: $pagination-border;
+      color: white;
+
+      &:hover {
+        background-color: $secondary;
+        border-color: $secondary;
+        color: white;
+      }
+    }
+
+    
+    
+  }
+}
