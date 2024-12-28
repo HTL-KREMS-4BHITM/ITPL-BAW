@@ -17,16 +17,16 @@
 </AuthorizeView>
 
 <div class="row "style="background-color: #2c2c2c">
-    <div class="col-3">
+    <div class="col-lg-3 col-sm-12 col-md-12">
         <FilterComponent></FilterComponent>
     </div>
-    <div class="col-9">
+    <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
             
 
             @foreach (var bike in _bikes)
             {
-                <div class="col-3">
+                <div class="col-lg-3 col-sm-12 col-md-6">
                     <BikeComponent ThisBike=@bike ImgOne="/Resources/bike1.jpg"></BikeComponent>
                 </div>
             }
