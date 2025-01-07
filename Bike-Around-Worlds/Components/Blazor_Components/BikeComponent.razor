@@ -2,8 +2,9 @@
 @using Domain.Interfaces
 @inject IRepository<Favorite> FavoriteRepository;
 @inject IRepository<User> UserRepository;
+@inject NavigationManager NavigationManager
 
-<div class="card bike-element ">
+<div class="card bike-element" @onclick="NavToProductView">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
     <div class="card-body">
         <h1>@ThisBike!.Manufacturer @ThisBike.Model </h1>
@@ -37,12 +38,12 @@
     
     private void ChangeIcon()
     {
-        Favorite = new()
+        Favorite fav = new Favorite
         {
-            Motorbike = ThisBike!,
-            Motorbike_ID = ThisBike!.Motorbike_ID,
-            User=Users.First(),
-            User_ID = Users.First().User_Id
+            //Motorbike = ThisBike!,
+            User_ID = 2,
+            Motorbike_ID = ThisBike!.Motorbike_ID
+            //User=Users.First(),
             //, 
             //User = ??,
             //User_ID = ??
@@ -52,14 +53,19 @@
         };
         Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star"; // when you first load the side the default icon is empty =>needs to be set in the other If Todo
 
-        if (Favorite == null && Favorites == null)
+        if (fav == null && Favorites == null)
             return; 
             
-        if (Favorites!.Contains(Favorite!)!= true)
-            FavoriteRepository.Create(Favorite!);
+        if (Favorites!.Contains(fav!))
+            FavoriteRepository.Delete(fav!);
         else
-            FavoriteRepository.Delete(Favorite!);
+            FavoriteRepository.Create(fav!);
         
+    }
+
+    private void NavToProductView()
+    {
+        NavigationManager.NavigateTo($"product/{ThisBike.Motorbike_ID}");
     }
 
 }

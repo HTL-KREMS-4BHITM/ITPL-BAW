@@ -27,6 +27,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/access-denied";
     });
 
+ 
+
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 
@@ -41,6 +43,7 @@ builder.Services.AddTransient<IRepository<Motorbike>,BikeRepository>();
 builder.Services.AddTransient<IRepository<Groups>,GroupRepository>();
 builder.Services.AddTransient<IRepository<Favorite>, FavoriteRepository>();
 builder.Services.AddTransient<IRepository<User>, UserRepository>();
+builder.Services.AddTransient<IRepository<LeasingContract>, LeasingContractRepository>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 

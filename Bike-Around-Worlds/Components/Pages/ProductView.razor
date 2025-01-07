@@ -1,0 +1,351 @@
+@page "/product/{Motorbike_ID:int}"
+@using System.Diagnostics
+@using BAWLib
+@using Domain.Interfaces
+@using Bike_Around_Worlds.Components.Blazor_Components
+@rendermode InteractiveServer
+@inject IRepository<Motorbike> BikeRepository;
+@inject IRepository<LeasingContract> LeasingContractRepository;
+@inject IRepository<Favorite> FavoriteRepository;
+
+
+<div class="productmain">
+    <div class="container productview">
+        <!---First Row for Model-->
+        <div class="row mb-lg-5 mb-md-4 mb-sm-4">
+            <h3>@product.Manufacturer @product.Model</h3>
+        </div>
+
+
+
+        <!--Row for the 2 Columns-->
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                    <!--Pictures-->
+                <div class="row p-0 m-0 mb-md-4 mb-sm-4">
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    string first = "bike" + startimgin + ".jpg";
+                                    <div class="carousel-item active">
+                                        <img src="/Resources/Bikes/@first" class="d-block w-100" alt="Bike @startimgin">
+                                    </div>
+                                }
+                                else
+                                {
+                                    string source = "bike" + startimgin + ".jpg";
+                                    <div class="carousel-item">
+                                        <img src="/Resources/Bikes/@source" class="d-block w-100" alt="Bike @startimgin">
+                                    </div>
+                                }
+
+                                startimgin++;
+                            }
+                        </div>
+                        <button class="carousel-control-prev m-0 p-0" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next m-0 p-0" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <!--Pictures close-->
+                <!--Table of Details-->
+                <div class="row mt-lg-5 mb-md-4 mb-sm-4">
+                    <table class="table table-bordered customtable">
+                        <tbody>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Hersteller</th>
+                            <td>@product.Manufacturer</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Modell</th>
+                            <td>@product.Model</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Preis pro Tag</th>
+                            <td>@product.CurrentLeasingRate €</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">PS</th>
+                            <td colspan="2">@product.Ps</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Sitzhöhe</th>
+                            <td colspan="2">@product.SeatHeight</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Gefahrene Kilometer</th>
+                            <td colspan="2">@product.Kilometer</td>
+                        </tr>
+                        <tr>
+                            <th class="d-flex justify-content-center" scope="row">Ort zur Abholung</th>
+                            <td colspan="2">@product.Address</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--Table of Details closed-->
+            </div>
+            <!---Close of 1st Column-->
+            <!---2nd Column-->
+            <div class="col-lg-6">
+                <!--Datepicker-->
+                <div class="row mb-lg-5 mb-md-4 mb-sm-4">
+                    <h5>Zeitraum</h5>
+                    <div class="col-md-3">
+                        <label for="pickupDate" class="form-label labels">Abholdatum</label>
+                        <input type="date" id="pickupDate" class="form-control" @onchange="(e) => { PickupDate = DateOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="pickupTime" class="form-label labels">Abholzeit</label>
+                        <input type="time" id="pickupTime" class="form-control" @onchange="(e) => { PickupTime = TimeOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="dropoffDate" class="form-label labels">Rückgabedatum</label>
+                        <input type="date" id="dropoffDate" class="form-control" @onchange="(e) => { DropoffDate = DateOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="dropoffTime" class="form-label labels">Rückgabezeit</label>
+                        <input type="time" id="dropoffTime" class="form-control" @onchange="(e) => { DropoffTime = TimeOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
+                    </div>
+                </div>
+                <!--DatePicker close-->
+                <!--Insurances--->
+                <div class="row mb-lg-5 mb-md-4 mb-sm-4">
+                    <h5>Versicherung</h5>
+                    <div class="accordion " id="insuranceaccordion">
+                        <div class="accordion-item p-0 m-0">
+                            <h2 class="accordion-header m-0" id="noInsurance">
+                                <input type="radio" value="Keine Versicherung" name="accordion" id="radioOne" class="btn-check" data-bs-toggle="collapse" data-bs-target="#collapseOne" @onchange="OnSelectedInsurance"/>
+                                <label for="radioOne" class="btn btn-outline-primary w-100 text-start">
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <span>Keine Versicherung</span>
+                                        <span class="pricetag fw-bold">+0,00€/Tag</span>
+                                    </div>
+
+                                </label>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#insuranceaccordion">
+                                <div class="accordion-body">
+                                    Sie tragen die volle Verantwortung für Schäden oder Verluste am Fahrzeug, einschließlich Reparaturkosten, Diebstahl und Ausfallzeiten. Grobe Fahrlässigkeit oder Verstöße gegen den Vertrag können zusätzliche Haftung auslösen.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <input type="radio" value="Selbstbehalt Versicherung" name="accordion" id="radioTwo" class="btn-check" data-bs-toggle="collapse" data-bs-target="#collapseTwo" @onchange="OnSelectedInsurance"/>
+                                <label for="radioTwo" class="btn btn-outline-primary w-100 text-start">
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <span>Versicherung + 300€ Selbstbehalt</span>
+                                        <span class="pricetag fw-bold">+10,00€/Tag</span>
+                                    </div>
+                                </label>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#insuranceaccordion">
+                                <div class="accordion-body">
+                                    Ihre Haftung für Schäden ist auf 300 € pro Fall begrenzt. Schäden durch grobe Fahrlässigkeit, Vertragsverstöße oder nicht erlaubte Nutzung sind ausgeschlossen. Der Selbstbehalt gilt auch bei Diebstahl.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <input type="radio" value="Vollkaskoversicherung" name="accordion" id="radioThree" class="btn-check" data-bs-toggle="collapse" data-bs-target="#collapseThree" @onchange="OnSelectedInsurance"/>
+                                <label for="radioThree" class="btn btn-outline-primary w-100 text-start">
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <span>Vollkasko-Versicherung</span>
+                                        <span class="pricetag fw-bold">+20,00€/Tag</span>
+                                    </div>
+                                </label>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#insuranceaccordion">
+                                <div class="accordion-body">
+                                    Diese Option befreit Sie von jeglicher Haftung für Schäden am Fahrzeug. Ausgenommen sind Schäden durch grobe Fahrlässigkeit, Vorsatz oder Verstöße gegen die Mietbedingungen.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <!--Insurances close-->
+                <!--"Vertrrag" open-->
+                <div class="row mb-lg-5 mb-md-4 mb-sm-4">
+                    <h5>Aktuelle Daten</h5>
+                    <div class="card card-custom border-0">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Preis/Tag</span>
+                                    <span>@pricepday</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Zeitraum</span>
+                                    <span>
+                                        @(total > 0 ? $"{PickupDate:dd.MM.yyyy} - {DropoffDate:dd.MM.yyyy}" : "---")
+                                    </span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Versicherungskosten/Tag:</span>
+                                    <span>@charge</span>
+                                </li>
+                            </ul>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <strong>Total:</strong>
+                                <strong>@total</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--"Vertrrag" closed-->
+                <!--Buttons open-->
+                <div class="row mb-lg-3 mb-md-4 mb-sm-4 d-flex justify-content-center">
+                    <button type="button" @onclick="AddToContracts" class="btn rent col-lg-6 col-md-6 rounded-4">Jetzt Mieten!</button>
+                </div>
+                <div class="row mb-lg-3 mb-md-4 mb-sm-5 d-flex justify-content-center">
+                    <button type="button" @onclick="AddToFavorites" class="btn favorites col-lg-6 col-md-6 rounded-4">Zu Favoriten hinzufügen</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Motorbike_ID { get; set; }
+    public TimeOnly PickupTime { get; set; } = new TimeOnly(10, 0); 
+    public TimeOnly DropoffTime { get; set; } = new TimeOnly(10, 0); 
+    public DateOnly PickupDate { get; set; } = DateOnly.FromDateTime(DateTime.Today); 
+    public DateOnly DropoffDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    public string SelectedInsurance { get; set; } = "Keine Versicherung";
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        product = BikeRepository.Read(Motorbike_ID);
+        startimgin  = 1 + ((Motorbike_ID - 1) * 3);
+        Console.WriteLine(startimgin);
+        total = product.CurrentLeasingRate;
+        Console.WriteLine(SelectedInsurance);
+        pricepday = product.CurrentLeasingRate;
+
+    }
+
+    int startimgin;
+    Motorbike product = new();
+    public decimal total;
+    public decimal pricepday;
+    public int charge;
+
+    #region PriceMethods
+    public void CalcTotal()
+    {
+        // Ensure PickupDate and DropoffDate are valid
+        if (PickupDate == default || DropoffDate == default || PickupTime == default || DropoffTime == default)
+        {
+            Console.WriteLine("Invalid date or time.");
+            total = 0;
+            return;
+        }
+
+        var startDateTime = PickupDate.ToDateTime(PickupTime); // Umwandlung von DateOnly + TimeOnly zu DateTime
+        var endDateTime = DropoffDate.ToDateTime(DropoffTime); // Umwandlung von DateOnly + TimeOnly zu DateTime
+
+        // Berechnung der Dauer zwischen den beiden Zeitpunkten
+        TimeSpan duration = endDateTime - startDateTime;
+
+        // Überprüfen der Dauer
+        Console.WriteLine($"Start: {startDateTime}");
+        Console.WriteLine($"End: {endDateTime}");
+        Console.WriteLine($"Duration: {duration.TotalDays} days");
+        Console.WriteLine($"Duration (in hours): {duration.TotalHours} hours");
+
+        // Berechnung der vollen Tage
+        var totalDays = Math.Floor(duration.TotalDays); // Ganze Tage
+        var remainingHours = duration.TotalHours - (totalDays * 24); // Berechnung der verbleibenden Stunden
+
+        Console.WriteLine($"Full days: {totalDays}");
+        Console.WriteLine($"Remaining hours: {remainingHours}");
+
+        // Berechnung des Preises basierend auf den vollen Tagen
+        total = (decimal)totalDays * product.CurrentLeasingRate + charge;
+
+        // Wenn Stunden übrig sind, wird eventuell ein zusätzlicher Tag berechnet
+        if (remainingHours > 0)
+        {
+            total += product.CurrentLeasingRate; // Preis für den zusätzlichen Tag, wenn Stunden übrig sind
+        }
+
+        Console.WriteLine($"Total price: {total}");
+
+        // Überprüfen, ob der Zeitraum gültig ist und neu rendern
+        if (duration.TotalMinutes > 0)
+        {
+            StateHasChanged();
+        }
+        else
+        {
+            total = 0;
+            Console.WriteLine("Invalid date range.");
+        }
+    }
+    
+    private void OnSelectedInsurance(ChangeEventArgs e){
+        SelectedInsurance = e.Value.ToString();
+        charge = SelectedInsurance == "Selbstbehalt Versicherung"
+            ? 10
+            : SelectedInsurance == "Vollkaskoversicherung"
+                ? 20
+                : 0;
+        Console.WriteLine(charge);
+        pricepday = product.CurrentLeasingRate + charge;
+        Console.WriteLine(pricepday);
+        CalcTotal();
+    }
+    #endregion
+
+    #region DatabaseMethods
+
+    public void AddToFavorites()
+    {
+        Favorite fav = new Favorite
+        {
+            User_ID = 2, 
+            Motorbike_ID = product.Motorbike_ID
+        };
+        FavoriteRepository.Create(fav);
+        Console.WriteLine("AddToFavorties used!!");
+    }
+
+    public void AddToContracts()
+    {
+        LeasingContract lc = new LeasingContract()
+        {
+            UserID = 2,
+            MotorbikeID = product.Motorbike_ID,
+            FROM_DATE = PickupDate.ToDateTime(PickupTime),
+            TO_DATE = DropoffDate.ToDateTime(DropoffTime),
+            COST = total,
+            Insurance = SelectedInsurance
+        };
+        LeasingContractRepository.Create(lc);
+        Console.WriteLine("AddToCOntracts uses!");
+    }
+    #endregion
+    
+}
