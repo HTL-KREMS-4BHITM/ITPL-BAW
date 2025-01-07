@@ -255,7 +255,6 @@
     #region PriceMethods
     public void CalcTotal()
     {
-        // Ensure PickupDate and DropoffDate are valid
         if (PickupDate == default || DropoffDate == default || PickupTime == default || DropoffTime == default)
         {
             Console.WriteLine("Invalid date or time.");
@@ -263,37 +262,31 @@
             return;
         }
 
-        var startDateTime = PickupDate.ToDateTime(PickupTime); // Umwandlung von DateOnly + TimeOnly zu DateTime
-        var endDateTime = DropoffDate.ToDateTime(DropoffTime); // Umwandlung von DateOnly + TimeOnly zu DateTime
+        var startDateTime = PickupDate.ToDateTime(PickupTime); 
+        var endDateTime = DropoffDate.ToDateTime(DropoffTime); 
 
-        // Berechnung der Dauer zwischen den beiden Zeitpunkten
         TimeSpan duration = endDateTime - startDateTime;
 
-        // Überprüfen der Dauer
         Console.WriteLine($"Start: {startDateTime}");
         Console.WriteLine($"End: {endDateTime}");
         Console.WriteLine($"Duration: {duration.TotalDays} days");
         Console.WriteLine($"Duration (in hours): {duration.TotalHours} hours");
 
-        // Berechnung der vollen Tage
-        var totalDays = Math.Floor(duration.TotalDays); // Ganze Tage
-        var remainingHours = duration.TotalHours - (totalDays * 24); // Berechnung der verbleibenden Stunden
+        var totalDays = Math.Floor(duration.TotalDays); 
+        var remainingHours = duration.TotalHours - (totalDays * 24); 
 
         Console.WriteLine($"Full days: {totalDays}");
         Console.WriteLine($"Remaining hours: {remainingHours}");
 
-        // Berechnung des Preises basierend auf den vollen Tagen
         total = (decimal)totalDays * product.CurrentLeasingRate + charge;
 
-        // Wenn Stunden übrig sind, wird eventuell ein zusätzlicher Tag berechnet
         if (remainingHours > 0)
         {
-            total += product.CurrentLeasingRate; // Preis für den zusätzlichen Tag, wenn Stunden übrig sind
+            total += product.CurrentLeasingRate; 
         }
 
         Console.WriteLine($"Total price: {total}");
 
-        // Überprüfen, ob der Zeitraum gültig ist und neu rendern
         if (duration.TotalMinutes > 0)
         {
             StateHasChanged();
