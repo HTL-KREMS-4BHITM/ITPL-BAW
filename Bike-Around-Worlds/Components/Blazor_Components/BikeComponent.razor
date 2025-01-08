@@ -2,6 +2,7 @@
 @using Domain.Interfaces
 @inject IRepository<Favorite> FavoriteRepository;
 @inject IRepository<User> UserRepository;
+@inject IRepository<Motorbike> MotorbikeRepository;
 @inject NavigationManager NavigationManager
 
 <div class="card bike-element" @onclick="NavToProductView">
@@ -21,8 +22,9 @@
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }
-    private string? Icon { get; set; } = "bi-star";
+    [Parameter] public string? Icon { get; set; }
     [Parameter] public Motorbike? ThisBike { get; set; }
+    [Parameter] public bool IsFavorite { get; set; }
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
     public List<User> Users { get; set; }
@@ -31,41 +33,39 @@
     {
         base.OnInitialized();
         //Error Todo
-        //Favorites = FavoriteRepository.ReadAll();
+        Favorites = FavoriteRepository.ReadAll();
         Users = UserRepository.ReadAll();
 
     }
     
     private void ChangeIcon()
     {
-        Favorite fav = new Favorite
-        {
-            //Motorbike = ThisBike!,
-            User_ID = 2,
-            Motorbike_ID = ThisBike!.Motorbike_ID
-            //User=Users.First(),
-            //, 
-            //User = ??,
-            //User_ID = ??
-            
-            // Get the current user Todo
-            //currently hard coded user and user id testing
-        };
-        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star"; // when you first load the side the default icon is empty =>needs to be set in the other If Todo
+        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
 
-        if (fav == null && Favorites == null)
-            return; 
-            
-        if (Favorites!.Contains(fav!))
-            FavoriteRepository.Delete(fav!);
+        if (Favorites!.Contains(Favorite!))
+        {
+            FavoriteRepository.Delete(ThisBike!.Motorbike_ID);
+            ThisBike.IsFavorite = false;
+            MotorbikeRepository.Update(ThisBike);
+            Favorites.Remove(Favorite!);
+        }
         else
-            FavoriteRepository.Create(fav!);
-        
+        {
+            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = 1 }; // user_id hardcode
+            FavoriteRepository.Create(Favorite);
+            ThisBike!.IsFavorite = true;
+            MotorbikeRepository.Update(ThisBike);
+            Favorites.Add(Favorite);
+        }
+
+
+
+
     }
 
     private void NavToProductView()
     {
-        NavigationManager.NavigateTo($"product/{ThisBike.Motorbike_ID}");
+        NavigationManager.NavigateTo($"product/{ThisBike!.Motorbike_ID}");
     }
 
 }
