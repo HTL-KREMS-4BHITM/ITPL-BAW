@@ -46,4 +46,12 @@ public class ARepository<TEntity> :IRepository<TEntity> where TEntity : class
         Table.Remove(t);
         Context.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+
+        var entity = Table.Find(id);
+        Table.Remove(entity);
+        Context.SaveChanges();
+    }
 }
