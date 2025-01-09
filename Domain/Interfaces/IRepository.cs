@@ -14,4 +14,5 @@ public interface IRepository<TEntity> where TEntity : class {
     List<TEntity> Read(int start, int count);
     List<TEntity> ReadAll();
     void Delete(TEntity t);
+    void Delete(int t);
 }

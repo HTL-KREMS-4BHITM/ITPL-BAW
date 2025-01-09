@@ -17,6 +17,7 @@ public class Motorbike
     public decimal Kilometer { get; set; }
     public string Federal_State { get; set; }
     public string Address { get; set; }
+    public bool IsFavorite { get; set; }
     
     public ICollection<LeasingContract> LeasingContracts { get; set; }
     public ICollection<Favorite> Favorites { get; set; }

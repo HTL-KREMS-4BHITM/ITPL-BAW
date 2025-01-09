@@ -35,8 +35,4 @@
       <Content Remove="wwwroot\CustomScripts\map.js" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="wwwroot\Resources\bike4.jpg" />
-    </ItemGroup>
-
 </Project>

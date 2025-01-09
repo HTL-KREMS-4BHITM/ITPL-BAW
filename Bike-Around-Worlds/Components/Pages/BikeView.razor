@@ -2,7 +2,6 @@
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
-@using Domain.Repositories
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
 @inject IJSRuntime js
@@ -27,7 +26,14 @@
             @foreach (var bike in _bikes)
             {
                 <div class="col-lg-3 col-sm-12 col-md-6">
-                    <BikeComponent ThisBike=@bike ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
+                    @if (bike.IsFavorite)
+                    {
+                        <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
+                    }
+                    else
+                    {
+                        <BikeComponent ThisBike=@bike Icon="bi-star" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
+                    }
                 </div>
             }
         </div>
