@@ -9,31 +9,36 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager NavigationManager
 
-<div class="row">
-    <div class="col-lg-4">
-        <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm">
-            <div class="mb-3">
-                <span>Don't have an account? <a href="/signup">Signup</a></span>
-                <h1>LOGIN</h1>
+<div class="section-login py-5">ö
+    <div class="container">
+        <h3 class="text-center mb-4">Login</h3>
+        <div class="row justify-content-center align-items-stretch">
+            <div class="col-lg-4 d-flex me-0 ps-0 pe-0 border border-end-0 align-items-center">
+                <img src="Resources/login.jpeg" class="img-fluid shadow form-height" alt="Bike Pic">
             </div>
-            <div class="mb-3">
-                <label>Username</label>
-                <InputText @bind-Value="Model.Username" class="form-control" placeholder="Username" />
+            <div class="login_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
+
+            <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm" class="p-4 border rounded shadow">
+            <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
+                <InputText @bind-Value="Model.Username" class="form-control" placeholder="Benutzername" />
                 <ValidationMessage For="() => Model.Username" />
             </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <InputText @bind-Value="Model.Password" type="password" class="form-control" placeholder="Password" />
+            <div class="mb-5 mt-3 border-bottom border-secondary">
+                <InputText @bind-Value="Model.Password" type="password" class="form-control" placeholder="Passwort" />
                 <ValidationMessage For="() => Model.Password" />
             </div>
             <div class="mb-3">
                 <span class="text-danger">@errorMessage</span>
             </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <span><a href="/signup">Konto erstellen</a></span>
+            </div>
+            
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Login</button>
             </div>
         </EditForm>
-    </div>
+    </div></div></div>
 </div>
 
 @code {

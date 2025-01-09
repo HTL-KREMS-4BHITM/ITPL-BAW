@@ -11,12 +11,12 @@
   }
 }
 
-.section-login {
+.section-signup {
   @extend %base-override-img;
   background-color: $background !important;
   
 
-  .login_container{
+  .signup_container{
     background-color: $footer-bg !important;
   }
   h3 {
@@ -37,7 +37,7 @@
       color: #9E9D9D;
     }
   }
-    .inputlables{
+    .signlabels{
       color:$text;
     }
   
@@ -45,5 +45,7 @@
       color: white !important;
     }
   
-  
+}
+.validation-message{
+  color:$text;
 }

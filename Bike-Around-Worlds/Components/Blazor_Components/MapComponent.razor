@@ -17,6 +17,9 @@
         <div class="col-md-8">
             <!-- Map Container -->
             <div id="map"></div>
+            <button type="button" @onclick="() => MapButton()">
+                Map
+            </button>
         </div>
     </div>
     <script src="/CustomScripts/groupmap.js" async defer></script>
@@ -27,6 +30,11 @@
     protected override void OnInitialized()
     {
         Console.WriteLine("going to InitializeMap!!!!");
+    }
+
+    public void MapButton()
+    {
+        Console.WriteLine("sadfhjklö-lkjhterwsdgjlkö,kjgfdsa");
         JS.InvokeVoidAsync("InitializeMap");
     }
 
