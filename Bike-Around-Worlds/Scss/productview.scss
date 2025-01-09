@@ -1,51 +1,72 @@
 @use "variables" as *;
-
-.accordion {
-  .accordion-item {
-    
-    .accordion-header {
-      margin: 0; // Kein zusätzlicher Abstand
-      
-      .btn {
-        border: 1px solid #007bff; // Rahmenfarbe (primäre Farbe)
-        border-radius: 0.375rem; // Abgerundete Ecken
-        text-align: start; // Textausrichtung
-        display: flex;
-        font-weight: bold;
-        background-color: $primary; 
-        transition: background-color 0.3s, border-color 0.3s;
-
-        &:hover {
-          background-color: $hovercolor; // Hover-Farbe
-        }
-
-        &:focus,
-        &:active {
-          border-color: #0056b3; // Farbe bei Fokus/Aktiv
-          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        .pricetag {
-          color: $secondary; // Grüner Farbton für Preisschild
-        }
-      }
-    }
-
-    .accordion-collapse {
-      &.show {
-        .accordion-body {
-          background-color: $primary; // Hintergrund für aktive Inhalte
-          border: 1px solid #dee2e6; // Rahmenfarbe
-          color: #6c757d; // Textfarbe
-        }
-      }
-    }
-  }
+h5{
+  color: $text;
 }
-
-
-
 .productmain{
+
+
+// Accordion S  tyling
+.accordion {
+  margin:0 !important;
+  background-color: $background;
+
+  .accordion-item {
+    margin: 0; // Remove extra spacing between accordion items
+
+    .btn-outline-primary {
+      color: $text; // Text color
+      border-color: $bordercolor; // Border color
+      background-color: $primary; // Background color for unselected state
+      border-radius: 0; // Ensure no rounded corners between items
+
+      // Hover State
+      &:hover {
+        color: white; // Text color on hover
+        background-color: $hovercolor; // Background color on hover
+        border-color:red; // Border color on hover
+        .pricetag{
+          color: $text;
+        }
+      }
+    }
+
+    // Active/Selected State
+    .btn-check:checked + .btn-outline-primary {
+      background-color: $insurancecolor; // Background color for selected
+      color: $text; // Text color for selected
+      border-color: $bordercolor; // Border color for selected
+      .pricetag{
+        color: $text;
+      }
+    }
+
+    // Accordion Header
+    .accordion-header {
+      margin: 0; // Remove extra spacing between headers
+      padding: 0; // Remove padding if necessary
+
+      .btn {
+        border-radius: 0; // Remove rounded corners
+        &:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // Subtle shadow on hover
+        }
+      }
+    }
+
+    // Accordion Body Styling
+    .accordion-body {
+      background-color: $primary; // Match your desired background
+      color: $text; // Text color
+      margin: 0; // Remove extra spacing
+      padding: 1rem; // Standard padding for body
+      border-top: 1px solid $bordercolor; // Optional border for clarity
+    }
+
+    .pricetag {
+      color: $secondary; // Price tag styling
+    }
+
+  }}
   background-color: $background !important;
   
   .productview{

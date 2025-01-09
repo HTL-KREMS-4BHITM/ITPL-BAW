@@ -6,26 +6,32 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<div class="row">
-    <div class="col-lg-4">
-        <EditForm Model="@Model" OnValidSubmit="async() => await RegisterUser()" FormName="SinguPForm">
+<div class="section-signup py-5">ö
+    <div class="container">
+        <h3 class="text-center mb-4">Sign Up</h3>
+        <div class="row justify-content-center align-items-stretch">
+            <div class="col-lg-4 d-flex me-0 ps-0 pe-0 border border-end-0 align-items-center">
+                <img src="Resources/signup.jpg" class="img-fluid shadow form-height" alt="Bike Pic">
+            </div>
+            <div class="signup_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
+        <EditForm Model="@Model" OnValidSubmit="async() => await RegisterUser()" FormName="SinguPForm" class="p-4 border rounded shadow">
             <DataAnnotationsValidator/>
-            <ValidationSummary/>
-            <div class="mb-3">
-                <h1>SIGNUP</h1>
+            <div class="row pt-4 mt-5">
+                <div class="col-lg-10 mb-3 mx-0 ps-0 pe-2">
+                    <InputText class="form-control" placeholder="Username" @bind-Value="@Model.Username" />
+                    <ValidationMessage For="() => Model.Username" />
+                </div>
+                <div class="col-lg-2 mb-3 mx-0 px-0">
+                    <InputText class="form-control" placeholder="Age" @bind-Value="@Model.Age" />
+                    <ValidationMessage For="() => Model.Age" />
+                </div>
             </div>
-            <div class="mb-3">
-                <label>Username</label>
-                <InputText class="form-control" placeholder="Username" @bind-Value="@Model.Username"/>
-                <ValidationMessage For="() => Model.Username"/>
-            </div>
-            <div class="mb-3">
-                <label>Password</label>
+            
+            <div class="mb-4 mt-2 border-bottom border-secondary">
                 <InputText type="password" class="form-control" placeholder="Password" @bind-Value="@Model.Password"/>
                 <ValidationMessage For="() => Model.Password"/>
             </div>
-            <div class="mb-3">
-                <label>Confirm Password</label>
+            <div class="mb-5 mt-3">
                 <InputText type="password" class="form-control" placeholder="Confirm Password" @bind-Value="@Model.ConfirmPassword"/>
                 <ValidationMessage For="() => Model.ConfirmPassword"/>
             </div>
@@ -33,14 +39,10 @@
                 <span class="text-danger">@errorMessage</span>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Signup</button>
+                <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Signup</button>
             </div>
         </EditForm>
-
-        <p>Debug: Username = @Model.Username</p>
-        <p>Debug: Password = @Model.Password</p>
-        <p>Debug: ConfirmPassword = @Model.ConfirmPassword</p>
-    </div>
+    </div></div></div>
 </div>
 
 @code {

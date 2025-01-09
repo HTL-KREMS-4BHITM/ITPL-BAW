@@ -1,8 +1,9 @@
 @using BAWLib
 @using Domain.Interfaces
+@using Domain.Repositories
 @inject IRepository<Favorite> FavoriteRepository;
-@inject IRepository<User> UserRepository;
 @inject IRepository<Motorbike> MotorbikeRepository;
+@inject IRepository<User> UserRepository;
 @inject NavigationManager NavigationManager
 
 <div class="card bike-element" @onclick="NavToProductView">
@@ -31,7 +32,7 @@
 
     public User CurrentUser { get; set; } = new User()
     {
-        User_Id = 1,
+        User_Id = 2,
         Username = "testUser",
         Age = 122,
         Password = "123456",
