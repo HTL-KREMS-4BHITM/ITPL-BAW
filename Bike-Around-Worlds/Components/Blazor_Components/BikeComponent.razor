@@ -28,21 +28,17 @@
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
     public List<User> Users { get; set; }
-
-    public User CurrentUser { get; set; } = new User()
-    {
-        User_Id = 1,
-        Username = "testUser",
-        Age = 122,
-        Password = "123456",
-    };
+    public User CurrentUser { get; set; } 
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        //Error Todo
         Favorites = FavoriteRepository.ReadAll();
         Users = UserRepository.ReadAll();
+        
+        
+        //Hard code user 2
+        CurrentUser=Users[1];
 
     }
     
@@ -58,7 +54,7 @@
         }
         else
         {
-            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser.User_Id}; // user_id hardcode
+            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser.User_Id};
             FavoriteRepository.Create(Favorite);
             ThisBike!.IsFavorite = true;
             MotorbikeRepository.Update(ThisBike);
