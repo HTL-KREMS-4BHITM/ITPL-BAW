@@ -47,10 +47,9 @@ public class ARepository<TEntity> :IRepository<TEntity> where TEntity : class
         Context.SaveChanges();
     }
 
-    public void Delete(int id)
+    public void Delete(int bikeId, int userId)
     {
-
-        var entity = Table.Find(id);
+        var entity = Table.Find(bikeId, userId);
         Table.Remove(entity);
         Context.SaveChanges();
     }

@@ -28,6 +28,14 @@
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
     public List<User> Users { get; set; }
+
+    public User CurrentUser { get; set; } = new User()
+    {
+        User_Id = 1,
+        Username = "testUser",
+        Age = 122,
+        Password = "123456",
+    };
     
     protected override void OnInitialized()
     {
@@ -42,20 +50,18 @@
     {
         Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
 
-        if (Favorites!.Contains(Favorite!))
+        if (ThisBike!.IsFavorite)
         {
-            FavoriteRepository.Delete(ThisBike!.Motorbike_ID);
+            FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser.User_Id);
             ThisBike.IsFavorite = false;
             MotorbikeRepository.Update(ThisBike);
-            Favorites.Remove(Favorite!);
         }
         else
         {
-            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = 1 }; // user_id hardcode
+            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser.User_Id}; // user_id hardcode
             FavoriteRepository.Create(Favorite);
             ThisBike!.IsFavorite = true;
             MotorbikeRepository.Update(ThisBike);
-            Favorites.Add(Favorite);
         }
 
 
