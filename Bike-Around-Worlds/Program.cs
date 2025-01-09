@@ -18,13 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/login";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
-        options.AccessDeniedPath = "/access-denied";
+        options.AccessDeniedPath = "/accessdenied";
     });
 
  

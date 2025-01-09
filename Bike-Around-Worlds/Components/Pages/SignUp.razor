@@ -1,6 +1,104 @@
 @page "/signup"
-<h3>SignUp</h3>
+@using BAWLib
+@using BAWLib.Configs
+@using BAWLib.ViewModels
+@inject MotorContext DbContext
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="row">
+    <div class="col-lg-4">
+        <EditForm Model="@Model" OnValidSubmit="async() => await RegisterUser()" FormName="SinguPForm">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="mb-3">
+                <h1>SIGNUP</h1>
+            </div>
+            <div class="mb-3">
+                <label>Username</label>
+                <InputText class="form-control" placeholder="Username" @bind-Value="@Model.Username"/>
+                <ValidationMessage For="() => Model.Username"/>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <InputText type="password" class="form-control" placeholder="Password" @bind-Value="@Model.Password"/>
+                <ValidationMessage For="() => Model.Password"/>
+            </div>
+            <div class="mb-3">
+                <label>Confirm Password</label>
+                <InputText type="password" class="form-control" placeholder="Confirm Password" @bind-Value="@Model.ConfirmPassword"/>
+                <ValidationMessage For="() => Model.ConfirmPassword"/>
+            </div>
+            <div class="mb-3">
+                <span class="text-danger">@errorMessage</span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Signup</button>
+            </div>
+        </EditForm>
+
+        <p>Debug: Username = @Model.Username</p>
+        <p>Debug: Password = @Model.Password</p>
+        <p>Debug: ConfirmPassword = @Model.ConfirmPassword</p>
+    </div>
+</div>
 
 @code {
-    
+    public SignUpViewModel Model { get; set; } = new();
+    private string? errorMessage;
+
+    protected override bool ShouldRender()
+    {
+        return false;
+    }
+
+    private async Task RegisterUser()
+    {
+        Console.WriteLine("RegisterUser called");
+        Console.WriteLine($"Username: {Model.Username}, Password: {Model.Password}, ConfirmPassword: {Model.ConfirmPassword}");
+
+
+        try
+        {
+            // Validation: Ensure that the required fields are not empty
+            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password))
+            {
+                errorMessage = "All fields are required.";
+                return;
+            }
+
+            // Check if the username already exists in the database
+            var existingUser = DbContext.Users.FirstOrDefault(u => u.Username == Model.Username);
+            if (existingUser != null)
+            {
+                errorMessage = "Username already exists. Please choose another.";
+                return;
+            }
+
+            // Check if the passwords match
+            if (Model.Password != Model.ConfirmPassword)
+            {
+                errorMessage = "Passwords do not match.";
+                return;
+            }
+
+            // Create the new user
+            var newUser = new User
+            {
+                Username = Model.Username,
+                Password = Model.Password // Note: Hash the password in a real-world application
+            };
+
+            DbContext.Users.Add(newUser);
+            await DbContext.SaveChangesAsync();
+
+            // Redirect to the login page upon successful registration
+            NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred during registration. Please try again.";
+            Console.WriteLine($"Error during registration: {ex.Message}");
+        }
+    }
 }
