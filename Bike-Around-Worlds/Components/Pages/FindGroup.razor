@@ -34,5 +34,6 @@
     {
         base.OnInitialized();
         Groups = GroupRepository.ReadAll();
+        Groups.Add(new Groups(){Group_Id = 1, Description = "svsvfsfv", Name = "tomGroup"});
     }
 }
