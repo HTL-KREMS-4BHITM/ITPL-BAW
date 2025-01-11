@@ -14,7 +14,7 @@
         </div>
         <div class="col-9">
             <div class="row">
-                @foreach (var group in Groups)
+                @foreach (var group in Groups!)
                 {
                     <div class="col-4">
                         <GroupComponent Group=group></GroupComponent>
@@ -29,11 +29,10 @@
 
 
 @code {
-    private List<Groups> Groups = new();
+    private List<Groups>? Groups = new();
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Groups = GroupRepository.ReadAll();
-        Groups.Add(new Groups(){Group_Id = 1, Description = "svsvfsfv", Name = "tomGroup"});
     }
 }

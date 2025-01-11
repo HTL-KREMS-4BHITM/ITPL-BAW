@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using BAWLib.Configs;
 using Domain.Interfaces;
@@ -50,7 +47,7 @@ public class ARepository<TEntity> :IRepository<TEntity> where TEntity : class
     public void Delete(int bikeId, int userId)
     {
         var entity = Table.Find(bikeId, userId);
-        Table.Remove(entity);
+        Table.Remove(entity!);
         Context.SaveChanges();
     }
 }

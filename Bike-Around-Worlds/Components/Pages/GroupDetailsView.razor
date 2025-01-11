@@ -1,6 +1,8 @@
 @page "/groupDetailsView"
+@inject IRepository<User> UserRepository;
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
+@using Domain.Interfaces
 <section class="section-group-details">
     <div class="container">
         <div class="row">
@@ -39,10 +41,17 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                @foreach (UserComponent curentUserComponent in Users)
-                {
-                    
-                }
+                <h1>
+                    Mitglieder:
+                </h1>
+                <div class="row">
+                    @foreach (User curentUser in Users!)
+                    {
+                        <div class="col-lg-6 col-12">
+                            <UserComponent ThisUser=@curentUser></UserComponent>
+                        </div>
+                    }
+                </div>
             </div>
             <div class="col-lg-12">
                 <h2>
@@ -60,23 +69,15 @@
 </section>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @code {
-    public List<UserComponent>? Users { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Users = UserRepository.Read(user => user.GroupID == CurrentGroupId);
+    }
+
+
+    private int CurrentGroupId { get; set; }
+    public List<User>? Users { get; set; }
+    public List<UserComponent>? UserComponents { get; set; }
 }
