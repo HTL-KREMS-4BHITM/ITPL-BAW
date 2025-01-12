@@ -1,10 +1,21 @@
 @inject NavigationManager NavigationManager;
+
 @using BAWLib
+@using Domain.Interfaces
 <div class="card border-secondary mb-3" @onclick="NavitageToGroup" style="max-width: 18rem;">
-    <div class="card-header"> @Group!.Name</div>
+    <div class="card-header d-flex justify-content-around">
+        <h4>
+            @Group!.Name
+        </h4>
+        <div>
+            <h4>
+                @Group.GetMemberCount()
+                <i class="bi bi-person-fill"></i>
+            </h4>
+        </div>
+    </div>
     <div class="card-body text-secondary">
-        <h5 class="card-title">@Group.Waypoints</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
     </div>
 </div>
 
@@ -25,9 +36,10 @@
 
 @code {
      [Parameter] public Groups? Group { get; set; }
-
      private void NavitageToGroup()
      {
          NavigationManager.NavigateTo($"/groupDetailsView/{Group!.Group_Id}");
      }
+
+
 }
