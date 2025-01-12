@@ -1,6 +1,6 @@
 @using BAWLib
 @using Domain.Interfaces
-@using Domain.Repositories
+
 @inject IRepository<Favorite> FavoriteRepository;
 @inject IRepository<User> UserRepository;
 @inject IRepository<Motorbike> MotorbikeRepository;
@@ -28,7 +28,7 @@
     [Parameter] public bool IsFavorite { get; set; }
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
-    public List<User> Users { get; set; }
+    public List<User>? Users { get; set; }
 
     public User CurrentUser { get; set; } = new User()
     {
@@ -41,7 +41,6 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        //Error Todo
         Favorites = FavoriteRepository.ReadAll();
         Users = UserRepository.ReadAll();
 

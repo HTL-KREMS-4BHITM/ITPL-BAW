@@ -1,6 +1,19 @@
 @using BAWLib
-<h3>UserComponent</h3>
-
+<div class="body">
+    <div class="row">
+        <div class="col-2">
+            <img src="" alt="Profile Bild" class="img-holder">
+        </div>
+        <div class="col-10">
+            <h1>
+                @ThisUser!.Username
+            </h1>
+            <p>
+                Lorem ipsum dolor.
+            </p>
+        </div>
+    </div>
+</div>
 @code {
     [Parameter] public User? ThisUser { get; set; }
 }

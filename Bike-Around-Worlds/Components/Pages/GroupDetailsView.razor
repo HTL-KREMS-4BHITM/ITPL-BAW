@@ -1,5 +1,6 @@
-@page "/groupDetailsView"
+@page "/groupDetailsView/{Group_ID:int}"
 @inject IRepository<User> UserRepository;
+@inject IRepository<Groups> GroupRepository;
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
@@ -73,11 +74,12 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Users = UserRepository.Read(user => user.GroupID == CurrentGroupId);
+        Users = UserRepository.Read(user => user.GroupID == Group_ID);
+        CurrentGroup = GroupRepository.Read(Group_ID);
     }
 
-
-    private int CurrentGroupId { get; set; }
-    public List<User>? Users { get; set; }
+    [Parameter] public int Group_ID { get; set; }
+    private Groups? CurrentGroup { get; set; } = new();
+    private List<User>? Users { get; set; } = new();
     public List<UserComponent>? UserComponents { get; set; }
 }

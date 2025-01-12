@@ -1,3 +1,5 @@
+@using BAWLib.Classes
+@inject NavigationManager NavigationManager;
 <section class="section-filter">
     <div class="container d-flex justify-content-center mt-5">
         <div class="filter-container navbar-expand-lg w-100 p-1">
@@ -15,19 +17,19 @@
                             Region
                         </h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="wien">
+                            <input class="form-check-input" type="checkbox" id="wien" @bind="Filter!.IsWien">
                             <label class="form-check-label" for="wien">
                                 Wien
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="niederoesterreich">
+                            <input class="form-check-input" type="checkbox" id="niederoesterreich"  @bind="Filter!.IsNiederoesterreich">
                             <label class="form-check-label" for="niederoesterreich">
                                 Niederösterreich
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="oberösterreich">
+                            <input class="form-check-input" type="checkbox" id="oberösterreich"  @bind="Filter!.IsOberoesterreich">
                             <label class="form-check-label" for="oberösterreich">Oberösterreich</label>
                         </div>
                         <div class="form-check">
@@ -132,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-submit w-100 mt-4">Filter
+                <button class="btn btn-submit w-100 mt-4" @onclick="NavigateToBikeView">Filter
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                          viewBox="0 0 16 16">
                         <path
@@ -143,3 +145,20 @@
         </div>
     </div>
 </section>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Filter = new();
+    }
+    private void NavigateToBikeView()
+    {
+        // Herausfinden wie man den datenTyp auf der bikeView setzt todo
+        NavigationManager.NavigateTo($"/bikeView/{Filter}");
+    }
+
+    public Filter? Filter { get; set; }
+    
+}
