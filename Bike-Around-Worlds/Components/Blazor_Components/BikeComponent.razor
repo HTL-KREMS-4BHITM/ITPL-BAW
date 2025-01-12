@@ -10,7 +10,7 @@
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
     <div class="card-body">
         <h1>@ThisBike!.Manufacturer @ThisBike.Model </h1>
-        <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /tag</p>
+        <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
             
@@ -32,7 +32,7 @@
 
     public User CurrentUser { get; set; } = new User()
     {
-        User_Id = 1,
+        User_Id = 2,
         Username = "testUser",
         Age = 122,
         Password = "123456",
@@ -42,7 +42,7 @@
     {
         base.OnInitialized();
         Favorites = FavoriteRepository.ReadAll();
-        Users = UserRepository.ReadAll();
+        //Users = UserRepository.ReadAll();
 
     }
     

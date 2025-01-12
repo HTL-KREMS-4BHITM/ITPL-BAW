@@ -1,15 +1,20 @@
 @page "/login"
-@rendermode InteractiveServer
 @using System.Security.Claims
+@using BAWLib
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
 @using BAWLib.Configs
 @using BAWLib.ViewModels
+@using Domain.Interfaces
+@using Domain.Repositories
 @inject MotorContext DbContext
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+@rendermode InteractiveServer
+@inject IRepository<User> UserRepository
 
-<div class="section-login py-5">ö
+<div class="section-login py-5">
     <div class="container">
         <h3 class="text-center mb-4">Login</h3>
         <div class="row justify-content-center align-items-stretch">
@@ -17,47 +22,70 @@
                 <img src="Resources/login.jpeg" class="img-fluid shadow form-height" alt="Bike Pic">
             </div>
             <div class="login_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
+                <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm" class="p-4 border rounded shadow">
+                    <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
+                        <InputText @bind-Value="Model.Username" class="form-control" placeholder="Benutzername" />
+                        <ValidationMessage For="() => Model.Username" />
+                    </div>
+                    <div class="mb-5 mt-3 border-bottom border-secondary">
+                        <InputText @bind-Value="Model.Password" type="password" class="form-control" placeholder="Passwort" />
+                        <ValidationMessage For="() => Model.Password" />
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-danger">@errorMessage</span>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <span><a href="/signup">Konto erstellen</a></span>
+                    </div>
 
-            <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm" class="p-4 border rounded shadow">
-            <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
-                <InputText @bind-Value="Model.Username" class="form-control" placeholder="Benutzername" />
-                <ValidationMessage For="() => Model.Username" />
+                    <div class="mb-3">
+                        <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Login</button>
+                    </div>
+                </EditForm>
             </div>
-            <div class="mb-5 mt-3 border-bottom border-secondary">
-                <InputText @bind-Value="Model.Password" type="password" class="form-control" placeholder="Passwort" />
-                <ValidationMessage For="() => Model.Password" />
-            </div>
-            <div class="mb-3">
-                <span class="text-danger">@errorMessage</span>
-            </div>
-            <div class="mb-3 d-flex justify-content-center">
-                <span><a href="/signup">Konto erstellen</a></span>
-            </div>
-            
-            <div class="mb-3">
-                <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Login</button>
-            </div>
-        </EditForm>
-    </div></div></div>
+        </div>
+    </div>
 </div>
 
 @code {
     public LoginViewModel Model { get; set; } = new();
     private string? errorMessage;
+    private TaskCompletionSource<bool>? authenticationTaskSource;
 
     private async Task Authenticate()
     {
         try
         {
-            // Benutzer in der Datenbank suchen
-            var userAccount = DbContext.Users.FirstOrDefault(x => x.Username == Model.Username);
-            if (userAccount is null || userAccount.Password != Model.Password)
+            // Log input data for debugging
+            Console.WriteLine($"Input Username: {Model.Username}");
+            Console.WriteLine($"Input Password: {Model.Password}");
+
+            // Fetch user account from the database (case-insensitive username match)
+            List<User> users = new();
+            users = UserRepository.ReadAll();
+
+            var userAccount = users.Where(u => u.Username == Model.Username).First();
+            
+            
+            
+            if (userAccount == null)
             {
                 errorMessage = "Invalid Username or Password";
+                Console.WriteLine("User not found in the database.");
                 return;
             }
 
-            // Benutzer authentifizieren
+            Console.WriteLine($"User found: {userAccount.Username}");
+
+            // If passwords are hashed, verify the password
+            if (userAccount.Password != Model.Password) // Replace with hashing logic if necessary
+            {
+                errorMessage = "Invalid Username or Password";
+                Console.WriteLine("Password mismatch.");
+                return;
+            }
+
+            // Create user claims
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userAccount.Username),
@@ -65,33 +93,62 @@
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            // Authentifizierungsmethode in Middleware ausführen
+            authenticationTaskSource = new TaskCompletionSource<bool>();
+
+            // Authenticate the user
             await AuthenticateUser(principal);
 
-            // Nach erfolgreicher Authentifizierung weiterleiten
+            // Wait for authentication to complete
+            await authenticationTaskSource.Task;
+
+            // Redirect after successful login
             NavigationManager.NavigateTo("/bikeview");
         }
         catch (Exception ex)
         {
             errorMessage = $"An error occurred: {ex.Message}";
-            Console.WriteLine(ex);
+            Console.WriteLine($"Exception: {ex}");
         }
     }
 
     private async Task AuthenticateUser(ClaimsPrincipal principal)
     {
-        // Zugriff auf HttpContext sicherstellen
         if (HttpContextAccessor.HttpContext is not null)
         {
-            /*await HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+            try
             {
-                IsPersistent = true,
-                ExpiresUtc = DateTime.UtcNow.AddHours(1)
-            });*/
+                Console.WriteLine("HttpContext is accessible. Signing in...");
+                await HttpContextAccessor.HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    principal,
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTime.UtcNow.AddHours(1),
+                    });
+
+                // Notify the task completion source
+                authenticationTaskSource?.SetResult(true);
+                Console.WriteLine("Sign-in successful.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Authentication failed: {ex.Message}");
+                throw;
+            }
         }
         else
         {
+            authenticationTaskSource?.SetException(new InvalidOperationException("Failed to access HttpContext for authentication."));
             throw new InvalidOperationException("Failed to access HttpContext for authentication.");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (authenticationTaskSource is not null)
+        {
+            await authenticationTaskSource.Task;
         }
     }
 }

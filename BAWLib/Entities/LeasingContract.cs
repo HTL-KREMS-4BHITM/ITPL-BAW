@@ -17,4 +17,5 @@ public class LeasingContract
     public DateTime TO_DATE { get; set; }
     public decimal COST { get; set; }
     public string Insurance { get; set; }
+    public decimal Price_Per_Day { get; set; }
 }

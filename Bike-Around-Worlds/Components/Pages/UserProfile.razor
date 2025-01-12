@@ -1,0 +1,123 @@
+@page "/userprofile"
+@page "/userprofile/{view}"
+@using BAWLib
+@using Domain.Interfaces
+@using Bike_Around_Worlds.Components.Blazor_Components
+@inject NavigationManager NavigationManager
+@inject IRepository<User> UserRepository
+@inject IRepository<LeasingContract> LeasingContractRepository
+@inject IRepository<Groups> GroupRepository
+
+<div class="container section-userprof">
+    <div class="row mt-3 mb-5">
+        <div class="col-12 d-flex justify-content-center">
+            <h3>UserProfile</h3>
+        </div>
+    </div>
+    <div class="row align-items-stretch mb-lg-5">
+        <div class="col-lg-6 d-flex flex-column justify-content-start">
+            <div class="mb-3">
+                <label for="username" class="form-label">Benutzername</label>
+                <input type="text" class="form-control" id="username" placeholder="@user.Username">
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="text" class="form-control" id="age" placeholder="@user.Age">
+            </div>
+            <div class="mb-3">
+                <label for="passwort" class="form-label">Passwort</label>
+                <input type="password" class="form-control" id="passwort" placeholder="@user.Password">
+            </div>
+        </div>
+
+        <div class="col-lg-6 d-flex align-items-center justify-content-center d-flex align-items-baseline">
+            <div class="circle-profile w-100 h-100 position-relative">
+                <img src="/Resources/User Profile Pics/@imagename" alt="Profile Picture" />
+            </div>
+            <i class="bi mb-0 pb-0 bi-pen" style="font-size: 1.25rem;"></i>
+        </div>
+    </div>
+
+    <div class="row border-top">
+        <div class="col-lg-6">
+            <div class="row d-flex align-items-end mt-lg-4 mb-lg-4">
+                <a href="http://localhost:5215/userprofile/current">Aktuelle</a>
+                </div>
+        </div>
+        <div class="col-lg-6 d-flex align-items-end">
+            <div class="row d-flex align-items-end mt-lg-4 mb-lg-4">
+                <a href="http://localhost:5215/userprofile/past">Vergangene</a>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row mb-lg-5 d-flex flex-row w-100">
+                @foreach (var ls in currentcontracts)
+                {
+                    <div class="col-lg-3 mb-3">
+                        <ContractsComponent CurrentUser=@user MotorbikeID=@ls.MotorbikeID CurrentLeasingContract=ls></ContractsComponent>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row border-top">
+        <div class="row mt-lg-4 mb-4">
+            <h5>Meine Gruppen</h5>
+        </div>
+        
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? view { get; set; }
+
+    private List<Groups> CurrentGroups = new();
+    private List<LeasingContract> currentcontracts = new();
+    private string imagename;
+    private User user = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        user = UserRepository.Read(2);
+        imagename = user.PicAddress;
+
+        UpdateContractsBasedOnView();
+    }
+ 
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        UpdateContractsBasedOnView();
+        StateHasChanged(); 
+    }
+
+
+    private void UpdateContractsBasedOnView()
+    {
+        if (view == "past")
+        {
+            ShowPastContracts();
+        }
+        else
+        {
+            ShowCurrentContracts();
+        }
+    }
+
+    private void ShowCurrentContracts()
+    {
+        currentcontracts = LeasingContractRepository.Read(l => l.UserID == 2 && l.TO_DATE > DateTime.Today).ToList();
+    }
+
+    private void ShowPastContracts()
+    {
+        currentcontracts = LeasingContractRepository.Read(l => l.UserID == 2 && l.TO_DATE <= DateTime.Today).ToList();
+    }
+/*
+    private void NavigateToView(string targetView)
+    {
+        Console.WriteLine($"Navigating to: /userprofile/{targetView}");*/
+}

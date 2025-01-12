@@ -335,7 +335,8 @@
             FROM_DATE = PickupDate.ToDateTime(PickupTime),
             TO_DATE = DropoffDate.ToDateTime(DropoffTime),
             COST = total,
-            Insurance = SelectedInsurance
+            Insurance = SelectedInsurance,
+            Price_Per_Day = pricepday
         };
         LeasingContractRepository.Create(lc);
         Console.WriteLine("AddToCOntracts uses!");

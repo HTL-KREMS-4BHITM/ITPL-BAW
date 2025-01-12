@@ -1,0 +1,17 @@
+@use "variables" as *;
+
+.section-cont-card{
+  background-color: $bike-bg !important;
+  color: $text;
+  filter: drop-shadow(0px 0px 10px black);
+  border : none;
+  img{ 
+    height:9rem;
+  }
+  .pricetag{
+    color: $secondary;
+  }
+  .federal-state{
+    color: $insurancecolor !important;
+  }
+}
