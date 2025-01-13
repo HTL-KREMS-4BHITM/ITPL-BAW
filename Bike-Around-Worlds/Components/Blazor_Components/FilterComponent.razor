@@ -1,5 +1,4 @@
 @using BAWLib.Classes
-@inject NavigationManager NavigationManager;
 <section class="section-filter">
     <div class="container d-flex justify-content-center mt-5">
         <div class="filter-container navbar-expand-lg w-100 p-1">
@@ -10,89 +9,89 @@
                 <i class="bi bi-funnel me-2" style="font-size: 2rem"></i>
             </button>
             <div class="collapse navbar-collapse h-100 flex-column" id="navbarSupportedContent">
-                    
+
                 <div class="d-flex row">
                     <div class="col-lg-6 col-12 ">
                         <h5>
                             Region
                         </h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="wien" @bind="Filter!.IsWien">
+                            <input class="form-check-input" type="checkbox" id="wien" @onclick='() => ToggelRegion("wien")'>
                             <label class="form-check-label" for="wien">
                                 Wien
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="niederoesterreich"  @bind="Filter!.IsNiederoesterreich">
+                            <input class="form-check-input" type="checkbox" id="niederoesterreich" @onclick='() => ToggelRegion("niederoesterreich")'>
                             <label class="form-check-label" for="niederoesterreich">
                                 Niederösterreich
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="oberösterreich"  @bind="Filter!.IsOberoesterreich">
-                            <label class="form-check-label" for="oberösterreich">Oberösterreich</label>
+                            <input class="form-check-input" type="checkbox" id="obereosterreich" @onclick='() => ToggelRegion("obereosterreich")'>
+                            <label class="form-check-label" for="obereosterreich">Oberösterreich</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="salzburg">
+                            <input class="form-check-input" type="checkbox" id="salzburg" @onclick='() => ToggelRegion("salzburg")'>
                             <label class="form-check-label" for="salzburg">Salzburg</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="steiermark">
+                            <input class="form-check-input" type="checkbox" id="steiermark" @onclick='() => ToggelRegion("steiermark")'>
                             <label class="form-check-label" for="steiermark">Steiermark</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="burgenland">
+                            <input class="form-check-input" type="checkbox" id="burgenland" @onclick='() => ToggelRegion("burgenland")'>
                             <label class="form-check-label" for="burgenland">Burgenland</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="kärnten">
-                            <label class="form-check-label" for="kärnten">Kärnten</label>
+                            <input class="form-check-input" type="checkbox" id="kaernten" @onclick='() => ToggelRegion("kaernten")'>
+                            <label class="form-check-label" for="kaernten">Kärnten</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="tirol">
+                            <input class="form-check-input" type="checkbox" id="tirol" @onclick='() => ToggelRegion("tirol")'>
                             <label class="form-check-label" for="tirol">Tirol</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="vorarlberg">
+                            <input class="form-check-input" type="checkbox" id="vorarlberg" @onclick='() => ToggelRegion("vorarlberg")'>
                             <label class="form-check-label" for="vorarlberg">Vorarlberg</label>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12 ">
                         <h5 class="mt-4">Marke</h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="yamaha">
+                            <input class="form-check-input" type="checkbox" id="yamaha" @onclick='() => ToggelBrand("yamaha")'>
                             <label class="form-check-label" for="yamaha">Yamaha</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="kawasaki">
+                            <input class="form-check-input" type="checkbox" id="kawasaki" @onclick='() => ToggelBrand("kawasaki")'>
                             <label class="form-check-label" for="kawasaki">Kawasaki</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="suzuki">
+                            <input class="form-check-input" type="checkbox" id="suzuki" @onclick='() => ToggelBrand("suzuki")'>
                             <label class="form-check-label" for="suzuki">Suzuki</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="harley-davidson">
+                            <input class="form-check-input" type="checkbox" id="harley-davidson" @onclick='() => ToggelBrand("harley-davidson")'>
                             <label class="form-check-label" for="harley-davidson">Harley Davidson</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="ducati">
+                            <input class="form-check-input" type="checkbox" id="ducati" @onclick='() => ToggelBrand("ducati")'>
                             <label class="form-check-label" for="ducati">Ducati</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="honda">
+                            <input class="form-check-input" type="checkbox" id="honda" @onclick='() => ToggelBrand("honda")'>
                             <label class="form-check-label" for="honda">Honda</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="benelli">
+                            <input class="form-check-input" type="checkbox" id="benelli" @onclick='() => ToggelBrand("benelli")'>
                             <label class="form-check-label" for="benelli">Benelli</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="ktm">
+                            <input class="form-check-input" type="checkbox" id="ktm" @onclick='() => ToggelBrand("ktm")'>
                             <label class="form-check-label" for="ktm">KTM</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="bmw">
+                            <input class="form-check-input" type="checkbox" id="bmw" @onclick='() => ToggelBrand("bmw")'>
                             <label class="form-check-label" for="bmw">BMW</label>
                         </div>
                     </div>
@@ -111,30 +110,30 @@
                         <span>250</span>
                     </div>
 
-                    <input type="range" class="form-range" id="leistung-slider" min="6" max="250" value="128">
+                    <input type="range" class="form-range" id="leistung-slider" min="6" max="250" @bind="HorsePower" @onclick='() => SetHorsePower(HorsePower)'>
 
                     <h5 class="mt-4">Preis (EUR)</h5>
                     <div class="slider-label d-flex justify-content-end">
                         <span>0-</span>
                         <span>300</span>
                     </div>
-                    <input type="range" class="form-range" id="preis-slider" min="0" max="300" value="150">
+                    <input type="range" class="form-range" id="preis-slider" min="0" max="300" @bind="Price" @onclick='()=> SetPrice(Price)'>
                 </div>
 
                 <div class=" mt-2 ">
                     <div class="row d-flex justify-content-center g-2">
                         
                         <div class="col-6 ">
-                            <!--<label for="pickupDate" class="form-label labels">Start</label>-->
-                            <input type="date" id="pickupDate" class="form-control"/>
+                            <!--<label for="startDate" class="form-label labels">Start</label>-->
+                            <input type="date" id="startDate" class="form-control"/>
                         </div>
                         <div class="col-6">
-                            <!--<label for="pickupDate" class="form-label labels">End</label>-->
-                            <input type="date" id="pickupDate" class="form-control"/>
+                            <!--<label for="endDate" class="form-label labels">End</label>-->
+                            <input type="date" id="endDate" class="form-control"/>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-submit w-100 mt-4" @onclick="NavigateToBikeView">Filter
+                <button class="btn btn-submit w-100 mt-4" @onclick="SendData">Filter
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                          viewBox="0 0 16 16">
                         <path
@@ -148,17 +147,59 @@
 
 @code
 {
+    [Parameter]
+    public EventCallback<Filter> OnDataSend { get; set; }
+    private Filter? Filter { get; set; }
+    public int HorsePower { get; set; } = 128;
+    public int Price { get; set; } = 150;
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Filter = new();
     }
-    private void NavigateToBikeView()
+    
+    private async Task SendData()
     {
-        // Herausfinden wie man den datenTyp auf der bikeView setzt todo
-        NavigationManager.NavigateTo($"/bikeView/{Filter}");
+        await OnDataSend.InvokeAsync(Filter);
     }
 
-    public Filter? Filter { get; set; }
+    #region Filtering
+
     
+
+        private void ToggelRegion(string region)
+        {
+            if (Filter!.Regions.Contains(region))
+            {
+                Filter.Regions.Remove(region);
+            }
+            else
+            {
+                Filter.Regions.Add(region);
+            }
+        }
+        
+        private void ToggelBrand(string brand)
+        {
+            if (Filter!.Brands.Contains(brand))
+            {
+                Filter.Brands.Remove(brand);
+            }
+            else
+            {
+                Filter.Brands.Add(brand);
+            }
+        }
+
+        private void SetHorsePower(int horsePower)
+        {
+            Filter!.HorsePower = horsePower;
+        }
+        
+        private void SetPrice(int price)
+        {
+            Filter!.Price = price;
+        }
+    #endregion
+
 }
