@@ -28,12 +28,12 @@ public class MotorContext : DbContext
         modelBuilder.Entity<LeasingContract>()
             .HasKey(lc => new{lc.MotorbikeID, lc.UserID, lc.FROM_DATE});
         modelBuilder.Entity<User>()
-            .HasOne(u => u.Groups)
+            .HasOne(u => u.Group)
             .WithMany(g =>g.Users)
             .HasForeignKey(u => u.GroupID);
-        modelBuilder.Entity<Groups>()
-            .HasMany(g => g.Waypoints)
-            .WithOne()
+        modelBuilder.Entity<Waypoint>()
+            .HasOne(w => w.Group)
+            .WithMany(g => g.Waypoints)
             .HasForeignKey(w => w.RouteID);
         modelBuilder.Entity<LeasingContract>()
             .HasOne(lc => lc.User)

@@ -12,11 +12,10 @@ public class User
     public string Password { get; set; }
     public string Username { get; set; }
     
-    [Column("GROUP_ID")]
-    public int? GroupID { get; set; }
-    public Groups Groups { get; set; }
     public string PicAddress { get; set; }
-    
+    [Column("GROUP_ID")]
+    public int GroupID { get; set; }
+    public Groups Group { get; set; }
     
     public ICollection<LeasingContract> LeasingContracts { get; set; }
     public ICollection<Favorite> Favorites { get; set; }
