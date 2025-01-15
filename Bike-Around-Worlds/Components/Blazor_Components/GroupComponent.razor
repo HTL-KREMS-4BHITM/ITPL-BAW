@@ -28,20 +28,25 @@
      [Parameter] public int GroupID { get; set; }
      protected override void OnInitialized()
      {
-         Group = GroupRepository.Read(GroupID);
+         
          if (Group == null)
-         {
-             Console.WriteLine("Group parameter is null.");
-             usercount = 0;
-             return; 
-         }
+            Group = GroupRepository.Read(GroupID);
+         
 
          users = UserRepository.Read(u => u.GroupID == Group.Group_Id).ToList();
          usercount = users.Count;
-         
          waypoints = WaypointsRepository.Read(w => w.RouteID == Group.Group_Id);
-         startpoint = waypoints.FirstOrDefault();
-         endpoint = waypoints.LastOrDefault();
+         if (waypoints.Count ==0)
+         {
+         startpoint = new Waypoint();
+         endpoint = new Waypoint();
+             
+         }
+         else
+         {
+             startpoint = waypoints.FirstOrDefault();
+            endpoint = waypoints.LastOrDefault();
+         }
          foreach (var i in waypoints)
          {
              Console.WriteLine(i.Address);
