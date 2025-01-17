@@ -1,5 +1,6 @@
 using BAWLib;
 using BAWLib.Configs;
+using BAWLib.Entities;
 using Bike_Around_Worlds.Components;
 using Domain.Interfaces;
 using Domain.Repositories;
@@ -21,7 +22,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "auth_token";
-        options.LoginPath = "/login";
+        options.LoginPath = "/lll";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
         options.AccessDeniedPath = "/accessdenied";
     });
@@ -44,7 +45,6 @@ builder.Services.AddTransient<IRepository<Favorite>, FavoriteRepository>();
 builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IRepository<LeasingContract>, LeasingContractRepository>();
 
-builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 var app = builder.Build();
 
@@ -56,13 +56,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-app.UseAntiforgery();
 
+app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 
 

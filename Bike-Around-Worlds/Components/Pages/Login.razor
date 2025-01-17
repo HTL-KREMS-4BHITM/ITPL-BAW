@@ -1,19 +1,11 @@
-@page "/login"
+﻿@page "/lll"
 @using System.Security.Claims
-@using BAWLib
-@using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Authentication.Cookies
 @using BAWLib.Configs
 @using BAWLib.ViewModels
-@using Domain.Interfaces
-@using Domain.Repositories
-@inject MotorContext DbContext
-@inject IHttpContextAccessor HttpContextAccessor
-@inject NavigationManager NavigationManager
-@implements IAsyncDisposable
-@rendermode InteractiveServer
-@inject IRepository<User> UserRepository
 
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject MotorContext Appdbcontext
 <div class="section-login py-5">
     <div class="container">
         <h3 class="text-center mb-4">Login</h3>
@@ -32,7 +24,7 @@
                         <ValidationMessage For="() => Model.Password" />
                     </div>
                     <div class="mb-3">
-                        <span class="text-danger">@errorMessage</span>
+                        <span class="text-danger">@_errorMessage</span>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
                         <span><a href="/signup">Konto erstellen</a></span>
@@ -46,109 +38,28 @@
         </div>
     </div>
 </div>
-
 @code {
-    public LoginViewModel Model { get; set; } = new();
-    private string? errorMessage;
-    private TaskCompletionSource<bool>? authenticationTaskSource;
-
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+    [SupplyParameterFromForm] public LoginViewModel Model { get; set; } = new();
+    private string? _errorMessage;
+    
     private async Task Authenticate()
     {
-        try
+        var userAccount = Appdbcontext.Users.Where(x => x.Username == Model.Username).FirstOrDefault();
+        if (userAccount is null || userAccount.Password != Model.Password)
         {
-            // Log input data for debugging
-            Console.WriteLine($"Input Username: {Model.Username}");
-            Console.WriteLine($"Input Password: {Model.Password}");
-
-            // Fetch user account from the database (case-insensitive username match)
-            List<User> users = new();
-            users = UserRepository.ReadAll();
-
-            var userAccount = users.Where(u => u.Username == Model.Username).First();
-            
-            
-            
-            if (userAccount == null)
-            {
-                errorMessage = "Invalid Username or Password";
-                Console.WriteLine("User not found in the database.");
-                return;
-            }
-
-            Console.WriteLine($"User found: {userAccount.Username}");
-
-            // If passwords are hashed, verify the password
-            if (userAccount.Password != Model.Password) // Replace with hashing logic if necessary
-            {
-                errorMessage = "Invalid Username or Password";
-                Console.WriteLine("Password mismatch.");
-                return;
-            }
-
-            // Create user claims
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, userAccount.Username),
-            };
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            authenticationTaskSource = new TaskCompletionSource<bool>();
-
-            // Authenticate the user
-            await AuthenticateUser(principal);
-
-            // Wait for authentication to complete
-            await authenticationTaskSource.Task;
-
-            // Redirect after successful login
-            NavigationManager.NavigateTo("/bikeview");
+            _errorMessage = "Invalid User name or Passwort";
+            return;
         }
-        catch (Exception ex)
+        
+        var claims = new List<Claim>
         {
-            errorMessage = $"An error occurred: {ex.Message}";
-            Console.WriteLine($"Exception: {ex}");
-        }
+            new Claim(ClaimTypes.Name, userAccount.Username),
+        };
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+        await HttpContext!.SignInAsync(principal);
     }
 
-    private async Task AuthenticateUser(ClaimsPrincipal principal)
-    {
-        if (HttpContextAccessor.HttpContext is not null)
-        {
-            try
-            {
-                Console.WriteLine("HttpContext is accessible. Signing in...");
-                await HttpContextAccessor.HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    new AuthenticationProperties
-                    {
-                        IsPersistent = true,
-                        ExpiresUtc = DateTime.UtcNow.AddHours(1),
-                    });
-
-                // Notify the task completion source
-                authenticationTaskSource?.SetResult(true);
-                Console.WriteLine("Sign-in successful.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Authentication failed: {ex.Message}");
-                throw;
-            }
-        }
-        else
-        {
-            authenticationTaskSource?.SetException(new InvalidOperationException("Failed to access HttpContext for authentication."));
-            throw new InvalidOperationException("Failed to access HttpContext for authentication.");
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (authenticationTaskSource is not null)
-        {
-            await authenticationTaskSource.Task;
-        }
-    }
 }

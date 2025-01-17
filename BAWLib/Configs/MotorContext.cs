@@ -1,3 +1,4 @@
+using BAWLib.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BAWLib.Configs;

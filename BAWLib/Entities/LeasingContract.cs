@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using BAWLib.Entities;
 
 namespace BAWLib;
 [Table("LEASING_CONTRACTS_JT")]

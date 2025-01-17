@@ -1,4 +1,5 @@
 @using BAWLib.Classes
+@using Domain.Repositories
 <section class="section-filter">
     <div class="container d-flex justify-content-center mt-5">
         <div class="filter-container navbar-expand-lg w-100 p-1">
@@ -150,8 +151,8 @@
     [Parameter]
     public EventCallback<Filter> OnDataSend { get; set; }
     private Filter? Filter { get; set; }
-    public int HorsePower { get; set; } = 128;
-    public int Price { get; set; } = 150;
+    public int HorsePower { get; set; } = 0;
+    public int Price { get; set; } = 300;
     protected override void OnInitialized()
     {
         base.OnInitialized();

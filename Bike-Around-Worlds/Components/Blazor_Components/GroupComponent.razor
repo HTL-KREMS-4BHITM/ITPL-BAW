@@ -1,5 +1,5 @@
 @inject NavigationManager NavigationManager;
-
+@inject IRepository<User> UserRepository;
 @using BAWLib
 @using Domain.Interfaces
 <div class="card border-secondary mb-3" @onclick="NavitageToGroup" style="max-width: 18rem;">
@@ -9,7 +9,7 @@
         </h4>
         <div>
             <h4>
-                @Group.GetMemberCount()
+                
                 <i class="bi bi-person-fill"></i>
             </h4>
         </div>
@@ -36,10 +36,15 @@
 
 @code {
      [Parameter] public Groups? Group { get; set; }
+     public User UserInGroup { get; set; }
      private void NavitageToGroup()
      {
          NavigationManager.NavigateTo($"/groupDetailsView/{Group!.Group_Id}");
      }
 
+     protected override void OnInitialized()
+     {
+         base.OnInitialized();
+     }
 
 }
