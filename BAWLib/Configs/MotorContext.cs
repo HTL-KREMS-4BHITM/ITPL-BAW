@@ -13,7 +13,7 @@ public class MotorContext : DbContext
     }
 
     public virtual DbSet<User> Users { get; set; }
-    public virtual DbSet<Motorbike> Motorbikes { get; set; }
+    public virtual DbSet<Motorbike> Motorbikes { get; set; }    
     public virtual DbSet<Groups> Groups { get; set; }
     public virtual DbSet<Waypoint> Waypoints { get; set; }
     public virtual DbSet<Favorite> Favorites_JT { get; set; }
