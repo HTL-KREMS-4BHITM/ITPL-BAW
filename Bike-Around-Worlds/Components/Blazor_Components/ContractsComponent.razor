@@ -6,12 +6,18 @@
 <div class="card section-cont-card " @onclick="NavigateToProduct">
     <img src="/Resources/Bikes/@first" class="d-block " alt="Bike @startimgin">
     <div class="card-body rounded">
-        <h5 class="card-title">@bike.Manufacturer @bike.Model</h5>
-        <div class="card-text d-flex justify-content-between flex-wrap mb-lg-2">
-            <div class="d-flex align-content-lg-start"><span class="pricetag">@CurrentLeasingContract.Price_Per_Day </span><span>/Tag</span></div>
-            <span>@CurrentLeasingContract.Insurance</span>
+        <h5 class="card-title mb-3 ">@bike.Manufacturer @bike.Model</h5>
+        <div class="card-text d-flex justify-content-between flex-wrap mb-2">
+            <div class="d-flex align-content-lg-start">
+                <span class=" mb-3">
+                    @CurrentLeasingContract.FROM_DATE.ToString("dd/MM/yyyy")
+                    -
+                    @CurrentLeasingContract.TO_DATE.ToString("dd/MM/yyyy")
+                </span>
+            </div>
+            <span class="mb-lg-3">@CurrentLeasingContract.Insurance</span>
         </div>
-        <p class="card-text"><small class="text-body-secondary federal-state">#@bike.Federal_State</small></p>
+        <p class="card-text d-flex justify-content-between flex-wrap"><span><small class="text-body-secondary federal-state">#@bike.Federal_State</small></span><span class="pricetag">@CurrentLeasingContract.Price_Per_Day /Tag</span></p>
     </div>
 </div>
 

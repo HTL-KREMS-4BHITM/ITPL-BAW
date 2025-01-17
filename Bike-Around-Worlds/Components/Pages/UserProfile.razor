@@ -1,5 +1,7 @@
 @page "/userprofile"
 @page "/userprofile/{view}"
+@page "/userprofile/{edit}"
+@using System.Text.RegularExpressions
 @using BAWLib
 @using Domain.Interfaces
 @using Bike_Around_Worlds.Components.Blazor_Components
@@ -34,7 +36,7 @@
             <div class="circle-profile w-100 h-100 position-relative">
                 <img src="/Resources/User Profile Pics/@imagename" alt="Profile Picture" />
             </div>
-            <i class="bi mb-0 pb-0 bi-pen" style="font-size: 1.25rem;"></i>
+            <a href="http://localhost:5215/userprofile/edit"><i class="bi mb-0 pb-0 bi-pen" style="font-size: 1.25rem;"></i></a>
         </div>
     </div>
 
@@ -62,9 +64,17 @@
     </div>
     <div class="row border-top">
         <div class="row mt-lg-4 mb-4">
-            <h5>Meine Gruppen</h5>
+            <span>
+                <h5>Deine Gruppen</h5>
+            </span>
+            <span>
+                <a href="http://localhost:5215/BikeView">Gruppe erstellen</a>
+            </span>
         </div>
-        
+        <div class="col-lg-4    ">
+            
+            <GroupComponent GroupID=@user.GroupID></GroupComponent>
+        </div>
     </div>
 </div>
 
@@ -76,13 +86,13 @@
     private List<LeasingContract> currentcontracts = new();
     private string imagename;
     private User user = new();
+    private Groups Group = new();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         user = UserRepository.Read(2);
         imagename = user.PicAddress;
-
         UpdateContractsBasedOnView();
     }
  
@@ -120,4 +130,8 @@
     private void NavigateToView(string targetView)
     {
         Console.WriteLine($"Navigating to: /userprofile/{targetView}");*/
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("/BikeView");
+    }
 }

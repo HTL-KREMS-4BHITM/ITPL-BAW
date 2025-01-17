@@ -18,14 +18,7 @@ public class Groups
     public DateTime Created_At { get; set; } = DateTime.Now;
     
     public ICollection<User> Users { get; set; }
-    public ICollection<Waypoint> Waypoints { get; set; }
+    public ICollection<Waypoint> Waypoints { get; set; }  = new List<Waypoint>();
 
-    public int GetMemberCount()
-    {
-        if (Users == null)
-        {
-            return 0;
-        }
-        return Users.Count;
-    }
+
 }

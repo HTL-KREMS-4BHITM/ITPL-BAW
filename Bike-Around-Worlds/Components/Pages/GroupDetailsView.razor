@@ -74,7 +74,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Users = UserRepository.Read(user => user.GroupID == Group_ID);
+        //Users = UserRepository.Read(user => user.GroupID == Group_ID);
         CurrentGroup = GroupRepository.Read(Group_ID);
     }
 
