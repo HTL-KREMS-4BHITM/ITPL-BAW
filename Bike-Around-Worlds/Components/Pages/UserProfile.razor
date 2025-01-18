@@ -1,6 +1,5 @@
 @page "/userprofile"
 @page "/userprofile/{view}"
-@page "/userprofile/{edit}"
 @using System.Text.RegularExpressions
 @using BAWLib
 @using Domain.Interfaces
@@ -8,7 +7,10 @@
 @inject NavigationManager NavigationManager
 @inject IRepository<User> UserRepository
 @inject IRepository<LeasingContract> LeasingContractRepository
-@inject IRepository<Groups> GroupRepository
+@inject IRepository<GroupMembers_JT> GroupMembersRepository
+@using System.Security.Claims
+@using BAWLib.Entities
+@inject IHttpContextAccessor HttpContextAccessor
 
 <div class="container section-userprof">
     <div class="row mt-3 mb-5">
@@ -20,15 +22,15 @@
         <div class="col-lg-6 d-flex flex-column justify-content-start">
             <div class="mb-3">
                 <label for="username" class="form-label">Benutzername</label>
-                <input type="text" class="form-control" id="username" placeholder="@user.Username">
+                <input type="text" class="form-control" id="username" placeholder="@CurrentUser.Username">
             </div>
             <div class="mb-3">
                 <label for="age" class="form-label">Age</label>
-                <input type="text" class="form-control" id="age" placeholder="@user.Age">
+                <input type="text" class="form-control" id="age" placeholder="@CurrentUser.Age">
             </div>
             <div class="mb-3">
                 <label for="passwort" class="form-label">Passwort</label>
-                <input type="password" class="form-control" id="passwort" placeholder="@user.Password">
+                <input type="password" class="form-control" id="passwort" placeholder="@CurrentUser.Password">
             </div>
         </div>
 
@@ -56,7 +58,7 @@
                 @foreach (var ls in currentcontracts)
                 {
                     <div class="col-lg-3 mb-3">
-                        <ContractsComponent CurrentUser=@user MotorbikeID=@ls.MotorbikeID CurrentLeasingContract=ls></ContractsComponent>
+                        <ContractsComponent CurrentUser=@CurrentUser MotorbikeID=@ls.MotorbikeID CurrentLeasingContract=ls></ContractsComponent>
                     </div>
                 }
             </div>
@@ -71,9 +73,11 @@
                 <a href="http://localhost:5215/BikeView">Gruppe erstellen</a>
             </span>
         </div>
-        <div class="col-lg-4    ">
-            
-            <GroupComponent GroupID=@user.GroupID></GroupComponent>
+        <div class="col-lg-4 ">
+            @foreach (var group in Groups)
+            {
+                <GroupComponent GroupID=@group.Group_ID></GroupComponent>
+            }
         </div>
     </div>
 </div>
@@ -85,14 +89,20 @@
     private List<Groups> CurrentGroups = new();
     private List<LeasingContract> currentcontracts = new();
     private string imagename;
-    private User user = new();
-    private Groups Group = new();
+    private List<User> LoggedUser = new();
+    private User CurrentUser = new();
+    private List<GroupMembers_JT> Groups = new();
+    private string UserName;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        user = UserRepository.Read(2);
-        imagename = user.PicAddress;
+        var user = HttpContextAccessor.HttpContext?.User;
+        UserName = user.FindFirst(ClaimTypes.Name)?.Value;
+        LoggedUser = UserRepository.Read(u => u.Username == UserName);
+        CurrentUser = LoggedUser[0];
+        imagename = CurrentUser.PicAddress;
+        Groups = GroupMembersRepository.Read(gm => gm.User_ID == CurrentUser.User_Id);
         UpdateContractsBasedOnView();
     }
  

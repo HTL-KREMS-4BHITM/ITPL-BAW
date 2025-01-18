@@ -57,19 +57,17 @@
     private async Task RegisterUser()
     {
         Console.WriteLine("RegisterUser called");
-        Console.WriteLine($"Username: {Model.Username}, Password: {Model.Password}, ConfirmPassword: {Model.ConfirmPassword}");
+        Console.WriteLine($"Username: {Model.Username}, Password: {Model.Password}, Age: {Model.Age}, ConfirmPassword: {Model.ConfirmPassword}");
 
 
         try
         {
-            // Validation: Ensure that the required fields are not empty
-            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password))
+            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) || string.IsNullOrWhiteSpace(Model.Age))
             {
                 errorMessage = "All fields are required.";
                 return;
             }
 
-            // Check if the username already exists in the database
             var existingUser = DbContext.Users.FirstOrDefault(u => u.Username == Model.Username);
             if (existingUser != null)
             {
@@ -77,24 +75,21 @@
                 return;
             }
 
-            // Check if the passwords match
             if (Model.Password != Model.ConfirmPassword)
             {
                 errorMessage = "Passwords do not match.";
                 return;
             }
 
-            // Create the new user
             var newUser = new User
             {
                 Username = Model.Username,
-                Password = Model.Password // Note: Hash the password in a real-world application
+                Password = Model.Password 
             };
 
             DbContext.Users.Add(newUser);
             await DbContext.SaveChangesAsync();
 
-            // Redirect to the login page upon successful registration
             NavigationManager.NavigateTo("/login");
         }
         catch (Exception ex)

@@ -1,6 +1,11 @@
 @using BAWLib
 @using BAWLib.Entities
+@using BAWLib.ViewModels
+@using Bike_Around_Worlds.Components.Pages
 @using Domain.Interfaces
+@using Microsoft.EntityFrameworkCore
+@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
 
 @inject IRepository<Favorite> FavoriteRepository;
 @inject IRepository<User> UserRepository;
@@ -30,21 +35,18 @@
     public List<Favorite>? Favorites { get; set; }
     private Favorite? Favorite { get; set; }
     public List<User>? Users { get; set; }
+    private string? UserName;
 
-    public User CurrentUser { get; set; } = new User()
-    {
-        User_Id = 2,
-        Username = "testUser",
-        Age = 122,
-        Password = "123456",
-    };
+    public List<User> CurrentUser { get; set; } = new();
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Favorites = FavoriteRepository.ReadAll();
-        //Users = UserRepository.ReadAll();
-
+        //Users = UserRepository.ReadAll();#
+        var user = HttpContextAccessor.HttpContext?.User;
+        UserName = user.FindFirst(ClaimTypes.Name)?.Value;
+        CurrentUser = UserRepository.Read(u => u.Username == UserName);
     }
     
     private void ChangeIcon()
@@ -53,13 +55,13 @@
 
         if (ThisBike!.IsFavorite)
         {
-            FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser.User_Id);
+            FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser[0].User_Id);
             ThisBike.IsFavorite = false;
             MotorbikeRepository.Update(ThisBike);
         }
         else
         {
-            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser.User_Id}; // user_id hardcode
+            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser[0].User_Id}; // user_id hardcode
             FavoriteRepository.Create(Favorite);
             ThisBike!.IsFavorite = true;
             MotorbikeRepository.Update(ThisBike);
