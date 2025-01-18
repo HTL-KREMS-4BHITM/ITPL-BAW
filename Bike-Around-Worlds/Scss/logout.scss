@@ -1,0 +1,18 @@
+@use "variables" as *;
+body {
+  height: 100vh;
+  
+  .logout-container {
+    color: $text;
+    border: white solid 1px;
+    margin-top: 50vh;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    
+
+    .btn {
+      background: $secondary;
+      color: $text;
+      border: none;
+    }
+  }
+}

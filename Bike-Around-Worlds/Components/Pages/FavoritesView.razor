@@ -1,0 +1,115 @@
+@page "/favoritesView"
+@using BAWLib
+@using BAWLib.Classes
+@using BAWLib.Entities
+@using Bike_Around_Worlds.Components.Blazor_Components
+@using Domain.Interfaces
+@rendermode InteractiveServer
+@inject IRepository<Motorbike> BikeRepository;
+@inject IRepository<Favorite> FavoriteRepository
+
+
+<div class="row" style="background-color: #2c2c2c">
+    <div class="col-lg-3 col-sm-12 col-md-12">
+        <FilterComponent OnDataSend="ReceiveData"></FilterComponent>
+
+
+        <p>Received Data: @ReceivedData.Regions.Count</p>
+        <p>Received Data: @ReceivedData.Brands.Count</p>
+        <p>Received Data: @ReceivedData.HorsePower</p>
+        <p>Received Data: @ReceivedData.Price</p>
+
+
+    </div>
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="row g-5 mb-5">
+            
+            @foreach (var bike in _bikes)
+            {
+                <div class="col-lg-3">
+                    <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
+                </div>
+            }
+
+        </div>
+    </div>
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+
+@code {
+    private List<Motorbike> _bikes = new();
+    private List<Favorite> favorites = new();
+
+
+    private Filter ReceivedData { get; set; } = new Filter();
+
+    private void ReceiveData(Filter data)
+    {
+        ReceivedData = data;
+        List<Motorbike> brandBikes = new();
+        List<Motorbike> regionBikes = new();
+
+        if (data.Brands.Count() !=0)
+        {
+            foreach (var bike in _bikes)
+            {
+                if (data.Brands.Contains(bike.Manufacturer))
+                {
+                    brandBikes.Add(bike);
+                }
+            }
+        }
+
+        if (data.Regions.Count() != 0)
+        {
+            foreach (var bike in _bikes)
+            {
+                if (data.Regions.Contains(bike.Federal_State))
+                {
+                    regionBikes.Add(bike);
+                }
+            }
+        }
+
+        if (brandBikes.Count() != 0 && regionBikes.Count() !=0)
+        {
+            List<Motorbike> brandReginList = new List<Motorbike>();
+            foreach (var bike in _bikes)
+            {
+                if (data.Regions.Contains(bike.Federal_State) && data.Brands.Contains(bike.Manufacturer))
+                {
+                    brandReginList.Add(bike);
+                }
+            }
+        }
+
+
+
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        favorites = FavoriteRepository.ReadAll();
+        
+        foreach (var fav in favorites)
+        {
+            _bikes.Add(BikeRepository.Read(fav.Motorbike_ID));
+        }
+    }
+
+}

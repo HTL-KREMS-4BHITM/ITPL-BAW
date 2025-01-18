@@ -43,7 +43,6 @@
     {
         base.OnInitialized();
         Favorites = FavoriteRepository.ReadAll();
-        //Users = UserRepository.ReadAll();#
         var user = HttpContextAccessor.HttpContext?.User;
         UserName = user.FindFirst(ClaimTypes.Name)?.Value;
         CurrentUser = UserRepository.Read(u => u.Username == UserName);
