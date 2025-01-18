@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices.JavaScript;
+using BAWLib.Entities;
 
 
 namespace BAWLib;
@@ -17,7 +18,7 @@ public class Groups
     public string RouteData { get; set; }
     public DateTime Created_At { get; set; } = DateTime.Now;
     
-    public ICollection<User> Users { get; set; }
+    public ICollection<GroupMembers_JT> Members { get; set; }
     public ICollection<Waypoint> Waypoints { get; set; }  = new List<Waypoint>();
 
 

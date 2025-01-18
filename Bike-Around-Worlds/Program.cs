@@ -45,6 +45,7 @@ builder.Services.AddTransient<IRepository<Favorite>, FavoriteRepository>();
 builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IRepository<LeasingContract>, LeasingContractRepository>();
 builder.Services.AddTransient<IRepository<Waypoint>, WaypointsRepository>();
+builder.Services.AddTransient<IRepository<GroupMembers_JT>, GroupMembersRepository>();
 
 
 

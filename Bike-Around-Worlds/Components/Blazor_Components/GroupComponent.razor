@@ -2,8 +2,10 @@
 @inject IRepository<User> UserRepository;
 @inject IRepository<Groups> GroupRepository;
 @inject IRepository<Waypoint> WaypointsRepository;
+@inject IRepository<GroupMembers_JT> GroupMemberRepository
 
 @using BAWLib
+@using BAWLib.Entities
 @using Domain.Interfaces
 @using Domain.Repositories
 
@@ -33,7 +35,7 @@
             Group = GroupRepository.Read(GroupID);
          
 
-         users = UserRepository.Read(u => u.GroupID == Group.Group_Id).ToList();
+         users = GroupMemberRepository.Read(gm => gm.Group_ID == Group.Group_Id).ToList();
          usercount = users.Count;
          waypoints = WaypointsRepository.Read(w => w.RouteID == Group.Group_Id);
          if (waypoints.Count ==0)
@@ -57,7 +59,7 @@
      Waypoint startpoint;
      Waypoint endpoint;
      private int usercount;
-     private List<User> users = new();
+     private List<GroupMembers_JT> users = new();
      private List<Waypoint> waypoints;
      private void NavitageToGroup()
      {

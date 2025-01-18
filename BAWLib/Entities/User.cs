@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BAWLib.Entities;
 
 namespace BAWLib;
 [Table("USERS")]
@@ -13,9 +14,8 @@ public class User
     public string Username { get; set; }
     
     public string PicAddress { get; set; }
-    [Column("GROUP_ID")]
-    public int GroupID { get; set; }
-    public Groups Group { get; set; }
+    [Column("GROUP_ID")] 
+    public ICollection<GroupMembers_JT> Groups { get; set; }
     
     public ICollection<LeasingContract> LeasingContracts { get; set; }
     public ICollection<Favorite> Favorites { get; set; }
