@@ -146,6 +146,10 @@
                 {
                     returnBikes.Remove(leasingContract.Motorbike);
                 }
+                if (DateOnly.FromDateTime(leasingContract.FROM_DATE) < data.To)
+                {
+                    returnBikes.Remove(leasingContract.Motorbike);
+                }
             }
         }
         return returnBikes;
