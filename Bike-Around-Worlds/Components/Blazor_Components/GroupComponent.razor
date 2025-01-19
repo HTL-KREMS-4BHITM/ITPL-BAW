@@ -40,20 +40,20 @@
          waypoints = WaypointsRepository.Read(w => w.RouteID == Group.Group_Id);
          if (waypoints.Count ==0)
          {
-         startpoint = new Waypoint();
-         endpoint = new Waypoint();
+             startpoint = new Waypoint();
+             endpoint = new Waypoint();
              
          }
          else
-         {
+         { 
              startpoint = waypoints.FirstOrDefault();
-            endpoint = waypoints.LastOrDefault();
+             endpoint = waypoints.LastOrDefault();
          }
          foreach (var i in waypoints)
          {
              Console.WriteLine(i.Address);
          }
-         //waypoints = WaypointsRepository.Read(w => w.RouteID == Group.Group_Id);
+
      }
 
      Waypoint startpoint;

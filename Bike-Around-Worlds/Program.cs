@@ -6,7 +6,6 @@ using Domain.Interfaces;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -22,7 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "auth_token";
-        options.LoginPath = "/lll";
+        options.LoginPath = "/login";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
         options.AccessDeniedPath = "/accessdenied";
     });
