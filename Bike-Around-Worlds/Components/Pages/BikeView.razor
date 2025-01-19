@@ -100,9 +100,9 @@
 
         if (data.Regions.Count!=0 && data.Brands.Count() ==0)
         {
-            foreach (var bike in _reverenceBikes)
+            foreach (Motorbike bike in _reverenceBikes)
             {
-                if (data.Regions.Contains(bike.Federal_State))
+                if (data.Regions.Contains(bike.Federal_State) && bike.CurrentLeasingRate <= data.Price && bike.Ps >= data.HorsePower)
                 {
                     returnBikes.Add(bike);
                 }
@@ -110,10 +110,10 @@
         }
         if (data.Brands.Count!=0 && data.Regions.Count() ==0)
         {
-            foreach (var bike in _reverenceBikes)
+            foreach (Motorbike bike in _reverenceBikes)
             {
                 
-                if (data.Brands.Contains(bike.Manufacturer))
+                if (data.Brands.Contains(bike.Manufacturer)&& bike.CurrentLeasingRate <= data.Price && bike.Ps >= data.HorsePower)
                 {
                     returnBikes.Add(bike);
                 }
@@ -121,14 +121,20 @@
         }
         if (data.Regions.Count==0 && data.Brands.Count==0)
         {
-            returnBikes = _reverenceBikes;
+            foreach (Motorbike bike in _reverenceBikes)
+            {
+                if (bike.CurrentLeasingRate <= data.Price && bike.Ps >= data.HorsePower)
+                {
+                    returnBikes.Add(bike);
+                }
+            }
         }
 
         if (data.Regions.Count() != 0 && data.Brands.Count() != 0)
         {
-            foreach (var bike in _reverenceBikes)
+            foreach (Motorbike bike in _reverenceBikes)
             {
-                if (data.Brands.Contains(bike.Manufacturer) && data.Regions.Contains(bike.Federal_State))
+                if (data.Brands.Contains(bike.Manufacturer) && data.Regions.Contains(bike.Federal_State)&& bike.CurrentLeasingRate <= data.Price && bike.Ps >= data.HorsePower)
                 {
                     returnBikes.Add(bike);
                 }

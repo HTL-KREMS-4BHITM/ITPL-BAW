@@ -161,6 +161,8 @@
     
     private async Task SendData()
     {
+        this.Filter.Price = Price;
+        this.Filter.HorsePower = HorsePower;
         await OnDataSend.InvokeAsync(Filter);
         StateHasChanged();
     }
