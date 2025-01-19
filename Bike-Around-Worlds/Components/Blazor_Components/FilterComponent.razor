@@ -1,5 +1,4 @@
 @using BAWLib.Classes
-@using Domain.Repositories
 <section class="section-filter">
     <div class="container d-flex justify-content-center mt-5">
         <div class="filter-container navbar-expand-lg w-100 p-1">
@@ -126,11 +125,11 @@
                         
                         <div class="col-6 ">
                             <!--<label for="startDate" class="form-label labels">Start</label>-->
-                            <input type="date" id="startDate" class="form-control"/>
+                            <input type="date" id="startDate" class="form-control" @bind="From" @onclick="() => SetFromDate(From)"/>
                         </div>
                         <div class="col-6">
                             <!--<label for="endDate" class="form-label labels">End</label>-->
-                            <input type="date" id="endDate" class="form-control"/>
+                            <input type="date" id="endDate" class="form-control" @bind="To" @onclick="() => SetToDate(To)"/>
                         </div>
                     </div>
                 </div>
@@ -151,8 +150,11 @@
     [Parameter]
     public EventCallback<Filter> OnDataSend { get; set; }
     private Filter? Filter { get; set; }
-    public int HorsePower { get; set; } = 0;
-    public int Price { get; set; } = 300;
+    private int HorsePower { get; set; }
+    private int Price { get; set; } = 300;
+    private DateOnly To { get; set; } = DateOnly.FromDateTime(DateTime.Now).AddYears(1);
+    private DateOnly From { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -161,8 +163,10 @@
     
     private async Task SendData()
     {
-        this.Filter.Price = Price;
-        this.Filter.HorsePower = HorsePower;
+        Filter!.Price = Price;
+        Filter.HorsePower = HorsePower;
+        Filter.To = To;
+        Filter.From = From;
         await OnDataSend.InvokeAsync(Filter);
         StateHasChanged();
     }
@@ -203,6 +207,15 @@
         private void SetPrice(int price)
         {
             Filter!.Price = price;
+        }
+        private void SetFromDate(DateOnly from)
+        {
+            Filter!.From = from;
+        }
+        
+        private void SetToDate(DateOnly to)
+        {
+            Filter!.To = to;
         }
     #endregion
 

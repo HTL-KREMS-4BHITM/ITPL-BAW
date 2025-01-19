@@ -7,6 +7,7 @@
 @using Domain.Interfaces
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
+@inject IRepository<LeasingContract> LeasingContractRepository;
 @inject NavigationManager NavigationManager;
 
 
@@ -14,23 +15,12 @@
 <PageTitle>Bikes</PageTitle>
 
 
-
+@ReceivedData.From
+@ReceivedData.To
 
 <div class="row" style="background-color: #2c2c2c">
     <div class="col-lg-3 col-sm-12 col-md-12">
         <FilterComponent OnDataSend="ReceiveData"></FilterComponent>
-        
-   
-        <p>Received Data: @ReceivedData.Regions.Count</p>
-        <p>Received Data: @ReceivedData.Brands.Count</p>
-        <p>Received Data: @ReceivedData.HorsePower</p>
-        <p>Received Data: @ReceivedData.Price</p>
-        @foreach (var q in @ReceivedData.Brands)
-        {
-            <p>@q</p>
-        }
-            
-   
     </div>
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
@@ -47,8 +37,6 @@
                     {
                         <BikeComponent ThisBike=@bike Icon="bi-star" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
                     }
-                    @bike.Manufacturer
-                    @bike.Federal_State
                 </div>
             }
         </div>
@@ -73,6 +61,7 @@
 @code {
     private List<Motorbike> _bikes = new();
     private List<Motorbike> _reverenceBikes = new();
+    private List<LeasingContract> _leasingContracts = new();
     
 
 
@@ -81,6 +70,7 @@
     private void ReceiveData(Filter data)
     {
         ReceivedData = data;
+
         _bikes = FilterBikes(ReceivedData);
         NavigationManager.NavigateTo("/bikeView");
         StateHasChanged();
@@ -90,9 +80,14 @@
     {
         base.OnInitialized();
         _reverenceBikes = BikeRepository.ReadAll();
+        _leasingContracts = LeasingContractRepository.ReadAll();
         _bikes = _reverenceBikes;
 
     }
+
+    #region Filtering
+
+    
 
     private List<Motorbike> FilterBikes(Filter data)
     {
@@ -140,7 +135,21 @@
                 }
             }
         }
+
+        
+        
+        foreach (LeasingContract leasingContract in _leasingContracts)
+        {
+            if (returnBikes.Contains(leasingContract.Motorbike))
+            {
+                if (DateOnly.FromDateTime(leasingContract.TO_DATE) > data.From)
+                {
+                    returnBikes.Remove(leasingContract.Motorbike);
+                }
+            }
+        }
         return returnBikes;
     }
 
+    #endregion
 }
