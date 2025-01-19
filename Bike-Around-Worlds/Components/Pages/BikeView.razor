@@ -7,6 +7,7 @@
 @using Domain.Interfaces
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
+@inject NavigationManager NavigationManager;
 
 
 
@@ -24,6 +25,10 @@
         <p>Received Data: @ReceivedData.Brands.Count</p>
         <p>Received Data: @ReceivedData.HorsePower</p>
         <p>Received Data: @ReceivedData.Price</p>
+        @foreach (var q in @ReceivedData.Brands)
+        {
+            <p>@q</p>
+        }
             
    
     </div>
@@ -42,6 +47,8 @@
                     {
                         <BikeComponent ThisBike=@bike Icon="bi-star" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
                     }
+                    @bike.Manufacturer
+                    @bike.Federal_State
                 </div>
             }
         </div>
@@ -65,6 +72,7 @@
 
 @code {
     private List<Motorbike> _bikes = new();
+    private List<Motorbike> _reverenceBikes = new();
     
 
 
@@ -73,52 +81,60 @@
     private void ReceiveData(Filter data)
     {
         ReceivedData = data;
-        List<Motorbike> brandBikes = new();
-        List<Motorbike> regionBikes = new();
-
-        if (data.Brands.Count() !=0)
-        {
-            foreach (var bike in _bikes)
-            {
-                if (data.Brands.Contains(bike.Manufacturer))
-                {
-                    brandBikes.Add(bike);
-                }
-            }
-        }
-
-        if (data.Regions.Count() != 0)
-        {
-            foreach (var bike in _bikes)
-            {
-                if (data.Regions.Contains(bike.Federal_State))
-                {
-                    regionBikes.Add(bike);
-                }
-            }
-        }
-
-        if (brandBikes.Count() != 0 && regionBikes.Count() !=0)
-        {
-            List<Motorbike> brandReginList = new List<Motorbike>();
-            foreach (var bike in _bikes)
-            {
-                if (data.Regions.Contains(bike.Federal_State) && data.Brands.Contains(bike.Manufacturer))
-                {
-                    brandReginList.Add(bike);
-                }
-            }
-        }
-        
-        
-        
+        _bikes = FilterBikes(ReceivedData);
+        NavigationManager.NavigateTo("/bikeView");
+        StateHasChanged();
     }
     
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _bikes = BikeRepository.ReadAll();
-        
+        _reverenceBikes = BikeRepository.ReadAll();
+        _bikes = _reverenceBikes;
+
+    }
+
+    private List<Motorbike> FilterBikes(Filter data)
+    {
+        List<Motorbike> returnBikes = new();
+
+        if (data.Regions.Count!=0 && data.Brands.Count() ==0)
+        {
+            foreach (var bike in _reverenceBikes)
+            {
+                if (data.Regions.Contains(bike.Federal_State))
+                {
+                    returnBikes.Add(bike);
+                }
+            }
+        }
+        if (data.Brands.Count!=0 && data.Regions.Count() ==0)
+        {
+            foreach (var bike in _reverenceBikes)
+            {
+                
+                if (data.Brands.Contains(bike.Manufacturer))
+                {
+                    returnBikes.Add(bike);
+                }
+            }
+        }
+        if (data.Regions.Count==0 && data.Brands.Count==0)
+        {
+            returnBikes = _reverenceBikes;
+        }
+
+        if (data.Regions.Count() != 0 && data.Brands.Count() != 0)
+        {
+            foreach (var bike in _reverenceBikes)
+            {
+                if (data.Brands.Contains(bike.Manufacturer) && data.Regions.Contains(bike.Federal_State))
+                {
+                    returnBikes.Add(bike);
+                }
+            }
+        }
+        return returnBikes;
     }
 
 }
