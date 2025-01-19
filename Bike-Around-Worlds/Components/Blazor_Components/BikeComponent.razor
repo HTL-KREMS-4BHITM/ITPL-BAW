@@ -12,10 +12,10 @@
 @inject IRepository<Motorbike> MotorbikeRepository;
 @inject NavigationManager NavigationManager
 
-<div class="card bike-element" @onclick="NavToProductView">
-    <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes">
+<div class="card bike-element" >
+    <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
     <div class="card-body">
-        <h1>@ThisBike!.Manufacturer @ThisBike.Model </h1>
+        <h1 @onclick="NavToProductView">@ThisBike!.Manufacturer @ThisBike.Model </h1>
         <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
