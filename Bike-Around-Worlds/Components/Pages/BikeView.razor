@@ -8,7 +8,7 @@
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
 @inject IRepository<LeasingContract> LeasingContractRepository;
-@inject NavigationManager NavigationManager;
+
 
 
 
@@ -71,7 +71,7 @@
         ReceivedData = data;
 
         _bikes = FilterBikes(ReceivedData);
-        NavigationManager.NavigateTo("/bikeView");
+        
         StateHasChanged();
     }
     

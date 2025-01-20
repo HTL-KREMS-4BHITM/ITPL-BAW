@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BAWLib.Entities;
-[Table("GroupMembers_JT")]
+[Table("GROUPMEMBERS_JT")]
 public class GroupMembers_JT
 {
     public int User_ID { get; set; }

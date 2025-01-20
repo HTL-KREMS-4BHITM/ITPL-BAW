@@ -1,5 +1,6 @@
 @page "/FindGroup"
 @using BAWLib
+@using BAWLib.Classes
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
 @rendermode InteractiveServer
@@ -10,7 +11,7 @@
 <section class="se-group">
     <div class="row">
         <div class="col-3">
-            <GroupFilterComponent></GroupFilterComponent>
+            <GroupFilterComponent OnDataSend="ReceiveData"></GroupFilterComponent>
         </div>
         <div class="col-9">
             <div class="row">
@@ -30,9 +31,55 @@
 
 @code {
     private List<Groups>? Groups = new();
+    private List<Groups>? _reverenceGroups = new();
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Groups = GroupRepository.ReadAll();
+        _reverenceGroups = GroupRepository.ReadAll();
+        Groups = _reverenceGroups;
     }
+    
+    private GroupFilter ReceivedData { get; set; } = new();
+
+    private void ReceiveData(GroupFilter data)
+    {
+        ReceivedData = data;
+
+        Groups = FilterGroups(ReceivedData);
+        StateHasChanged();
+    }
+
+    #region Filtering
+
+    private List<Groups> FilterGroups(GroupFilter data)
+    {
+        List<Groups> returnGroups = new();
+        if (data.Regions!.Count() != 0)
+        {
+            foreach (Groups group in _reverenceGroups!)
+            {
+                if (data.Regions!.Contains(group.Federal_State) && data.GroupMembersCount <= group.Members.Count)
+                {
+                    returnGroups.Add(group);
+                }
+                
+            }
+        }
+
+
+        if (data.Regions!.Count==0)
+        {
+            foreach (Groups group in _reverenceGroups!)
+            {
+                if (data.GroupMembersCount <= group.Members.Count)
+                {
+                    returnGroups.Add(group);
+                }
+            }
+        }
+        return returnGroups;
+    }
+
+    #endregion
+    
 }

@@ -102,9 +102,14 @@
 
                 <div class="container mt-5">
                     <!-- Leistung Slider -->
-
-
-                    <h5 class="mt-4">Leistung (PS)</h5>
+                    
+                    <div class="d-flex justify-content-between row">
+                    <h5 class="mt-0 mb-0 col-10">Leistung (PS):</h5>
+                    <p class="mb-0 col-2">
+                        @HorsePower
+                    </p>
+                    
+                    </div>
                     <div class="slider-label d-flex justify-content-end">
                         <span>6-</span>
                         <span>250</span>
@@ -112,7 +117,10 @@
 
                     <input type="range" class="form-range" id="leistung-slider" min="6" max="250" @bind="HorsePower" @onclick='() => SetHorsePower(HorsePower)'>
 
-                    <h5 class="mt-4">Preis (EUR)</h5>
+                    <div class="d-flex justify-content-between row">
+                        <h5 class="mt-0 mb-0 col-10">Preis (EUR):</h5>
+                        <p class="mb-0 col-2">@Price</p>
+                    </div>
                     <div class="slider-label d-flex justify-content-end">
                         <span>0-</span>
                         <span>300</span>
