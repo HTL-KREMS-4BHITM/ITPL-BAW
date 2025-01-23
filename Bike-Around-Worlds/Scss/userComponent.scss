@@ -1,0 +1,12 @@
+@use "variables" as *;
+.user-component {
+  background-color: $primary; 
+  color: $text;
+  padding: 15px;
+  border-radius: 10px;
+ 
+  .profile-icon {
+    font-size: 3rem;
+  }
+}
+
