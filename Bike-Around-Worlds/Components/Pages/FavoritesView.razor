@@ -9,7 +9,16 @@
 
 @inject IRepository<LeasingContract> LeasingContractRepository;
 @inject IRepository<Motorbike> MotorbikeRepository;
-
+<style>
+    .custom-alert {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1050; /* Ensure it stays above other elements */
+        width: 300px; /* Optional: Set a fixed width for consistency */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
+    }
+</style>
 
 <div class="row" style="background-color: #2c2c2c">
     <div class="col-lg-3 col-sm-12 col-md-12">
@@ -21,7 +30,13 @@
     </div>
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
-            
+            @if (alert)
+            {
+                <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+                    @alertmessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             @foreach (var bike in _bikes)
             {
                 <div class="col-lg-3">
@@ -30,7 +45,7 @@
                     
                     
            
-                    <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg"></BikeComponent>
+                    <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert"></BikeComponent>
                 </div>
             }
 
@@ -58,6 +73,8 @@
 
     private List<Motorbike> _reverenceBikes = new();
     private List<LeasingContract> _leasingContracts = new();
+    private string alertmessage;
+    private bool alert = false;
 
 
     private Filter ReceivedData { get; set; } = new Filter();
@@ -78,24 +95,23 @@
     }
 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private void ReceivedAlert(string message)
+    {
+        alertmessage = message;
+        alert = true;
+
+        Task.Delay(5000).ContinueWith(_ =>
+        {
+            alert = false;
+            InvokeAsync(StateHasChanged); 
+        });
+    }
+
+
+    private void ReceivedBool(bool alertb)
+    {
+        alert = alertb;
+    }
     
     
     #region Filtering

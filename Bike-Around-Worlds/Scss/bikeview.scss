@@ -1,5 +1,14 @@
 @use "variables" as *;
 
+.custom-alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050; /* Ensure it stays above other elements */
+  width: 300px; /* Optional: Set a fixed width for consistency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
+}
+
 
 
 // Grundlegendes Styling für die Pagination

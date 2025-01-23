@@ -1,62 +1,123 @@
 @page "/CreateGroup"
 @using BAWLib
 @using Bike_Around_Worlds.Components.Blazor_Components
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
 <style>
-    #map {
-        height: 400px; /* Adjust height as needed */
-        width: 100%;   /* Full width */
+    html,
+    body,
+    #my-map {
+        width: 100%;
+        height: 400px; /* Adjusted height for demonstration purposes */
+        margin: 0;
     }
 </style>
 <div class="mainbody">
     <div class="container">
-        <div class="row mx-auto">
+        <div class="row mx-auto mt-lg-5">
             <h3 class="d-flex justify-content-center">Gruppe erstellen</h3>
         </div>
         <div class="row border-bottom border-secondary">
-            <div class="col-6 mb-5">
+            <div class="col-lg-6 mb-5">
                 <EditForm Model="@_group" OnValidSubmit="HandleSubmit" FormName="CreateGroup">
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
                     <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
-                        <input type="text" @bind="@_group.Name" id="groupname" class="form-control" placeholder="Gruppenname*">
+                        <input type="text" @bind="_group.Name" id="groupname" class="form-control" placeholder="Gruppenname*" />
                     </div>
                     <div class="mb-4 mt-2 pt-4 border-bottom border-secondary">
-                        <input type="text" @bind="@_group.Description" id="descrip" class="form-control" placeholder="Beschreibung">
+                        <input type="text" @bind="_group.Description" id="descrip" class="form-control" placeholder="Beschreibung" />
+                    </div>
+                    <div class="form-check col-6">
+                        <input class="form-check-input" type="radio"  @bind="PublicPrivate" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Öffentlich
+                        </label>
+                    </div>
+                    <div class="form-check col-6">
+                        <input class="form-check-input" type="radio" @bind="PublicPrivate"  name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Privat
+                        </label>
                     </div>
                 </EditForm>
             </div>
-            <div class="col-6 mb-5">
-                <input type="text" name="datetimes"/>
-                <script>
-                    $(function() {
-                        $('input[name="datetimes"]').daterangepicker({
-                            timePicker: true,
-                            startDate: moment().startOf('hour'),
-                            endDate: moment().startOf('hour').add(32, 'hour'),
-                            locale: {
-                                format: 'M/DD hh:mm A'
-                            }
-                        });
-                    });
-                </script>
+
+            <div class="col-lg-6 m-auto">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="pickupDate" class="form-label labels">Start</label>
+                        <input type="date" id="pickupDate" class="form-control" @bind="PickupDate" />
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="pickupTime" class="form-label labels">Start Uhrzeit</label>
+                        <input type="time" id="pickupTime" class="form-control" @bind="PickupTime" />
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="dropoffDate" class="form-label labels">Ende</label>
+                        <input type="date" id="dropoffDate" class="form-control" @bind="DropoffDate" />
+                    </div>
+                   
+                    
+                    
+                    
+                    <div class="col-lg-3">
+                        <label for="dropoffTime" class="form-label labels">Ende Uhrzeit</label>
+                        <input type="time" id="dropoffTime" class="form-control" @bind="DropoffTime" />
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="row mt-3">
-            <div class="map-container">
-                <MapComponent></MapComponent>
+
+        <div class="row mt-3 mb-3">
+            <div class="col-lg-6">
+                <div id="my-map"></div>
             </div>
         </div>
-        
     </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    const map = L.map('my-map').setView([48.2082, 16.3738], 10); // Koordinaten für Wien, Zoom-Level 12
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+    }).addTo(map);
+    
+    const myAPIKey = "65f0613505ff4799a40b3b62ead71e53";
+    const fromWaypoint = [38.937165,-77.045590]; // latutude, longitude
+    const toWaypoint = [38.881152,-76.990693]; // latitude, longitude
+    const url = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint.join(',')}|${toWaypoint.join(',')}&mode=drive&details=instruction_details&apiKey=${myAPIKey}`;
+
+    fetch(url).then(res => res.json()).then(result => {
+        L.geoJSON(result, {
+            style: (feature) => {
+                return {
+                    color: "rgba(20, 137, 255, 0.7)",
+                    weight: 5
+                };
+            }
+        }).bindPopup((layer) => {
+            return `${layer.feature.properties.distance} ${layer.feature.properties.distance_units}, ${layer.feature.properties.time}`
+        }).addTo(map);
+        console.log(result);
+    }, error => console.log(err));
 
     
-</div>
+
+</script>
 
 @code {
     Groups _group = new Groups();
-
+    public TimeOnly PickupTime { get; set; } = new TimeOnly(10, 0);
+    public TimeOnly DropoffTime { get; set; } = new TimeOnly(10, 0);
+    public DateOnly PickupDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    public DateOnly DropoffDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    private string PublicPrivate { get; set; }
     private void HandleSubmit()
     {
     }

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/HTL-KREMS-4BHITM/ITPL-BAW#readme",
   "dependencies": {
+    "leaflet": "^1.9.4",
     "pgk": "^0.0.1-security",
     "sass": "^1.81.0",
     "scss": "^0.2.4",

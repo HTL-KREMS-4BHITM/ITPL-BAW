@@ -2,13 +2,16 @@
 
 .mainbody {
   background-color: #2C2C2C !important;
-  color: #ffffff; /* Ensures text is visible */
+  color: #ffffff; 
+  input{
+    color: white;
+  }
 }
 
 .map-container {
-  background-color: #2C2C2C; /* Matches the mainbody background */
+  background-color: #2C2C2C; 
   border: 1px solid #6c757d;
-  padding: 10px; /* Adjust padding for better spacing */
+  padding: 10px; 
 }
 
 .form-control {
@@ -18,21 +21,21 @@
 }
 
 .navbar {
-  background-color: #343a40; /* Update navbar color to match dark theme */
+  background-color: #343a40; 
 }
 
 .navbar-toggler-icon {
-  background-color: #ffffff; /* Ensure the burger menu icon is visible */
+  background-color: #ffffff; 
 }
 
 .navbar-nav .nav-link {
-  color: #ffffff; /* Ensure nav links are visible against dark background */
+  color: #ffffff; 
 }
 
 .navbar-nav .nav-link.active {
-  color: #ffffff; /* Ensure active nav link is highlighted */
+  color: #ffffff; 
 }
 
 .text-light {
-  color: #ffffff !important; /* Ensure text within components is readable */
+  color: #ffffff !important;
 }
