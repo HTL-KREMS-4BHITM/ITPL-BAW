@@ -30,21 +30,16 @@
     </div>
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
-            @if (alert)
+            @if (_alert)
             {
                 <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
-                    @alertmessage
+                    @_alertmessage
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
             @foreach (var bike in _bikes)
             {
                 <div class="col-lg-3">
-
-                    
-                    
-                    
-           
                     <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert"></BikeComponent>
                 </div>
             }
@@ -73,15 +68,12 @@
 
     private List<Motorbike> _reverenceBikes = new();
     private List<LeasingContract> _leasingContracts = new();
-    private string alertmessage;
-    private bool alert = false;
+    private string? _alertmessage;
+    private bool _alert;
 
-
-    private Filter ReceivedData { get; set; } = new Filter();
 
     private void ReceiveData(Filter data)
     {
-        ReceivedData = data;
         _bikes = FilterBikes(data);
         StateHasChanged();
     }
@@ -97,12 +89,12 @@
     
     private void ReceivedAlert(string message)
     {
-        alertmessage = message;
-        alert = true;
+        _alertmessage = message;
+        _alert = true;
 
         Task.Delay(5000).ContinueWith(_ =>
         {
-            alert = false;
+            _alert = false;
             InvokeAsync(StateHasChanged); 
         });
     }
@@ -110,7 +102,7 @@
 
     private void ReceivedBool(bool alertb)
     {
-        alert = alertb;
+        _alert = alertb;
     }
     
     

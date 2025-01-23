@@ -36,44 +36,30 @@
     [Parameter] public string? Icon { get; set; }
     [Parameter] public Motorbike? ThisBike { get; set; }
     [Parameter] public bool IsFavorite { get; set; }
-    public List<Favorite>? Favorites { get; set; }
+    [Parameter] public int CurrentUser_Id { get; set; }
     private Favorite? Favorite { get; set; }
-    public List<User>? Users { get; set; }
-    private string? UserName;
+    private List<Favorite> _favorites { get; set; }
     
-    public List<User> CurrentUser { get; set; } = new();
     
-    protected override void OnInitialized()
-    {
-        
-        base.OnInitialized();
-        Favorites = FavoriteRepository.ReadAll();
-        var user = HttpContextAccessor.HttpContext?.User;
-        UserName = user.FindFirst(ClaimTypes.Name)?.Value;
-        CurrentUser = UserRepository.Read(u => u.Username == UserName);
-       
-    }
+
     
     private void ChangeIcon()
     {
-        Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
+   
 
-        try
+        try // hagt nen error der kack
         {
-            if (ThisBike!.IsFavorite)
+            if (_favorites.Contains(new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id }))
             {
-                FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser[0].User_Id);
-                ThisBike.IsFavorite = false;
-                MotorbikeRepository.Update(ThisBike);
+                Icon = "bi-star";
+                FavoriteRepository.Delete(new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id });
                 SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
-                
             }
             else
             {
-                Favorite = new Favorite() { Motorbike_ID = ThisBike.Motorbike_ID, User_ID = CurrentUser[0].User_Id };
+                Icon = "bi-star-fill";
+                Favorite = new Favorite() { Motorbike_ID = ThisBike.Motorbike_ID, User_ID = CurrentUser_Id };
                 FavoriteRepository.Create(Favorite);
-                ThisBike!.IsFavorite = true;
-                MotorbikeRepository.Update(ThisBike);
                 SendAlert("Bike zu Favoriten erfolgreich hinzugefügt!", true);
             }
         }
@@ -84,6 +70,13 @@
 
 
 
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        // muss man ein if angemeldet maschen 
+        _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
     }
 
     private void NavToProductView()
