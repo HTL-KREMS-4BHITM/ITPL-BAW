@@ -7,44 +7,54 @@
 <section class="section-group-details">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 mb-5">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <h2>
-                            Route:
-                        </h2>
+                    <div class="group_name">
+                        <h2> @CurrentGroup.Name</h2>
+                        <h4># Österreich</h4>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="join_button d-flex justify-content-end">
+                        <button>Beitreten</button>
+                    </div>
+                   
+                    <div class="col-lg-12 mb-5">
+                        <h4>
+                            Route:
+                        </h4>
+                    </div>
+                    <div class="col-lg-12 mb-5">
                         <div class="row">
-                            
-                            <div class="col-lg-6 map-holder">
-                            
+
+                            <div class="col-lg-6 map-holder mb-5">
+
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 mb-5 route">
                                 <div>
-                                    <input type="text" id="start">
-                                    <label for="start"></label>
+                                    <input type="text" value="7000, Eisenstadt, Austria" id="start" disabled>
+                                    <label for="start">start</label>
                                 </div>
                                 <div>
-                                    <input type="text" id="end">
-                                    <label for="end"></label>
+                                    <input type="text" value="7000, Eisenstadt, Austria" id="end" disabled>
+                                    <label for="end">ende</label>
+                                </div>
+                                <div>
+                                    <input type="text" value="@CurrentGroup.From_Date - @CurrentGroup.To_Date" id="date" disabled>
+                                    <label for="date">from to</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div>
-                    <p>
-                        
-                    </p>
-                </div>
+
+            <div class="col-lg-12 container description">
+                <p> @CurrentGroup.Description</p>
             </div>
-            <div class="col-lg-12">
-                <h1>
+            
+            <div class="col-lg-12 mb-5 members">
+                <h5>
                     Mitglieder:
-                </h1>
+                </h5>
                 <div class="row">
                     @foreach (User curentUser in Users!)
                     {
@@ -54,17 +64,7 @@
                     }
                 </div>
             </div>
-            <div class="col-lg-12">
-                <h2>
-                    
-                </h2>
-                <p>
-                    
-                </p>
-                <putton>
-                    
-                </putton>
-            </div>
+           
         </div>
     </div>
 </section>

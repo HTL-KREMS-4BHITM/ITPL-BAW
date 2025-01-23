@@ -1,0 +1,60 @@
+@use "variables" as *;
+.section-group-details {
+  color: $text;
+
+  .join_button {
+    button {
+      background-color: #ff4a00; 
+      color: white; 
+      border: none; 
+      border-radius: 20px; 
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer; 
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #e04100; 
+      }
+    }
+  }
+
+  .route {
+    div {
+      margin-bottom: 20px; 
+
+      input {
+        width: 70%; 
+        padding: 10px 15px; 
+        border: none; 
+        border-radius: 10px; 
+        background-color:$primary; 
+        color: $text;
+        outline: none; 
+
+       
+      }
+
+      label {
+        display: block; 
+        margin-top: 5px; 
+        color: $text; 
+        
+      }
+    }
+  }
+  .description{
+    p {
+      width: 70%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      background-color:$primary;
+      color: $text;
+      outline: none;
+
+
+    }
+  }
+ 
+}
