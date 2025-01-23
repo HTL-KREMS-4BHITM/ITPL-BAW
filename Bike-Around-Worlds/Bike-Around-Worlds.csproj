@@ -35,4 +35,8 @@
       <Content Remove="wwwroot\CustomScripts\map.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\CustomScripts\" />
+    </ItemGroup>
+
 </Project>

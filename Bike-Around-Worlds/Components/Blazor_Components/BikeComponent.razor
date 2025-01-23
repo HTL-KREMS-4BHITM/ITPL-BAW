@@ -12,20 +12,24 @@
 @inject IRepository<Motorbike> MotorbikeRepository;
 @inject NavigationManager NavigationManager
 
-<div class="card bike-element" >
+
+<div class="card bike-element">
     <img src=@ImgOne class="card-img-top" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
     <div class="card-body">
         <h1 @onclick="NavToProductView">@ThisBike!.Manufacturer @ThisBike.Model </h1>
         <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
-            
+
             <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
         </div>
     </div>
 </div>
 
 @code {
+    [Parameter] public EventCallback<bool> Alert { get; set; }
+    [Parameter] public EventCallback<string> AlertMessage { get; set; }
+    [Parameter] public EventCallback<bool> IsError { get; set; }
     [Parameter] public string? ImgOne { get; set; }
     [Parameter] public string? ImgTwo { get; set; }
     [Parameter] public string? ImgThree { get; set; }
@@ -36,36 +40,47 @@
     private Favorite? Favorite { get; set; }
     public List<User>? Users { get; set; }
     private string? UserName;
-
+    
     public List<User> CurrentUser { get; set; } = new();
     
     protected override void OnInitialized()
     {
+        
         base.OnInitialized();
         Favorites = FavoriteRepository.ReadAll();
         var user = HttpContextAccessor.HttpContext?.User;
         UserName = user.FindFirst(ClaimTypes.Name)?.Value;
         CurrentUser = UserRepository.Read(u => u.Username == UserName);
+       
     }
     
     private void ChangeIcon()
     {
         Icon = Icon == "bi-star" ? "bi-star-fill" : "bi-star";
 
-        if (ThisBike!.IsFavorite)
+        try
         {
-            FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser[0].User_Id);
-            ThisBike.IsFavorite = false;
-            MotorbikeRepository.Update(ThisBike);
+            if (ThisBike!.IsFavorite)
+            {
+                FavoriteRepository.Delete(ThisBike!.Motorbike_ID, CurrentUser[0].User_Id);
+                ThisBike.IsFavorite = false;
+                MotorbikeRepository.Update(ThisBike);
+                SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
+                
+            }
+            else
+            {
+                Favorite = new Favorite() { Motorbike_ID = ThisBike.Motorbike_ID, User_ID = CurrentUser[0].User_Id };
+                FavoriteRepository.Create(Favorite);
+                ThisBike!.IsFavorite = true;
+                MotorbikeRepository.Update(ThisBike);
+                SendAlert("Bike zu Favoriten erfolgreich hinzugefügt!", true);
+            }
         }
-        else
+        catch
         {
-            Favorite = new Favorite() { Motorbike = ThisBike!, User_ID = CurrentUser[0].User_Id}; // user_id hardcode
-            FavoriteRepository.Create(Favorite);
-            ThisBike!.IsFavorite = true;
-            MotorbikeRepository.Update(ThisBike);
+            SendError("Bitte vorher anmelden!", true);
         }
-
 
 
 
@@ -76,4 +91,15 @@
         NavigationManager.NavigateTo($"product/{ThisBike!.Motorbike_ID}");
     }
 
+    private async Task SendAlert(string message, bool alerti)
+    {
+        await Alert.InvokeAsync(alerti);
+        await AlertMessage.InvokeAsync(message);
+    }
+
+    private async Task SendError(string message, bool error)
+    {
+        await AlertMessage.InvokeAsync(message);
+        await IsError.InvokeAsync(error);
+    }
 }
