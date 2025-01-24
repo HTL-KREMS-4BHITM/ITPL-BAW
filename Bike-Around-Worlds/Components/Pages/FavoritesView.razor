@@ -163,14 +163,8 @@
         {
             if (returnBikes.Contains(leasingContract.Motorbike))
             {
-                if (DateOnly.FromDateTime(leasingContract.TO_DATE) > data.From)
-                {
+                if ((DateOnly.FromDateTime(leasingContract.TO_DATE) >= data.To && DateOnly.FromDateTime(leasingContract.FROM_DATE) <= data.To) || (DateOnly.FromDateTime(leasingContract.FROM_DATE) <= data.From && DateOnly.FromDateTime(leasingContract.TO_DATE) >= data.From) || (DateOnly.FromDateTime(leasingContract.FROM_DATE) >= data.From && DateOnly.FromDateTime(leasingContract.TO_DATE) <= data.To))
                     returnBikes.Remove(leasingContract.Motorbike);
-                }
-                if (DateOnly.FromDateTime(leasingContract.FROM_DATE) < data.To)
-                {
-                    returnBikes.Remove(leasingContract.Motorbike);
-                }
             }
         }
         return returnBikes;
