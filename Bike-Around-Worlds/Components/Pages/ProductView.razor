@@ -1,17 +1,28 @@
 @page "/product/{Motorbike_ID:int}"
 @using System.Diagnostics
+@using System.Security.Claims
 @using BAWLib
 @using BAWLib.Entities
 @using Domain.Interfaces
 @using Bike_Around_Worlds.Components.Blazor_Components
+@using Domain.Repositories
 @rendermode InteractiveServer
 @inject IRepository<Motorbike> BikeRepository;
 @inject IRepository<LeasingContract> LeasingContractRepository;
 @inject IRepository<Favorite> FavoriteRepository;
+@inject IHttpContextAccessor HttpContextAccessor;
+@inject IRepository<User> UserRepository;
 
 
 <div class="productmain">
     <div class="container productview">
+        @if (alert)
+        {
+            <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+                @alertmessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
         <!---First Row for Model-->
         <div class="row mt-5 mb-md-4 mb-sm-4">
             <h3>@product.Manufacturer @product.Model</h3>
@@ -113,7 +124,7 @@
 
                     <div class="col-md-3">
                         <label for="pickupTime" class="form-label labels">Abholzeit</label>
-                        <input type="time" id="pickupTime" class="form-control" @onchange="(e) => { PickupTime = TimeOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
+                        <input type="time" id="pickupTime" class="form-control"  @onchange="(e) => { PickupTime = TimeOnly.Parse(e.Value.ToString()); CalcTotal(); }" />
                     </div>
 
                     <div class="col-md-3">
@@ -215,13 +226,17 @@
                     </div>
                 </div>
                 <!--"Vertrrag" closed-->
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="row mb-lg-3 mb-md-4 mb-sm-4 d-flex justify-content-center">
+                            <button type="button" @onclick="AddToContracts" class="btn rent col-lg-6 col-md-6 rounded-4">Jetzt Mieten!</button>
+                        </div>
+                        <div class="row mb-lg-3 mb-md-4 mb-sm-5 d-flex justify-content-center">
+                            <button type="button" @onclick="AddToFavorites" class="btn favorites col-lg-6 col-md-6 rounded-4">Zu Favoriten hinzufügen</button>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
                 <!--Buttons open-->
-                <div class="row mb-lg-3 mb-md-4 mb-sm-4 d-flex justify-content-center">
-                    <button type="button" @onclick="AddToContracts" class="btn rent col-lg-6 col-md-6 rounded-4">Jetzt Mieten!</button>
-                </div>
-                <div class="row mb-lg-3 mb-md-4 mb-sm-5 d-flex justify-content-center">
-                    <button type="button" @onclick="AddToFavorites" class="btn favorites col-lg-6 col-md-6 rounded-4">Zu Favoriten hinzufügen</button>
-                </div>
                 <!--Buttons closed-->
             </div>
         </div>
@@ -230,11 +245,15 @@
 
 @code {
     [Parameter] public int Motorbike_ID { get; set; }
-    public TimeOnly PickupTime { get; set; } = new TimeOnly(10, 0); 
-    public TimeOnly DropoffTime { get; set; } = new TimeOnly(10, 0); 
-    public DateOnly PickupDate { get; set; } = DateOnly.FromDateTime(DateTime.Today); 
-    public DateOnly DropoffDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
-    public string SelectedInsurance { get; set; } = "Keine Versicherung";
+    private TimeOnly PickupTime { get; set; } 
+    private  TimeOnly DropoffTime { get; set; }
+    private DateOnly PickupDate { get; set; } 
+    private  DateOnly DropoffDate { get; set; }  
+    private  string SelectedInsurance { get; set; } = "Keine Versicherung";
+    private string alertmessage;
+    private bool alert;
+    private string UserName;
+    private List<User> CurrentUser = new();
     
     protected override void OnInitialized()
     {
@@ -245,6 +264,9 @@
         total = product.CurrentLeasingRate;
         Console.WriteLine(SelectedInsurance);
         pricepday = product.CurrentLeasingRate;
+        var user = HttpContextAccessor.HttpContext?.User;
+        UserName = user!.FindFirst(ClaimTypes.Name)?.Value;
+        CurrentUser = UserRepository.Read(u => u.Username == UserName);
 
     }
 
@@ -273,7 +295,7 @@
         Console.WriteLine($"End: {endDateTime}");
         Console.WriteLine($"Duration: {duration.TotalDays} days");
         Console.WriteLine($"Duration (in hours): {duration.TotalHours} hours");
-
+        
         var totalDays = Math.Floor(duration.TotalDays); 
         var remainingHours = duration.TotalHours - (totalDays * 24); 
 
@@ -307,7 +329,7 @@
             : SelectedInsurance == "Vollkaskoversicherung"
                 ? 20
                 : 0;
-        Console.WriteLine(charge);
+        Console.WriteLine("dgdfgh"+charge);
         pricepday = product.CurrentLeasingRate + charge;
         Console.WriteLine(pricepday);
         CalcTotal();
@@ -318,29 +340,65 @@
 
     public void AddToFavorites()
     {
-        Favorite fav = new Favorite
+        try
         {
-            User_ID = 2, 
-            Motorbike_ID = product.Motorbike_ID
-        };
-        FavoriteRepository.Create(fav);
-        Console.WriteLine("AddToFavorties used!!");
+            Favorite fav = new Favorite
+            {
+                User_ID = 2, 
+                Motorbike_ID = product.Motorbike_ID
+            };
+            FavoriteRepository.Create(fav);
+            Console.WriteLine("AddToFavorties used!!");
+
+        }
+        catch
+        {
+            alertmessage = "Bereits in Favoriten!";
+        }
+        
     }
 
+    
     public void AddToContracts()
     {
-        LeasingContract lc = new LeasingContract()
+        
+        try
         {
-            UserID = 2,
-            MotorbikeID = product.Motorbike_ID,
-            FROM_DATE = PickupDate.ToDateTime(PickupTime),
-            TO_DATE = DropoffDate.ToDateTime(DropoffTime),
-            COST = total,
-            Insurance = SelectedInsurance,
-            Price_Per_Day = pricepday
-        };
-        LeasingContractRepository.Create(lc);
-        Console.WriteLine("AddToCOntracts uses!");
+            
+            LeasingContract lc = new LeasingContract()
+            {
+                UserID = CurrentUser[0].User_Id,
+                MotorbikeID = product.Motorbike_ID,
+                FROM_DATE = PickupDate.ToDateTime(PickupTime),
+                TO_DATE = DropoffDate.ToDateTime(DropoffTime),
+                COST = total,
+                Insurance = SelectedInsurance,
+                Price_Per_Day = pricepday
+            };
+            if (lc.FROM_DATE != default && lc.TO_DATE != default)
+            {
+                LeasingContractRepository.Create(lc);
+                Console.WriteLine("AddToCOntracts uses!");
+                alertmessage = "Bike erfolgreich gemietet.";
+                alert = true;
+                
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+        }
+        catch
+        {
+            alertmessage = "Bitte Zeitraum vorher auswählen.";
+            alert = true;
+            Task.Delay(5000).ContinueWith(_ =>
+            {
+                alert = false;
+                InvokeAsync(StateHasChanged); 
+            });            
+        }
     }
     #endregion
     

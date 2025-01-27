@@ -14,6 +14,7 @@ public class Groups
     public string Name { get; set; }
     public DateTime From_Date { get; set; }
     public DateTime To_Date { get; set; }
+    public TimeSpan Start_Time { get; set; }
     public string Description { get; set; }
     public string RouteData { get; set; }
     public DateTime Created_At { get; set; } = DateTime.Now;

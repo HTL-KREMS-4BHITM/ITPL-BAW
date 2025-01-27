@@ -15,16 +15,16 @@
 
 <PageTitle>Bikes</PageTitle>
 <div class="row" style="background-color: #2c2c2c">
-    @if (_alert)
+    @if (_iserror)
     {
-        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
             @_alertmessage
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-    else if (_iserror)
+    else if (_alert)
     {
-        <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
             @_alertmessage
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

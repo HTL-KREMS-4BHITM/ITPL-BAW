@@ -1,22 +1,27 @@
 @page "/favoritesView"
+@using System.Security.Claims
 @using BAWLib
 @using BAWLib.Classes
 @using BAWLib.Entities
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
+@using Domain.Repositories
 @rendermode InteractiveServer
 
 
 @inject IRepository<LeasingContract> LeasingContractRepository;
 @inject IRepository<Motorbike> MotorbikeRepository;
+@inject IRepository<Favorite> FavoritesRepository;
+@inject IRepository<User> UserRepository;
+@inject IHttpContextAccessor HttpContextAccessor;
 <style>
     .custom-alert {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        z-index: 1050; /* Ensure it stays above other elements */
-        width: 300px; /* Optional: Set a fixed width for consistency */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
+        z-index: 1050; 
+        width: 300px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     }
 </style>
 
@@ -67,9 +72,12 @@
     private List<Motorbike> _bikes = new();
 
     private List<Motorbike> _reverenceBikes = new();
+    private List<Favorite> _favorites = new();
     private List<LeasingContract> _leasingContracts = new();
     private string? _alertmessage;
     private bool _alert;
+    private string UserName;
+    private List<User> CurrentUser = new();
 
 
     private void ReceiveData(Filter data)
@@ -81,7 +89,15 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _reverenceBikes = MotorbikeRepository.Read(bike => bike.IsFavorite);
+        var user = HttpContextAccessor.HttpContext?.User;
+        UserName = user!.FindFirst(ClaimTypes.Name)?.Value;
+        CurrentUser = UserRepository.Read(u => u.Username == UserName);
+        _favorites = FavoritesRepository.Read(favorite => favorite.User_ID == CurrentUser[0].User_Id);
+
+        foreach (var bike in _favorites)
+        {
+            _reverenceBikes.Add(MotorbikeRepository.Read(bike.Motorbike_ID));
+        }
         _leasingContracts = LeasingContractRepository.ReadAll();
         _bikes = _reverenceBikes;
     }

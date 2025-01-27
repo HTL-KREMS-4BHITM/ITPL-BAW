@@ -1,15 +1,50 @@
 @using BAWLib
+@using BAWLib.Entities
+@using Domain.Interfaces
+@inject IRepository<User> UserRepository;
+@inject IRepository<LeasingContract> LeasingContractRepository;
+@inject IRepository<Motorbike> BikeRepository;
+
 <div class="container mt-3">
     <div class="row">
         <div class="col-12 d-flex align-items-center user-component">
-            <i class="bi bi-person-circle profile-icon"></i>
+            <div class="col-2">
+                <div class="circle-profile position-relative">
+                    <img src="/Resources/User Profile Pics/@_imagename" alt="Profile Picture"/>
+                </div>
+            </div>
             <div class="ms-3">
-                <h4 class="mb-0">@ThisUser?.Username</h4>
-                <p class="text-muted mb-0"># </p>
+                <h5 class=" user-name fw-bold">@Member?.Username</h5>
+                <p class="mb-0 bikee"># @currentleas.Manufacturer @currentleas.Model</p>
             </div>
         </div>
     </div>
 </div>
 @code {
-    [Parameter] public User? ThisUser { get; set; }
+    [Parameter] public int User_ID { get; set; }
+    private User Member { get; set; } = new();
+    private string _imagename;
+    private List<LeasingContract> _leasings = new();
+    private List<LeasingContract> _currentleasings = new();
+    private Motorbike currentleas = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Member = UserRepository.Read(User_ID);
+        _imagename = Member.PicAddress;
+        _leasings = LeasingContractRepository.Read(l => l.UserID == User_ID);
+        var today = DateOnly.FromDateTime(DateTime.Now);
+
+        foreach (var leas in _leasings)
+        {
+            if ((DateOnly.FromDateTime(leas.TO_DATE) >= today && DateOnly.FromDateTime(leas.FROM_DATE) <= today) || (DateOnly.FromDateTime(leas.FROM_DATE) <= today && DateOnly.FromDateTime(leas.TO_DATE) >= today) || (DateOnly.FromDateTime(leas.FROM_DATE) >= today && DateOnly.FromDateTime(leas.TO_DATE) <= today))
+                _currentleasings.Add(leas);
+        }
+
+        if(_currentleasings.Count != 0)
+            currentleas = BikeRepository.Read(_currentleasings.FirstOrDefault().MotorbikeID);
+        
+    }
+
 }

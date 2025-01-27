@@ -1,17 +1,19 @@
 @page "/groupDetailsView/{Group_ID:int}"
-@inject IRepository<User> UserRepository;
 @inject IRepository<Groups> GroupRepository;
+@inject IRepository<Waypoint> WaypointsRepository;
+@inject IRepository<GroupMembers_JT> GroupMembersRepository;
 @using BAWLib
+@using BAWLib.Entities
 @using Bike_Around_Worlds.Components.Blazor_Components
 @using Domain.Interfaces
 <section class="section-group-details">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mb-5">
-                <div class="row">
+                <div class="row mt-lg-5" >
                     <div class="group_name">
-                        <h2> @CurrentGroup.Name</h2>
-                        <h4># Österreich</h4>
+                        <h3> @CurrentGroup!.Name</h3>
+                        <h5># Österreich @CurrentGroup!.Federal_State</h5>
                     </div>
                     <div class="join_button d-flex justify-content-end">
                         <button>Beitreten</button>
@@ -26,20 +28,18 @@
                         <div class="row">
 
                             <div class="col-lg-6 map-holder mb-5">
-
                             </div>
                             <div class="col-lg-6 mb-5 route">
+                                @foreach (var waypoint in _waypoints)
+                                {
+                                    <div>
+                                        <input type="text" value="@waypoint.Address" id="start" disabled>
+                                        <label for="start">Point</label>
+                                    </div>
+                                }
                                 <div>
-                                    <input type="text" value="7000, Eisenstadt, Austria" id="start" disabled>
-                                    <label for="start">start</label>
-                                </div>
-                                <div>
-                                    <input type="text" value="7000, Eisenstadt, Austria" id="end" disabled>
-                                    <label for="end">ende</label>
-                                </div>
-                                <div>
-                                    <input type="text" value="@CurrentGroup.From_Date - @CurrentGroup.To_Date" id="date" disabled>
-                                    <label for="date">from to</label>
+                                    <input type="text" value="@CurrentGroup.From_Date.ToString("dd/MM/yyyy") - @CurrentGroup.Start_Time.ToString(@"hh\:mm") - @CurrentGroup.To_Date.ToString("dd/MM/yyyy")" id="date" disabled>
+                                    <label for="date">Startdatum | Startuhrzeit | Enddatum</label>
                                 </div>
                             </div>
                         </div>
@@ -47,8 +47,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 container description">
-                <p> @CurrentGroup.Description</p>
+            <div class="col-12 container description d-flex justify-content-center">
+                <p class="d-flex justify-content-center"> @CurrentGroup.Description</p>
             </div>
             
             <div class="col-lg-12 mb-5 members">
@@ -56,10 +56,10 @@
                     Mitglieder:
                 </h5>
                 <div class="row">
-                    @foreach (User curentUser in Users!)
+                    @foreach (var member in Members)
                     {
-                        <div class="col-lg-6 col-12">
-                            <UserComponent ThisUser=@curentUser></UserComponent>
+                        <div class="col-lg-4 col-12">
+                            <UserComponent User_ID=@member.User_ID></UserComponent>
                         </div>
                     }
                 </div>
@@ -71,15 +71,18 @@
 
 
 @code {
+    [Parameter] public int Group_ID { get; set; }
+    private Groups? CurrentGroup { get; set; } = new();
+    private List<Waypoint> _waypoints = new();
+    private List<GroupMembers_JT> Members = new();
     protected override void OnInitialized()
     {
         base.OnInitialized();
         //Users = UserRepository.Read(user => user.GroupID == Group_ID);
         CurrentGroup = GroupRepository.Read(Group_ID);
+        _waypoints = WaypointsRepository.Read(w => w.RouteID == CurrentGroup.Group_Id);
+        Members = GroupMembersRepository.Read(gm => gm.Group_ID == CurrentGroup.Group_Id);
+        
     }
 
-    [Parameter] public int Group_ID { get; set; }
-    private Groups? CurrentGroup { get; set; } = new();
-    private List<User>? Users { get; set; } = new();
-    public List<UserComponent>? UserComponents { get; set; }
 }

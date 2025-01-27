@@ -3,13 +3,11 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="card">
     <AuthorizeView>
         <Authorized>
             <p>Logged in as @context.User.Identity.Name</p>
         </Authorized>
         <NotAuthorized>
-            <p>Please log in <a href="/login">Login</a></p>
-        </NotAuthorized>
+            <BikeView></BikeView>
+            </NotAuthorized>
     </AuthorizeView>
-</div>
