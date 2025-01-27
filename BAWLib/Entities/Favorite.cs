@@ -17,10 +17,11 @@ public class Favorite
 
     public override bool Equals(object? obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((Favorite)obj);
+        if (obj is Favorite other)
+        {
+            return this.Motorbike_ID == other.Motorbike_ID && this.User_ID == other.User_ID;
+        }
+        return false;
     }
 
     public override int GetHashCode()

@@ -22,6 +22,8 @@
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
 
             <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
+            @ThisBike.Motorbike_ID
+            @CurrentUser_Id
         </div>
     </div>
 </div>
@@ -45,38 +47,42 @@
     
     private void ChangeIcon()
     {
-   
+        Console.WriteLine("------");
+        Favorite currentFavorite = new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id };
 
-        try // hagt nen error der kack
+        Console.WriteLine("......");
+        try
         {
-            if (_favorites.Contains(new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id }))
+            if (_favorites.Contains(currentFavorite))
             {
                 Icon = "bi-star";
-                FavoriteRepository.Delete(new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id });
-                SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
+                Console.WriteLine(currentFavorite.Motorbike_ID);
+                Console.WriteLine("--------------------------");
+                Console.WriteLine(currentFavorite.User_ID);
+                FavoriteRepository.Delete(currentFavorite.Motorbike_ID, currentFavorite.User_ID);
+                _favorites.Remove(currentFavorite);
+                //SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
+
             }
             else
             {
                 Icon = "bi-star-fill";
-                Favorite = new Favorite() { Motorbike_ID = ThisBike.Motorbike_ID, User_ID = CurrentUser_Id };
-                FavoriteRepository.Create(Favorite);
-                SendAlert("Bike zu Favoriten erfolgreich hinzugefügt!", true);
+                FavoriteRepository.Create(currentFavorite);
+                _favorites.Add(currentFavorite);
+                //SendAlert("Bike zu Favoriten erfolgreich hinzugefügt!", true);
             }
         }
         catch
         {
             SendError("Bitte vorher anmelden!", true);
         }
-
-
-
     }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        // muss man ein if angemeldet maschen 
         _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
+        
     }
 
     private void NavToProductView()

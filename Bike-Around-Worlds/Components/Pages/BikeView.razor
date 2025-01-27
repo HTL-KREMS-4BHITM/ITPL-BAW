@@ -74,37 +74,18 @@
 </div>
 
 
-
-
-
-
 @code {
     private List<Motorbike> _bikes = new();
     private List<Motorbike> _reverenceBikes = new();
     private List<LeasingContract> _leasingContracts = new();
     private List<Favorite> _favorites = new();
-    
     private Filter ReceivedData { get; set; } = new Filter();
     private string? _alertmessage;
     private bool _alert;
     private bool _iserror;
-
     public string? UserName { get; set; }
     public List<User> CurrentUser { get; set; } = new();
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private void ReceiveData(Filter data)
     {
         ReceivedData = data;
@@ -141,8 +122,7 @@
             InvokeAsync(StateHasChanged); 
         });
     }
-
-
+    
     private void ReceivedBool(bool alert)
     {
         _alert = alert; 
@@ -153,12 +133,6 @@
         _iserror = error;
     }
     
-    
-    
-    
-    
-    
-
     #region Filtering
 
     private List<Motorbike> FilterBikes(Filter data)

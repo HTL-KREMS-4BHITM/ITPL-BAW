@@ -45,7 +45,7 @@
             @foreach (var bike in _bikes)
             {
                 <div class="col-lg-3">
-                    <BikeComponent ThisBike=@bike Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert"></BikeComponent>
+                    <BikeComponent ThisBike=@bike CurrentUser_Id=@CurrentUser[0].User_Id Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert"></BikeComponent>
                 </div>
             }
 
