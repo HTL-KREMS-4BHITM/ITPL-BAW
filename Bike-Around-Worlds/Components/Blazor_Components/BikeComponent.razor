@@ -22,8 +22,6 @@
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
 
             <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
-            @ThisBike.Motorbike_ID
-            @CurrentUser_Id
         </div>
     </div>
 </div>
@@ -47,18 +45,13 @@
     
     private void ChangeIcon()
     {
-        Console.WriteLine("------");
         Favorite currentFavorite = new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id };
 
-        Console.WriteLine("......");
         try
         {
             if (_favorites.Contains(currentFavorite))
             {
                 Icon = "bi-star";
-                Console.WriteLine(currentFavorite.Motorbike_ID);
-                Console.WriteLine("--------------------------");
-                Console.WriteLine(currentFavorite.User_ID);
                 FavoriteRepository.Delete(currentFavorite.Motorbike_ID, currentFavorite.User_ID);
                 _favorites.Remove(currentFavorite);
                 //SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
