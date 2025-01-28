@@ -3,10 +3,10 @@
 @using Domain.Interfaces
 @inject  IRepository<Motorbike> BikeRepository
 @inject NavigationManager NavigationManager
-<div class="card section-cont-card " @onclick="NavigateToProduct">
-    <img src="/Resources/Bikes/@first" class="d-block " alt="Bike @startimgin">
+<div class="card section-cont-card " >
+    <img src="/Resources/Bikes/@bike.Manufacturer/@modelname/@modelname (1).png" style="object-fit: cover" height="50%" class="d-block " alt="Bike 1">
     <div class="card-body rounded">
-        <h5 class="card-title mb-3 ">@bike.Manufacturer @bike.Model</h5>
+        <h5 class="card-title mb-3" @onclick="NavigateToProduct" >@bike.Manufacturer @bike.Model</h5>
         <div class="card-text d-flex justify-content-between flex-wrap mb-2">
             <div class="d-flex align-content-lg-start">
                 <span class=" mb-3">
@@ -26,19 +26,18 @@
     [Parameter] public User CurrentUser { get; set; }
     [Parameter] public LeasingContract CurrentLeasingContract { get; set; }
 
-    public static int startimgin;
-
+    private string modelname;
+    
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        startimgin = 1 + ((MotorbikeID - 1) * 3);
 
         Console.WriteLine($"CurrentUser: {CurrentUser?.Username}, MotorBikeID: {MotorbikeID}");
 
         bike = BikeRepository.Read(MotorbikeID);
+        modelname = bike.Model.Split(' ')[0];
     }
 
-    string first = "bike" + @startimgin + ".jpg";
     Motorbike bike = new();
 
     private void NavigateToProduct()

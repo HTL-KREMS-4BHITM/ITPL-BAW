@@ -1,5 +1,11 @@
 @use "variables" as *;
 
+.carousel-inner img {
+  height: 40vh; /* Beispielhöhe, passe sie nach Bedarf an */
+  object-fit: cover; /* Verhindert Verzerrungen und sorgt für ein gutes Seitenverhältnis */
+  width: 100%; /* Stellt sicher, dass das Bild die gesamte Breite einnimmt */
+}
+
 h5{
   color: $text;
 }

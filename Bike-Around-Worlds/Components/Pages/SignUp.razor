@@ -4,9 +4,9 @@
 @using BAWLib.ViewModels
 @inject MotorContext DbContext
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
-
-<div class="section-signup py-5">ö
+<div class="section-signup py-5">
     <div class="container">
         <h3 class="text-center mb-4">Sign Up</h3>
         <div class="row justify-content-center align-items-stretch">
@@ -14,15 +14,14 @@
                 <img src="Resources/signup.jpg" class="img-fluid shadow form-height" alt="Bike Pic">
             </div>
             <div class="signup_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
-        <EditForm Model="@Model" OnValidSubmit="async() => await RegisterUser()" FormName="SinguPForm" class="p-4 border rounded shadow">
-            <DataAnnotationsValidator/>
+        <EditForm Model="@Model" OnValidSubmit="RegisterUser" FormName="SinguPForm" class="p-4 border rounded shadow">
             <div class="row pt-4 mt-5">
                 <div class="col-lg-10 mb-3 mx-0 ps-0 pe-2">
                     <InputText class="form-control" placeholder="Username" @bind-Value="@Model.Username" />
                     <ValidationMessage For="() => Model.Username" />
                 </div>
                 <div class="col-lg-2 mb-3 mx-0 px-0">
-                    <InputText class="form-control" placeholder="Age" @bind-Value="@Model.Age" />
+                    <InputNumber TValue="int" class="form-control" placeholder="Age" @bind-Value="Model.Age" />
                     <ValidationMessage For="() => Model.Age" />
                 </div>
             </div>
@@ -62,7 +61,7 @@
 
         try
         {
-            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) || string.IsNullOrWhiteSpace(Model.Age))
+            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) )
             {
                 errorMessage = "All fields are required.";
                 return;
@@ -84,7 +83,8 @@
             var newUser = new User
             {
                 Username = Model.Username,
-                Password = Model.Password 
+                Password = Model.Password,
+                Age = Model.Age
             };
 
             DbContext.Users.Add(newUser);

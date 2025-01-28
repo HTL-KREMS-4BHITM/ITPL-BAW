@@ -25,7 +25,8 @@
 }
 
 .navbar-toggler-icon {
-  background-color: #ffffff; 
+  background-color: $background;
+  color: white;
 }
 
 .navbar-nav .nav-link {

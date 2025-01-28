@@ -1,6 +1,5 @@
 @page "/userprofile"
 @page "/userprofile/{view}"
-@using System.Text.RegularExpressions
 @using BAWLib
 @using Domain.Interfaces
 @using Bike_Around_Worlds.Components.Blazor_Components
@@ -129,19 +128,13 @@
 
     private void ShowCurrentContracts()
     {
-        currentcontracts = LeasingContractRepository.Read(l => l.UserID == 2 && l.TO_DATE > DateTime.Today).ToList();
+        currentcontracts = LeasingContractRepository.Read(l => l.UserID == LoggedUser[0].User_Id && l.TO_DATE > DateTime.Today).ToList();
     }
 
     private void ShowPastContracts()
     {
-        currentcontracts = LeasingContractRepository.Read(l => l.UserID == 2 && l.TO_DATE <= DateTime.Today).ToList();
+        currentcontracts = LeasingContractRepository.Read(l => l.UserID == LoggedUser[0].User_Id && l.TO_DATE <= DateTime.Today).ToList();
     }
-/*
-    private void NavigateToView(string targetView)
-    {
-        Console.WriteLine($"Navigating to: /userprofile/{targetView}");*/
-    private void NavigateToCreate()
-    {
-        NavigationManager.NavigateTo("/BikeView");
-    }
+
+  
 }

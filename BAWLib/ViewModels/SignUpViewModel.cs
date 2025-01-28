@@ -14,7 +14,7 @@ public class SignUpViewModel
     [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
     [Compare("Password", ErrorMessage = "Passwords do not match")]
     public string? ConfirmPassword { get; set; }= String.Empty;
+    
     [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Age is required")]
-    [Compare("Age", ErrorMessage = "Age needs to be at least 18 years old")]
-    public string? Age { get; set; }= String.Empty;
+    public int Age { get; set; }= 18;
 }
