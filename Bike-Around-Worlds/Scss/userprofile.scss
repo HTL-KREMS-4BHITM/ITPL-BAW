@@ -1,6 +1,44 @@
 @use "variables" as *;
 body{
   background-color: $background;
+  .custommodal{
+    
+  }
+  .modal.fade {
+    opacity: 0;
+    transition: opacity 5s linear;
+  }
+
+  .modal.fade.show {
+    opacity: 1;
+  }
+
+  .modal-dialog {
+    max-width: 50rem;
+  }
+  .modal-content {
+    background-color: $primary;  
+    color: $text;  
+  }
+
+  .profile-image-select {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .profile-image-select img {
+    //max-width: 60px;  
+    //max-height: 60px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .profile-image-select:hover {
+    opacity: 0.7;
+  }
+
 }
 .section-userprof{
   color:$text;
@@ -10,7 +48,19 @@ body{
     color: $insurancecolor;
     opacity: 1; 
   }
-
+  a{
+    color: $text;
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 1.15rem;
+  }
+  a:active{
+    color: $tertiary;
+  }
+  .groupsbtn{
+    background-color: $secondary;
+    font-size: 1rem;
+  }
   .circle-profile {
     height: 100%; 
     width: 100%; 

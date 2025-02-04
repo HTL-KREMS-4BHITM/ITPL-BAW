@@ -5,6 +5,7 @@
 
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.EntityFrameworkCore
 @inject MotorContext Appdbcontext
 @inject NavigationManager NavigationManager
 
@@ -48,8 +49,9 @@
     
     private async Task Authenticate()
     {
+        
         var userAccount = Appdbcontext.Users.Where(x => x.Username == Model.Username).FirstOrDefault();
-        if (userAccount is null || userAccount.Password != Model.Password)
+        if (userAccount is null || BCrypt.Net.BCrypt.EnhancedVerify(Model.Password, userAccount.Password) == false)
         {
             _errorMessage = "Invalid User name or Passwort";
             return;

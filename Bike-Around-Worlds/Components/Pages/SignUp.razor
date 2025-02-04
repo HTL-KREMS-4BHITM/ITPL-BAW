@@ -80,10 +80,11 @@
                 return;
             }
 
+            string passhash = BCrypt.Net.BCrypt.EnhancedHashPassword(Model.Password, 13);
             var newUser = new User
             {
                 Username = Model.Username,
-                Password = Model.Password,
+                Password = passhash,
                 Age = Model.Age
             };
 

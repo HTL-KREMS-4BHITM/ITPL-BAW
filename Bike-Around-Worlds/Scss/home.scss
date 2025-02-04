@@ -1,2 +1,55 @@
-//here you write the scss or normal css for the individual sections
+@use "variables" as *;
+body {
+  color: $text;
+}
 
+.hero-section {
+  background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Resources/bg.jpg') no-repeat center center;
+  background-size: cover;
+  height: 80vh;
+  color:white;
+  text-align: center;
+  padding-top: 150px;
+}
+
+.btn-primary-custom {
+  background-color: $secondary;
+  border:none;
+  font-family: "Contrail One";
+  
+}
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem 0;
+}
+.feature-card {
+  background-color: $primary;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  //padding: 2rem;
+  width: 30%;
+  text-align: center;
+  transition: transform 0.3s ease;
+  color: $text;
+  
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+.feature-card img {
+  width: 100%;
+  margin-bottom: 1rem;
+  height: 50%;
+  object-fit: cover;
+}
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+footer a {
+  color: #28a745;
+  text-decoration: none;
+}
