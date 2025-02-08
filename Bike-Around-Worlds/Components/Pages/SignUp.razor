@@ -61,22 +61,22 @@
 
         try
         {
-            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) )
+            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) ||Model.Age < 18)
             {
-                errorMessage = "All fields are required.";
+                errorMessage = "Alle Felder sind gefordert und das Alter muss mindestens 18 sein.";
                 return;
             }
 
             var existingUser = DbContext.Users.FirstOrDefault(u => u.Username == Model.Username);
             if (existingUser != null)
             {
-                errorMessage = "Username already exists. Please choose another.";
+                errorMessage = "Benutzername existiert bereits. Bitte wähle einen anderen.";
                 return;
             }
 
             if (Model.Password != Model.ConfirmPassword)
             {
-                errorMessage = "Passwords do not match.";
+                errorMessage = "Passwörter stimmen nicht überein.";
                 return;
             }
 
@@ -95,7 +95,7 @@
         }
         catch (Exception ex)
         {
-            errorMessage = "An error occurred during registration. Please try again.";
+            errorMessage = "Ein Fehler ist erfolgt. Bitte versuche es später wieder.";
             Console.WriteLine($"Error during registration: {ex.Message}");
         }
     }

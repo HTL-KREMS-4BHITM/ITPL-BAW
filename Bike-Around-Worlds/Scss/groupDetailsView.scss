@@ -1,9 +1,13 @@
 @use "variables" as *;
+
 .section-group-details {
   color: $text;
   h5{
     font-weight: lighter;
     font-style: italic;
+  }
+  .mem {
+    color: $secondary;
   }
 
   .join_button {

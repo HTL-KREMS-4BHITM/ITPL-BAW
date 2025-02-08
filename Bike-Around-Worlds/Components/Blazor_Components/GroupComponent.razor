@@ -21,13 +21,15 @@
         </div>
     </div>
     <div class="card-body text-secondary">
-        <h6 class="card-title">@startpoint.Address - @endpoint.Address</h6>
+        <h6 class="card-title">@startname - @endname</h6>
         <p class="card-text">@Group.From_Date.ToString("dd/MM/yyyy") - @Group.To_Date.ToString("dd/MM/yyyy")</p>
     </div>
 </div>
 @code {
      [Parameter] public Groups? Group { get; set; }
      [Parameter] public int GroupID { get; set; }
+     private string startname;
+     private string endname;
      protected override void OnInitialized()
      {
          
@@ -48,6 +50,8 @@
          { 
              startpoint = waypoints.FirstOrDefault();
              endpoint = waypoints.LastOrDefault();
+             startname = startpoint.Address.Split(',')[2];
+             endname = endpoint.Address.Split(',')[2];
          }
          foreach (var i in waypoints)
          {

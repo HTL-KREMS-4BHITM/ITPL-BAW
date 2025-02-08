@@ -45,15 +45,15 @@
                         <Authorized>
                             @if (_favorites.Contains(new Favorite() { Motorbike_ID = bike.Motorbike_ID, User_ID = CurrentUser[0].User_Id }))
                             {
-                                <BikeComponent ThisBike=@bike CurrentUser_Id=@CurrentUser[0].User_Id Icon="bi-star-fill" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
+                                <BikeComponent ThisBike=@bike CurrentUser_Id=@CurrentUser[0].User_Id Icon="bi-star-fill" Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
                             }
                             else
                             {
-                                <BikeComponent ThisBike=@bike Icon="bi-star" CurrentUser_Id=@CurrentUser[0].User_Id ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
+                                <BikeComponent ThisBike=@bike Icon="bi-star" CurrentUser_Id=@CurrentUser[0].User_Id Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
                             }
                         </Authorized>
                         <NotAuthorized>
-                            <BikeComponent ThisBike=@bike Icon="bi-star" ImgOne="/Resources/Bikes/bike4.jpg" Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
+                            <BikeComponent ThisBike=@bike Icon="bi-star"  Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
                         </NotAuthorized>
                     </AuthorizeView>
 
@@ -92,7 +92,7 @@
 
         _bikes = FilterBikes(ReceivedData);
         
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
 
     protected override void OnInitialized()
@@ -191,6 +191,7 @@
             }
         }
         return returnBikes;
+        
     }
 
     #endregion

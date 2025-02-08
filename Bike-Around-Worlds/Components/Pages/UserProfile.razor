@@ -105,11 +105,14 @@
                 <a class="btn btn-primary groupsbtn border-0" href="http://localhost:5215/CreateGroup">Gruppe erstellen</a>
             </span>
         </div>
-        <div class="col-lg-4 ">
-            @foreach (var group in Groups)
-            {
-                <GroupComponent GroupID=@group.Group_ID></GroupComponent>
-            }
+        <div class="row ">
+                    @foreach (var group in Groups)
+                    {
+                        <div class="col-lg-4">
+                            <GroupComponent GroupID=@group.Group_ID></GroupComponent>
+                        </div>
+
+                }
         </div>
     </div>
 </div>
