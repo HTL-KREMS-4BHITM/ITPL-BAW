@@ -39,8 +39,6 @@
     [Parameter] public int CurrentUser_Id { get; set; }
     private Favorite? Favorite { get; set; }
     private List<Favorite> _favorites { get; set; }
-    private string modelname;
-    public string s { get; set; }
     private string ImagePath => ThisBike == null
         ? "Resources/placeholder.png"
         : $"Resources/Bikes/{ThisBike.Manufacturer}/{ThisBike.Model.Split(" ")[0]}/{ThisBike.Model.Split(" ")[0]} (1).png";
@@ -82,15 +80,9 @@
     {
         base.OnInitialized();
         _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
-        modelname = ThisBike!.Model.Split(' ')[0];
-        s = $"Resources/Bikes/{@ThisBike.Manufacturer}/{@ThisBike.Model}/{@ThisBike.Model} (1).png";
     }
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-        modelname = ThisBike!.Model.Split(' ')[0];
-    }
+
 
     private void NavToProductView()
     {
