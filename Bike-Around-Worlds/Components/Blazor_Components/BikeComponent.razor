@@ -14,14 +14,10 @@
 
 
 <div class="card bike-element">
-    <p>
-        @ThisBike.Model.Split(' ')[0];
-        @ThisBike.Model;
-        @ThisBike.Manufacturer;
-    </p>
-    <img src="/Resources/Bikes/@ThisBike!.Manufacturer/@modelname/@modelname (1).png" class="card-img-top" style="object-fit: cover" height="50%" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
+
+    <img src="@($"{@ImagePath}?t={DateTime.Now.Ticks}")"  class="card-img-top" style="object-fit: cover" height="50%" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
     <div class="card-body">
-        <h1 @onclick="NavToProductView">@ThisBike.Manufacturer @ThisBike.Model </h1>
+        <h1 @onclick="NavToProductView">@ThisBike!.Manufacturer @ThisBike.Model </h1>
         <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
@@ -44,6 +40,12 @@
     private Favorite? Favorite { get; set; }
     private List<Favorite> _favorites { get; set; }
     private string modelname;
+    public string s { get; set; }
+    private string ImagePath => ThisBike == null
+        ? "Resources/placeholder.png"
+        : $"Resources/Bikes/{ThisBike.Manufacturer}/{ThisBike.Model.Split(" ")[0]}/{ThisBike.Model.Split(" ")[0]} (1).png";
+    
+
     
     
 
@@ -81,6 +83,7 @@
         base.OnInitialized();
         _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
         modelname = ThisBike!.Model.Split(' ')[0];
+        s = $"Resources/Bikes/{@ThisBike.Manufacturer}/{@ThisBike.Model}/{@ThisBike.Model} (1).png";
     }
 
     protected override void OnAfterRender(bool firstRender)
