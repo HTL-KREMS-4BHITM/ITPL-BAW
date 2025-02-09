@@ -14,13 +14,17 @@
 
 
 <div class="card bike-element">
-    <img src="/Resources/Bikes/@ThisBike.Manufacturer/@modelname/@modelname (1).png" class="card-img-top" style="object-fit: cover" height="50%" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
+    <p>
+        @ThisBike.Model.Split(' ')[0];
+        @ThisBike.Model;
+        @ThisBike.Manufacturer;
+    </p>
+    <img src="/Resources/Bikes/@ThisBike!.Manufacturer/@modelname/@modelname (1).png" class="card-img-top" style="object-fit: cover" height="50%" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
     <div class="card-body">
-        <h1 @onclick="NavToProductView">@ThisBike!.Manufacturer @ThisBike.Model </h1>
+        <h1 @onclick="NavToProductView">@ThisBike.Manufacturer @ThisBike.Model </h1>
         <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
         <div class="d-flex justify-content-between m align-content-end justify-content-end">
             <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
-
             <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
         </div>
     </div>
@@ -76,7 +80,13 @@
     {
         base.OnInitialized();
         _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
-        modelname = ThisBike.Model.Split(' ')[0];
+        modelname = ThisBike!.Model.Split(' ')[0];
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        modelname = ThisBike!.Model.Split(' ')[0];
     }
 
     private void NavToProductView()

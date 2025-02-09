@@ -36,11 +36,11 @@
     </div>
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
-   
+ 
             @foreach (var bike in _bikes)
             {
 
-                <div class="col-lg-3 col-sm-12 col-md-4">
+                <div class="col-lg-3 col-sm-12 col-md-6">
                     <AuthorizeView>
                         <Authorized>
                             @if (_favorites.Contains(new Favorite() { Motorbike_ID = bike.Motorbike_ID, User_ID = CurrentUser[0].User_Id }))
@@ -53,7 +53,7 @@
                             }
                         </Authorized>
                         <NotAuthorized>
-                            <BikeComponent ThisBike=@bike Icon="bi-star"  Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
+                            <BikeComponent ThisBike=@bike Icon="bi-star" Alert="ReceivedBool" AlertMessage="ReceivedAlert" IsError="ReceiveError"></BikeComponent>
                         </NotAuthorized>
                     </AuthorizeView>
 
@@ -92,7 +92,7 @@
 
         _bikes = FilterBikes(ReceivedData);
         
-        InvokeAsync(StateHasChanged);
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
@@ -191,7 +191,6 @@
             }
         }
         return returnBikes;
-        
     }
 
     #endregion
