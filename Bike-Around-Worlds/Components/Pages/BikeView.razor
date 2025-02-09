@@ -37,7 +37,8 @@
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="row g-5 mb-5">
    
-            @foreach (var bike in _bikes)
+            @foreach (var bike in GetPagedBikes())
+
             {
 
                 <div class="col-lg-3 col-sm-12 col-md-4">
@@ -63,14 +64,26 @@
     </div>
     <nav aria-label="Page navigation example" class="d-flex justify-content-center">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item @( _currentPage == 1 ? "disabled" : "" )">
+                <button class="page-link" @onclick="PreviousPage">Prev</button>
+            </li>
+
+            @for (int i = 1; i <= _totalPages; i++)
+            {
+                int pageNumber = i; 
+                <li class="page-item @( _currentPage == pageNumber ? "active" : "" )">
+                    <button class="page-link" @onclick="() => GoToPage(pageNumber)">@pageNumber</button>
+                </li>
+            }
+
+
+            <li class="page-item @( _currentPage == _totalPages ? "disabled" : "" )">
+                <button class="page-link" @onclick="NextPage">Next</button>
+            </li>
         </ul>
+
     </nav>
+
 </div>
 
 
@@ -89,11 +102,12 @@
     private void ReceiveData(Filter data)
     {
         ReceivedData = data;
-
         _bikes = FilterBikes(ReceivedData);
-        
+        UpdateTotalPages();
+        _currentPage = 1; 
         InvokeAsync(StateHasChanged);
     }
+
 
     protected override void OnInitialized()
     {
@@ -101,6 +115,7 @@
         _reverenceBikes = BikeRepository.ReadAll();
         _leasingContracts = LeasingContractRepository.ReadAll();
         _bikes = _reverenceBikes;
+        UpdateTotalPages();
         var user = HttpContextAccessor.HttpContext?.User;
         UserName = user!.FindFirst(ClaimTypes.Name)?.Value;
         CurrentUser = UserRepository.Read(u => u.Username == UserName);
@@ -194,5 +209,57 @@
         
     }
 
+    #endregion
+    
+    #region Pagination 
+    
+    private int _currentPage = 1;
+    private int _pageSize = 20;
+    private int _totalPages;
+    
+    private List<Motorbike> GetPagedBikes()
+    {
+        return _bikes.Skip((_currentPage - 1) * _pageSize).Take(_pageSize).ToList();
+    }
+
+    private void UpdateTotalPages()
+    {
+        _totalPages = (int)Math.Ceiling((double)_bikes.Count / _pageSize);
+    }
+    
+    private void NextPage()
+    {
+        if (_currentPage < _totalPages)
+        {
+            _currentPage++;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void PreviousPage()
+    {
+        if (_currentPage > 1)
+        {
+            _currentPage--;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void GoToPage(int pageNumber)
+    {
+        if (pageNumber >= 1 && pageNumber <= _totalPages)
+        {
+            _currentPage = pageNumber;
+            InvokeAsync(() =>
+            {
+               
+                StateHasChanged();
+            });
+        }
+    }
+
+
+    
+    
     #endregion
 }
