@@ -400,16 +400,7 @@
                 {
                     if (!(DateOnly.FromDateTime(lease.TO_DATE) >= DropoffDate || DateOnly.FromDateTime(lease.FROM_DATE) <= DropoffDate) || !(DateOnly.FromDateTime(lease.FROM_DATE) <= PickupDate && DateOnly.FromDateTime(lease.TO_DATE) >= PickupDate) || !(DateOnly.FromDateTime(lease.FROM_DATE) >= PickupDate && DateOnly.FromDateTime(lease.TO_DATE) <= DropoffDate))
                     {
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("---------------------------------------");
+                        
                         leasingCheck++;
                         Console.WriteLine(leasingCheck);
                     }

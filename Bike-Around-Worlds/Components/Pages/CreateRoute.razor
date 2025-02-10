@@ -109,13 +109,7 @@
                 window.history.pushState({}, '', url);
 
 
-                if (window.blazorInterop) {
-                    console.log("Calling Blazor RefreshPage..."); 
-                    window.blazorInterop.invokeMethodAsync('RefreshPage', url.toString())
-                        .catch(err => console.error('Error calling Blazor method:', err));
-                } else {
-                    console.error("BlazorInterop is not initialized.");
-                }
+                
             })
             .catch(err => {
                 console.error('Error fetching address:', err);
@@ -203,30 +197,8 @@
     }
     
     
-    private DotNetObjectReference<CreateRoute>? dotNetHelper;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        Console.WriteLine($"🔥 Blazor: OnAfterRenderAsync triggered! firstRender = {firstRender}");
-
-        if (firstRender)
-        {
-            dotNetHelper = DotNetObjectReference.Create(this);
-
-            try
-            {
-                Console.WriteLine("🔄 Trying to initialize BlazorInterop...");
-                Console.WriteLine("✅ BlazorInterop initialized successfully!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"❌ BlazorInterop error: {ex.Message}");
-            }
-
-            StateHasChanged();
-        }
-    }
-
+    
     [JSInvokable]
     public void SetLocation(string inputId, string value)
     {
@@ -241,7 +213,6 @@
     [JSInvokable]
     public void Dispose()
     {
-        dotNetHelper?.Dispose();
         Navigation.LocationChanged -= OnLocationChanged;
     }
 
