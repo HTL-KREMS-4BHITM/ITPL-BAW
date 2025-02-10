@@ -116,7 +116,7 @@
     private void SaveGroup()
     {
         Console.WriteLine($"Saving Group: Name={_GroupName}, Description={_Description}, FederalState={_FederalState}");
-        Groups gr = new Groups()
+        Groups newGroup = new Groups()
         {
             Description = _Description,
             Name = _GroupName,
@@ -126,15 +126,14 @@
             To_Date = DropoffDate.ToDateTime(TimeOnly.MinValue),
             RouteData = {}
         };
-        GroupRepository.Create(gr);
-        List<Groups> gro = GroupRepository.Read(g => g.Name == gr.Name && g.Description == gr.Description && g.Federal_State == gr.Federal_State);
-        int groupId = gro[0].Group_Id;
-        GroupMembers_JT gm = new GroupMembers_JT()
+        GroupRepository.Create(newGroup);
+        int groupId = GroupRepository.Read(g => g.Name == newGroup.Name && g.Description == newGroup.Description && g.Federal_State == newGroup.Federal_State)[0].Group_Id;
+        GroupMembers_JT groupAdmin = new GroupMembers_JT()
         {
             User_ID = CurrentUser[0].User_Id,
             Group_ID = groupId
         };
-        GroupMembersRepository.Create(gm);
+        GroupMembersRepository.Create(groupAdmin);
         SendData(groupId);
     }
 

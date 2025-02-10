@@ -267,6 +267,8 @@
     private string UserName;
     private List<User> CurrentUser = new();
     private string modelname;
+    private List<LeasingContract> bikeleases = new();
+    private int leasingCheck;
     
     protected override void OnInitialized()
     {
@@ -281,7 +283,8 @@
         var user = HttpContextAccessor.HttpContext?.User;
         UserName = user!.FindFirst(ClaimTypes.Name)?.Value;
         CurrentUser = UserRepository.Read(u => u.Username == UserName);
-
+        bikeleases = LeasingContractRepository.Read(b => b.MotorbikeID == Motorbike_ID);
+        
     }
 
     int startimgin;
@@ -389,24 +392,60 @@
                 Insurance = SelectedInsurance,
                 Price_Per_Day = pricepday
             };
+            
             if (lc.FROM_DATE != default && lc.TO_DATE != default)
             {
-                LeasingContractRepository.Create(lc);
-                Console.WriteLine("AddToCOntracts uses!");
-                alertmessage = "Bike erfolgreich gemietet.";
-                alert = true;
+                leasingCheck = 0;
+                foreach (var lease in bikeleases)
+                {
+                    if (!(DateOnly.FromDateTime(lease.TO_DATE) >= DropoffDate || DateOnly.FromDateTime(lease.FROM_DATE) <= DropoffDate) || !(DateOnly.FromDateTime(lease.FROM_DATE) <= PickupDate && DateOnly.FromDateTime(lease.TO_DATE) >= PickupDate) || !(DateOnly.FromDateTime(lease.FROM_DATE) >= PickupDate && DateOnly.FromDateTime(lease.TO_DATE) <= DropoffDate))
+                    {
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("---------------------------------------");
+                        leasingCheck++;
+                        Console.WriteLine(leasingCheck);
+                    }
+                }
+
+                if (leasingCheck == bikeleases.Count)
+                {
+                    LeasingContractRepository.Create(lc);
+                    Console.WriteLine("AddToCOntracts uses!");
+                    alertmessage = "Bike erfolgreich gemietet.";
+                    alert = true;
+                }
+                else
+                {
+                    throw new Exception("DateLeasing");
+                }
                 
             }
             else
             {
-                throw new Exception();
+                throw new Exception("DefaultDates");
             }
 
         }
-        catch
+        catch(Exception e)
         {
-            alertmessage = "Bitte Zeitraum vorher auswählen.";
-            alert = true;
+            if (e.Message == "DefaultDates")
+            {
+                alertmessage = "Bitte Zeitraum vorher auswählen.";
+                alert = true;
+            }
+            else
+            {
+                alertmessage = "Bike von "+ PickupDate + " bis " + DropoffDate + " bereits gemietet! Anderen Zeitraum bitte wählen. ";
+                alert = true;
+            }
             Task.Delay(5000).ContinueWith(_ =>
             {
                 alert = false;
