@@ -50,8 +50,8 @@
          { 
              startpoint = waypoints.FirstOrDefault();
              endpoint = waypoints.LastOrDefault();
-             startname = startpoint.Address.Split(',')[2];
-             endname = endpoint.Address.Split(',')[2];
+             startname = startpoint.Address.Split(',')[1];
+             endname = endpoint.Address.Split(',')[1];
          }
          foreach (var i in waypoints)
          {

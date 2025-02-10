@@ -2,9 +2,10 @@
 
 .mainbody {
   background-color: #2C2C2C !important;
-  color: #ffffff; 
-  input{
-    color: white;
+  color: #ffffff;
+  ::placeholder {
+    color: $insurancecolor;
+    opacity: 1;
   }
 }
 

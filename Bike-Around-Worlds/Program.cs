@@ -7,6 +7,7 @@ using Domain.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,7 @@ builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IRepository<LeasingContract>, LeasingContractRepository>();
 builder.Services.AddTransient<IRepository<Waypoint>, WaypointsRepository>();
 builder.Services.AddTransient<IRepository<GroupMembers_JT>, GroupMembersRepository>();
+builder.Services.AddSingleton<GroupeStateService>();
 
 
 

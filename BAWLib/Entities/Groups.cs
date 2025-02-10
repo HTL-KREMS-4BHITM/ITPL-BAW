@@ -16,7 +16,7 @@ public class Groups
     public DateTime To_Date { get; set; }
     public TimeSpan Start_Time { get; set; }
     public string Description { get; set; }
-    public string RouteData { get; set; }
+    public string RouteData { get; set; } = "{\"key\":\"value\"}";
     public DateTime Created_At { get; set; } = DateTime.Now;
     public string Federal_State { get; set; }
     

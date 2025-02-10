@@ -128,7 +128,7 @@
     private User CurrentUser = new();
     private List<GroupMembers_JT> Groups = new();
     private string UserName;
-    private string selectedimage;             // Das aktuell ausgewählte Bild
+    private string selectedimage;             
 
     protected override void OnInitialized()
     {
@@ -201,11 +201,6 @@
     private void ShowPastContracts()
     {
         currentcontracts = LeasingContractRepository.Read(l => l.UserID == LoggedUser[0].User_Id && l.TO_DATE <= DateTime.Today).ToList();
-    }
-
-    private void ProfilePcitures()
-    {
-        Console.WriteLine("ProfilePictures used!!!!!!!!!!!!!!");
     }
     
 }

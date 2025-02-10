@@ -1,54 +1,45 @@
-window.initializeMap = (dotNetHelper) => {
-    const map = L.map('map').setView([48.210033, 16.363449], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-    map.on('click', function(event) {
-        const lat = event.latlng.lat;
-        const lng = event.latlng.lng;
-
-        // Reverse-Geocoding API call
-        const GEOAPIFY_API_KEY = "65f0613505ff4799a40b3b62ead71e53";
-        const geocodeUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=${GEOAPIFY_API_KEY}`;
-
-        fetch(geocodeUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.features.length === 0) {
-                    alert("Keine Adresse für diese Koordinaten gefunden.");
-                    return;
-                }
-
-                const address = data.features[0]?.properties.formatted || `Unbekannte Adresse (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
-
-                // Call Blazor method to add the waypoint
-                dotNetHelper.invokeMethodAsync('AddWaypoint', lat, lng, address);
-
-                // Add a marker to the map
-                L.marker([lat, lng]).addTo(map).bindPopup(`Waypoint: ${address}`).openPopup();
-            })
-            .catch(err => {
-                console.error('Fehler beim Abrufen der Adresse:', err);
-                alert('Fehler beim Abrufen der Adresse. Bitte prüfen Sie die Konsole.');
-            });
-    });
+window.initializeButtonClick = (dotNetHelper) => {
+    const button = document.getElementById('interactiveButton');
+    if (button) {
+        button.addEventListener('click', () => {
+            dotNetHelper.invokeMethodAsync('HandleButtonClick');
+        });
+    }
 };
 
-window.fetchRoute = (waypoints, mode) => {
-    const waypointStrings = waypoints.join('|');
-    const url = `https://api.geoapify.com/v1/routing?waypoints=${waypointStrings}&mode=${mode}&details=instruction_details&apiKey=65f0613505ff4799a40b3b62ead71e53`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(result => {
-            L.geoJSON(result, {
-                style: () => ({ color: "#FF0000", weight: 5 })
-            }).bindPopup((layer) => {
-                const { distance, distance_units, time } = layer.feature.properties;
-                return `${distance} ${distance_units}, ${time}`;
-            }).addTo(map);
-        })
-        .catch(error => {
-            console.error("Fehler beim Abrufen der Route:", error);
-            alert("Fehler beim Abrufen der Route. Prüfen Sie die Konsole für Details.");
+window.initializeLocationSuggestions = (dotNetHelper) => {
+    window.dotNetHelper = dotNetHelper;  // Save the dotNetHelper to global scope
+};
+
+// Modified getLocationSuggestions function to use window.dotNetHelper
+window.getLocationSuggestions = async (inputId) => {
+    const apiKey = "65f0613505ff4799a40b3b62ead71e53"; // Replace with your actual API key
+    let query = document.getElementById(inputId).value.trim();
+
+    if (query.length < 3) return; // Only search after 3+ characters
+
+    try {
+        let response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&country=AT&lang=de&apiKey=${apiKey}`);
+        let data = await response.json();
+
+        let suggestionsList = document.getElementById(inputId + "-suggestions");
+        suggestionsList.innerHTML = ""; // Clear previous suggestions
+
+        data.features.forEach(location => {
+            let suggestionItem = document.createElement("li");
+            suggestionItem.classList.add("list-group-item");
+            suggestionItem.innerText = location.properties.formatted;
+
+            suggestionItem.onclick = function () {
+                document.getElementById(inputId).value = location.properties.formatted;
+                suggestionsList.innerHTML = ""; // Clear suggestions on selection
+                window.dotNetHelper.invokeMethodAsync("SetLocation", inputId, location.properties.formatted);
+            };
+
+            suggestionsList.appendChild(suggestionItem);
         });
+    } catch (error) {
+        console.error("Autocomplete Error:", error);
+    }
 };

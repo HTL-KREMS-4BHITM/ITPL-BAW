@@ -1,0 +1,14 @@
+INSERT INTO `GROUPS` (NAME, FROM_DATE, TO_DATE, DESCRIPTION, ROUTEDATA, CREATED_AT, IS_PUBLIC, FEDERAL_STATE, START_TIME)
+VALUES
+    ('Tour Tirol', '2025-02-10', '2025-02-27', 'Diese epische Biketour führt dich durch die beeindruckende Landschaft Österreichs – von den majestätischen Alpen in Tirol bis hin zu den weiten Ebenen und malerischen Weinlandschaften im Burgenland. Auf dieser Tour kannst du atemberaubende Gebirgspässe erklimmen, idyllische Täler durchqueren und in charmanten Städten und Dörfern eine Pause einlegen, um die österreichische Gastfreundschaft zu erleben.', '{"key": "value"}', '2025-02-09 23:56:01', 1, 'Tirol', '10:00:00'),
+    ('ASDsdASD', '2025-02-09', '2025-02-09', 'asdASDasd', '{"key": "value"}', '2025-02-09 23:57:29', 1, 'ASDAsdAD', '10:00:00'),
+    ('Tour Tirol', '2025-02-12', '2025-02-19', 'Ein Tour Tirol', '{"key": "value"}', '2025-02-10 00:00:24', 1, 'Tirol', '10:00:00'),
+    ('Tour Donau', '2025-02-17', '2025-02-23', 'Eine Tour entlang der Donau', '{"key": "value"}', '2025-02-10 00:53:42', 1, 'Niederösterreich', '10:00:00'),
+    ('Alpine Adventure', '2024-06-15', '2024-06-20', 'A thrilling group ride through the Alps, covering scenic mountain roads and breathtaking views.', '{"type": "mountain_route", "difficulty": "high"}', '2024-01-01 10:00:00', 1, 'Niederösterreich', '10:00:00'),
+    ('Lake Tourers', '2024-07-01', '2024-07-04', 'Relaxed rides around Austria''s most beautiful lakes, perfect for touring enthusiasts.', '{"type": "lake_route", "difficulty": "medium"}', '2024-02-15 15:30:00', 1, 'Oberösterreich', '10:00:00'),
+    ('Weekend Warriors', '2024-05-10', '2024-05-12', 'Weekend rides for city escapees looking for adventure.', '{"type": "short_trip", "difficulty": "low"}', '2024-03-01 12:45:00', 1, 'Wien', '10:00:00'),
+    ('Classic Bike Club', '2024-08-05', '2024-08-12', 'A gathering of classic motorbike owners exploring historic routes.', '{"type": "vintage_route", "difficulty": "medium"}', '2024-01-20 09:00:00', 1, 'Voralberg', '10:00:00'),
+    ('Enduro Offroaders', '2024-09-15', '2024-09-18', 'An off-road journey through rugged trails for enduro enthusiasts.', '{"type": "offroad", "difficulty": "high"}', '2024-04-10 17:20:00', 1, 'Niederösterreich', '10:00:00'),
+    ('Ducati Fans Meetup', '2024-10-01', '2024-10-05', 'A meetup of Ducati riders sharing passion for speed and style.', '{"type": "sport_route", "difficulty": "medium"}', '2024-05-15 11:30:00', 1, 'Tirol', '10:00:00'),
+    ('Scenic Explorers', '2024-04-20', '2024-04-22', 'Exploring picturesque routes through valleys and forests.', '{"type": "scenic_route", "difficulty": "low"}', '2024-03-05 14:00:00', 1, 'Salzburg', '10:00:00'),
+    ('Tour de Tirol', '2024-06-25', '2024-06-28', 'An exciting ride through the iconic roads of Tyrol.', '{"type": "mountain_route", "difficulty": "medium"}', '2024-02-28 16:15:00', 1, 'Steiermark', '10:00:00');
