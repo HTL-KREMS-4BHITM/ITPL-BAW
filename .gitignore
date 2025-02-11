@@ -2,7 +2,5 @@ bin/
 obj/
 .idea/
 *.user
-app.css
-app.css.map
-appsettings.json
 node_modules/
+
