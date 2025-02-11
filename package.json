@@ -1,0 +1,27 @@
+{
+  "name": "itpl-baw",
+  "version": "1.0.0",
+  "description": "idk what to descripe here",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass --watch Bike-Around-Worlds/Scss/index.scss:Bike-Around-Worlds/wwwroot/app.css",
+    "start": "sass Bike-Around-Worlds/Scss/index.scss:Bike-Around-Worlds/wwwroot/app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HTL-KREMS-4BHITM/ITPL-BAW.git"
+  },
+  "author": "raphael nigl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HTL-KREMS-4BHITM/ITPL-BAW/issues"
+  },
+  "homepage": "https://github.com/HTL-KREMS-4BHITM/ITPL-BAW#readme",
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "pgk": "^0.0.1-security",
+    "sass": "^1.81.0",
+    "scss": "^0.2.4",
+    "update": "^0.7.4"
+  }
+}

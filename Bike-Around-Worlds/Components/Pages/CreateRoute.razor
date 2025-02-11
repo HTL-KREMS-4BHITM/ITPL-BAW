@@ -1,0 +1,253 @@
+@page "/CreateRoute"
+@page "/CreateRoute/{save}"
+
+@using System.Diagnostics
+@using BAWLib
+@using BAWLib.Entities
+@using Domain.Interfaces
+@using Domain.Repositories
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager Navigation
+@inject GroupeStateService GroupeState
+@inject IRepository<Waypoint> WaypointsRepository;
+<div class="container">
+    <div class="row mx-auto mt-lg-5">
+        <h3 class="d-flex justify-content-center">Gruppe erstellen</h3>
+    </div>
+    <h5 class="mb-0 mt-3 text-decoration-underline mb-2">2. Schritt </h5>
+    <div class="row text-danger fw-bold">
+        <div class="col-lg-12">
+            1. Seite neuladen mit, entweder, F5 oder dem 3. Symbol von links in der Leiste oben (Kreispfeil).<br/>
+            2. Stopps der Route auf der Kante anklicken. <br/>
+            3. Seite neuladen mit, entweder, F5 oder dem 3. Symbol von links in der Leiste oben (Kreispfeil).<br/>
+            4. Speichern drücken
+        </div>
+        
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-lg-6">
+
+            <div class="my-auto" id="my-map" style="width: 100%; height: 500px;"></div>
+        </div>
+        
+        <div class="col-lg-6">
+            
+            @for (int j = 0; j < Adresses.Count; j++)
+            {
+                string labeln = (j == 0) ? labeln = "Start" :
+                    (j == Adresses.Count - 1) ? labeln = "Ende" 
+                    : labeln = "Punkt";
+                
+                <div class="mb-3">
+                    <label for="end" class="form-label">@labeln</label>
+                    <input type="text" class="form-control" value="@Adresses[j]"/>
+                </div>
+            }
+            
+        </div>
+    </div>
+    <div class="col-12 d-flex justify-content-center mb-5 mt-5">
+        <div class="col-4">
+            <a style="background-color: #FF4500; color: white" class="btn w-100" href="/CreateRoute/save?addresses=@addresses">Speichern</a>
+        </div>
+    </div>
+    </div>
+
+
+
+<script src="site.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    const GEOAPIFY_API_KEY = "65f0613505ff4799a40b3b62ead71e53";
+    let map = L.map('my-map').setView([48.210033, 16.363449], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    let waypoints = [];
+    let routeLayer = null;
+    let waypointMarkers = [];
+
+
+
+    function setMarker(address) {
+        if (map) {
+            waypoints.forEach((wp, index) => {
+
+                L.marker([wp.address]).addTo(map)
+                    .bindPopup('Marker: ' + wp.address)
+                    .openPopup();
+            });
+        }
+
+    }
+    window.blazorInterop = null;
+
+    window.initializeBlazorInterop = function (dotNetHelper) {
+        window.blazorInterop = dotNetHelper;
+    };
+    map.on('click', function (event) {
+        const lat = event.latlng.lat;
+        const lng = event.latlng.lng;
+
+        const geocodeUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&lang=de&apiKey=${GEOAPIFY_API_KEY}`;
+
+        fetch(geocodeUrl)
+            .then(response => response.json())
+            .then(data => {
+                const address = data.features[0]?.properties.formatted || `Unknown Address (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+
+                const url = new URL(window.location.href);
+
+                let addresses = url.searchParams.get('addresses');
+                if (addresses) {
+                    addresses = addresses + "|" + address;
+                } else {
+                    addresses = address;
+                }
+
+                url.searchParams.set('addresses', addresses);
+
+                window.history.pushState({}, '', url);
+
+
+                
+            })
+            .catch(err => {
+                console.error('Error fetching address:', err);
+            });
+    });
+    
+
+
+</script>
+
+@code {
+    [Parameter] public string save { get; set; }
+    private int GroupId { get; set; }
+    private string StartLocation { get; set; }
+    private string EndLocation { get; set; }
+    private string addresses { get;set; }
+    private List<string> Adresses = new();
+    
+
+    
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+        GroupId = GroupeState.GroupId;
+        
+        addresses = string.Join("|", Adresses);
+        Console.WriteLine("Count" + Adresses.Count);
+        SaveWaypoints();
+        
+        
+    }
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        var uri = new Uri(e.Location);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+
+        if (query.ContainsKey("addresses"))
+        {
+            var addressesParam = query["addresses"].ToString();
+            var addressesList = addressesParam.Split('|').ToList();
+
+            Adresses.Clear(); 
+            Adresses.AddRange(addressesList);
+            StateHasChanged();
+        }
+    }
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        var uri = Navigation.Uri;
+        var uriBuilder = new UriBuilder(uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uriBuilder.Query);
+
+        if (query.ContainsKey("addresses"))
+        {
+            var addressesParam = query["addresses"].ToString();
+            var addressesList = addressesParam.Split('|').ToList();
+
+            Console.WriteLine($"Received addresses from URL: {addressesParam}");
+
+            foreach (var newAddress in addressesList)
+            {
+                if (!Adresses.Contains(newAddress))
+                {
+                    Adresses.Add(newAddress);
+                    Console.WriteLine($"Address added: {newAddress}");
+                    InvokeAsync(StateHasChanged);
+                }
+            }
+
+            Console.WriteLine(StartLocation);
+            Console.WriteLine(EndLocation);
+
+            Console.WriteLine(uri);
+        }
+
+        
+        Console.WriteLine($"Updated addresses list: {string.Join(", ", Adresses)}");
+        addresses = string.Join("|", Adresses);
+        Console.WriteLine("Count" + Adresses.Count);
+        SaveWaypoints();
+        Console.WriteLine("GroupID" + GroupeState.GroupId);
+        
+        await base.OnParametersSetAsync();
+    }
+    
+    
+
+    
+    [JSInvokable]
+    public void SetLocation(string inputId, string value)
+    {
+        if (inputId == "start")
+            StartLocation = value;
+        else if (inputId == "end")
+            EndLocation = value;
+
+        StateHasChanged(); 
+    }
+
+    [JSInvokable]
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
+
+    private void SaveWaypoints()
+    {
+        if (save == "save")
+        {
+            for (int i = 0; i <= Adresses.Count-1; i++)
+            {
+                Console.WriteLine("add:" + Adresses[i]);
+            }
+            
+            if (WaypointsRepository == null)
+            {
+                Console.WriteLine("WaypointsRepository is null.");
+            }
+
+            if (Adresses == null || Adresses.Count == 0)
+            {
+                Console.WriteLine("Adresses is null or empty.");
+            }
+
+            Console.WriteLine("Saving waypoints...");
+        
+            for (int i = 0; i <= Adresses.Count - 1; i++)
+            {
+                Console.WriteLine($"Adding waypoint for address: {Adresses[i]}");
+                WaypointsRepository.Create(new Waypoint()
+                {
+                    Address = Adresses[i],
+                    Sequence = i + 1,
+                    RouteID = GroupId
+                });
+            }
+        }
+    }
+
+}

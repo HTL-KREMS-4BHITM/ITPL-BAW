@@ -1,0 +1,150 @@
+@use "variables" as *;
+
+.carousel-inner img {
+  height: 40vh; /* Beispielhöhe, passe sie nach Bedarf an */
+  object-fit: cover; /* Verhindert Verzerrungen und sorgt für ein gutes Seitenverhältnis */
+  width: 100%; /* Stellt sicher, dass das Bild die gesamte Breite einnimmt */
+}
+
+h5{
+  color: $text;
+}
+.productmain{
+
+
+.accordion {
+  margin:0;
+  background-color: $background;
+
+  .accordion-item {
+    margin: 0; 
+
+    .btn-outline-primary {
+      color: $text;
+      border-color: $bordercolor; 
+      background-color: $primary; 
+      border-radius: 0;
+
+      &:hover {
+        color: white; 
+        background-color: $hovercolor; 
+        border-color:red; 
+        .pricetag{
+          color: $text;
+        }
+      }
+    }
+
+    .btn-check:checked + .btn-outline-primary {
+      background-color: $insurancecolor; 
+      color: $text;
+      border-color: $bordercolor; 
+      .pricetag{
+        color: $text;
+      }
+    }
+
+    .accordion-header {
+      margin: 0; 
+      padding: 0; 
+
+      .btn {
+        border-radius: 0;
+        &:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+        }
+      }
+    }
+    
+    .accordion-body {
+      background-color: $primary;
+      color: $text; 
+      margin: 0; 
+      padding: 1rem; 
+      border-top: 1px solid $bordercolor;
+    }
+
+    .pricetag {
+      color: $secondary; 
+    }
+
+  }}
+  
+  
+  
+  
+  
+  
+
+  
+  .productview{
+    background-color: $background;
+  }
+  
+  h3{
+    color: $text;
+  }
+  .customtable {
+    background-color: #3A3A3A;
+    border: 1px solid #D9D9D9; 
+
+    *{
+      background-color: #3A3A3A; 
+      color: #D9D9D9; 
+      
+    }
+
+    th {
+      text-align: center; 
+    }
+
+    tr:hover {
+      background-color: #5A5A5A; 
+    }
+
+    .table-bordered {
+      border-collapse: collapse; 
+    }
+
+    .table-bordered th, .table-bordered td {
+      padding: 12px;
+    }
+    
+  }
+
+  .labels{
+    color: $text;
+  }
+  .card-custom {
+    background-color: $background; 
+    
+    color: $text; 
+
+    border: 1px solid $bordercolor;
+
+    .list-group-item {
+      background-color: $insurancecolor; 
+      color: $text;
+      &:nth-child(even) {
+        background-color: $primary;
+      }
+    }
+
+    .card-footer {
+      background-color: #e9ecef; 
+      color: #212529;           
+      text-align: center;     
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+  .rent{
+    color: $text;
+    background-color: $secondary;
+  }
+  .favorites{
+    color: $background;
+    background-color: #FFD700;
+  }
+
+}

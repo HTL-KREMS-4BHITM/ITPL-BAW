@@ -1,0 +1,103 @@
+@using BAWLib
+@using BAWLib.Entities
+@using BAWLib.ViewModels
+@using Bike_Around_Worlds.Components.Pages
+@using Domain.Interfaces
+@using Microsoft.EntityFrameworkCore
+@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
+
+@inject IRepository<Favorite> FavoriteRepository;
+@inject IRepository<User> UserRepository;
+@inject IRepository<Motorbike> MotorbikeRepository;
+@inject NavigationManager NavigationManager
+
+
+<div class="card bike-element">
+
+    <img src="@($"{@ImagePath}?t={DateTime.Now.Ticks}")"  class="card-img-top" style="object-fit: cover" height="50%" alt="Ein Bild eines Bikes" @onclick="NavToProductView">
+    <div class="card-body">
+        <h1 @onclick="NavToProductView">@ThisBike!.Manufacturer @ThisBike.Model </h1>
+        <p class="card-text"><span class="price">@ThisBike.CurrentLeasingRate</span> /Tag</p>
+        <div class="d-flex justify-content-between m align-content-end justify-content-end">
+            <p class="federal-state pb-0 mb-0">#@ThisBike.Federal_State</p>
+            <i class="bi mb-0 pb-0 @Icon " style="font-size: 1.25rem;" @onclick="ChangeIcon"></i>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<bool> Alert { get; set; }
+    [Parameter] public EventCallback<string> AlertMessage { get; set; }
+    [Parameter] public EventCallback<bool> IsError { get; set; }
+    [Parameter] public string? ImgOne { get; set; }
+    [Parameter] public string? ImgTwo { get; set; }
+    [Parameter] public string? ImgThree { get; set; }
+    [Parameter] public string? Icon { get; set; }
+    [Parameter] public Motorbike? ThisBike { get; set; }
+    [Parameter] public bool IsFavorite { get; set; }
+    [Parameter] public int CurrentUser_Id { get; set; }
+    private Favorite? Favorite { get; set; }
+    private List<Favorite> _favorites { get; set; }
+    private string ImagePath => ThisBike == null
+        ? "Resources/login.png"
+        : $"Resources/Bikes/{ThisBike.Manufacturer}/{ThisBike.Model.Split(" ")[0]}/{ThisBike.Model.Split(" ")[0]} (1).png";
+    
+
+    
+    
+
+    
+    private void ChangeIcon()
+    {
+        Favorite currentFavorite = new Favorite() { Motorbike_ID = ThisBike!.Motorbike_ID, User_ID = CurrentUser_Id };
+
+        try
+        {
+            if (_favorites.Contains(currentFavorite))
+            {
+                Icon = "bi-star";
+                FavoriteRepository.Delete(currentFavorite.Motorbike_ID, currentFavorite.User_ID);
+                _favorites.Remove(currentFavorite);
+                //SendAlert("Bike aus Favoriten erfolgreich entfernt!", true);
+
+            }
+            else
+            {
+                Icon = "bi-star-fill";
+                FavoriteRepository.Create(currentFavorite);
+                _favorites.Add(currentFavorite);
+                //SendAlert("Bike zu Favoriten erfolgreich hinzugefügt!", true);
+            }
+        }
+        catch
+        {
+            SendError("Bitte vorher anmelden!", true);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _favorites = FavoriteRepository.Read(favorite => favorite.User_ID == CurrentUser_Id);
+    }
+
+
+
+    private void NavToProductView()
+    {
+        NavigationManager.NavigateTo($"product/{ThisBike!.Motorbike_ID}");
+    }
+
+    private async Task SendAlert(string message, bool alerti)
+    {
+        await Alert.InvokeAsync(alerti);
+        await AlertMessage.InvokeAsync(message);
+    }
+
+    private async Task SendError(string message, bool error)
+    {
+        await AlertMessage.InvokeAsync(message);
+        await IsError.InvokeAsync(error);
+    }
+}

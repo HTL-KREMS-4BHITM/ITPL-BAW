@@ -1,0 +1,24 @@
+//here you have to include the scss file you created to be converted to css.
+// @use "[Name of the file]"; => //du kannst optional auch [Name of the file].sccs schreiben für die Uebersichtlichkeit
+// npm run watch
+
+@use "colors";
+@use "home";
+@use "header";
+@use "footer";
+@use "bikeComponent";
+@use "variables";
+@use "styles";
+@use "login";
+@use "filter";
+@use "bikeview";
+@use "productview";
+@use "creategroup";
+@use "signup";
+@use "userprofile";
+@use "contractscomponent";
+@use "userComponent";
+@use "groupComponent";
+@use "groupDetailsView";
+@use "groupcomponent";
+@use "logout";

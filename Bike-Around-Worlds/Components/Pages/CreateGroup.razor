@@ -1,0 +1,146 @@
+@page "/CreateGroup"
+@page "/CreateGroup/{step}"
+@using System.Security.Claims
+@using BAWLib
+@using BAWLib.Entities
+@using Domain.Interfaces
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+@inject IHttpContextAccessor HttpContextAccessor
+@inject GroupeStateService GroupState
+@inject IRepository<Groups> GroupRepository
+@inject IRepository<User> UserRepository
+@inject IRepository<GroupMembers_JT> GroupMembersRepository
+@rendermode InteractiveServer
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<style>
+    html,
+    body,
+    #my-map {
+        width: 100%;
+        height: 400px; 
+        margin: 0;
+    }
+</style>
+
+<div class="mainbody">
+    <div class="container">
+        <div class="row mx-auto mt-lg-5">
+            <h3 class="d-flex justify-content-center">Gruppe erstellen</h3>
+        </div>
+            <h5 class="mb-0 mt-3 text-decoration-underline">1. Schritt </h5>
+        <div class="row border-bottom border-secondary ">
+            <div class="col-12">
+                <div class="d-flex flex-row">
+                    <div class="col-lg-6 mb-5">
+                        
+                        <div class="mb-4 mt-2 pt-4 border-bottom border-secondary">
+                            <input type="text" @bind="_GroupName" id="groupname" class="form-control" placeholder="Gruppenname*"/>
+                        </div>
+                        <div class="mb-4 mt-2 pt-4 border-bottom border-secondary">
+                            <input type="text" @bind="_Description" id="descrip" class="form-control" placeholder="Beschreibung"/>
+                        </div>
+                        <div class="mb-4 mt-2 pt-4 border-bottom border-secondary">
+                            <input type="text" @bind="_FederalState" id="_FederalState" class="form-control" placeholder="Startbundesland"/>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="pickupDate" class="form-label labels">Start</label>
+                                <input type="date" id="pickupDate" class="form-control" @bind="PickupDate"/>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label for="pickupTime" class="form-label labels">Start Uhrzeit</label>
+                                <input type="time" id="pickupTime" class="form-control" @bind="PickupTime"/>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label for="dropoffDate" class="form-label labels">Ende</label>
+                                <input type="date" id="dropoffDate" class="form-control" @bind="DropoffDate"/>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                        <div class="row ">
+                            
+                            <button @onclick="SaveGroup" style="background-color: #FF4500; border: none" class="btn btn-primary w-50 btn text-light col-lg-4  mb-5 mt-3 pb-2">Speichern</button>
+                        </div>
+            </div>
+</div></div>
+        </div>
+<!---Here was the map and input fields-->
+        
+
+@code {
+    [Parameter]public string step { get; set; }
+    #region Attr
+    Groups _group = new Groups();
+    private string _Description { get; set; }
+    private string _GroupName { get; set; }
+    private string _FederalState { get; set; }
+    private TimeOnly PickupTime { get; set; } = new TimeOnly(10, 0);
+    private TimeOnly DropoffTime { get; set; } = new TimeOnly(10, 0);
+    private DateOnly PickupDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    private DateOnly DropoffDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    private string PublicPrivate { get; set; }
+    private string currentUrl;
+
+    private string StartLocation { get; set; }
+    private string EndLocation { get; set; }
+    
+    private string Address { get; set; }
+    private List<string> Adresses = new();
+    private string UserName;
+
+    private List<User> CurrentUser = new();
+
+    #endregion
+    
+    protected override void OnInitialized()
+    {
+        currentUrl = Navigation.Uri;
+
+        var user = HttpContextAccessor.HttpContext?.User;
+        UserName = user!.FindFirst(ClaimTypes.Name)?.Value;
+        CurrentUser = UserRepository.Read(u => u.Username == UserName);
+        base.OnInitialized();
+    }
+    
+    
+
+    private void SaveGroup()
+    {
+        Console.WriteLine($"Saving Group: Name={_GroupName}, Description={_Description}, FederalState={_FederalState}");
+        Groups newGroup = new Groups()
+        {
+            Description = _Description,
+            Name = _GroupName,
+            Federal_State = _FederalState,
+            Start_Time = PickupTime.ToTimeSpan(),
+            From_Date = PickupDate.ToDateTime(TimeOnly.MinValue),
+            To_Date = DropoffDate.ToDateTime(TimeOnly.MinValue),
+            RouteData = {}
+        };
+        GroupRepository.Create(newGroup);
+        int groupId = GroupRepository.Read(g => g.Name == newGroup.Name && g.Description == newGroup.Description && g.Federal_State == newGroup.Federal_State)[0].Group_Id;
+        GroupMembers_JT groupAdmin = new GroupMembers_JT()
+        {
+            User_ID = CurrentUser[0].User_Id,
+            Group_ID = groupId
+        };
+        GroupMembersRepository.Create(groupAdmin);
+        SendData(groupId);
+    }
+
+    private async Task SendData(int id)
+    {
+        GroupState.SetGroupData(id);
+        Navigation.NavigateTo("/CreateRoute");
+    }
+}
+ 

@@ -1,0 +1,74 @@
+@inject NavigationManager NavigationManager;
+@inject IRepository<User> UserRepository;
+@inject IRepository<Groups> GroupRepository;
+@inject IRepository<Waypoint> WaypointsRepository;
+@inject IRepository<GroupMembers_JT> GroupMemberRepository
+
+@using BAWLib
+@using BAWLib.Entities
+@using Domain.Interfaces
+@using Domain.Repositories
+
+<div class="card mb-3 groupsec" @onclick="NavitageToGroup">
+    <div class="card-header d-flex justify-content-between">
+        <h5>
+            @Group!.Name 
+        </h5>
+        <div>
+            <h4>
+                @usercount <i class="bi bi-person-fill"></i>
+            </h4>
+        </div>
+    </div>
+    <div class="card-body text-secondary">
+        <h6 class="card-title">@startname - @endname</h6>
+        <p class="card-text">@Group.From_Date.ToString("dd/MM/yyyy") - @Group.To_Date.ToString("dd/MM/yyyy")</p>
+    </div>
+</div>
+@code {
+     [Parameter] public Groups? Group { get; set; }
+     [Parameter] public int GroupID { get; set; }
+     private string startname;
+     private string endname;
+     protected override void OnInitialized()
+     {
+         
+         if (Group == null)
+            Group = GroupRepository.Read(GroupID);
+         
+
+         users = GroupMemberRepository.Read(gm => gm.Group_ID == Group.Group_Id).ToList();
+         usercount = users.Count;
+         waypoints = WaypointsRepository.Read(w => w.RouteID == Group.Group_Id);
+         if (waypoints.Count ==0)
+         {
+             startpoint = new Waypoint();
+             endpoint = new Waypoint();
+             
+         }
+         else
+         { 
+             startpoint = waypoints.FirstOrDefault();
+             endpoint = waypoints.LastOrDefault();
+             startname = startpoint.Address.Split(',')[1];
+             endname = endpoint.Address.Split(',')[1];
+         }
+         foreach (var i in waypoints)
+         {
+             Console.WriteLine(i.Address);
+         }
+
+     }
+
+     Waypoint startpoint;
+     Waypoint endpoint;
+     private int usercount;
+     private List<GroupMembers_JT> users = new();
+     private List<Waypoint> waypoints;
+     private void NavitageToGroup()
+     {
+         NavigationManager.NavigateTo($"/groupDetailsView/{Group!.Group_Id}");
+     }
+
+
+}

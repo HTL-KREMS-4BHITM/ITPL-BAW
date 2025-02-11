@@ -1,0 +1,49 @@
+@using BAWLib
+@using BAWLib.Entities
+@using Domain.Interfaces
+@inject  IRepository<Motorbike> BikeRepository
+@inject NavigationManager NavigationManager
+<div class="card section-cont-card "  style="height: 100%">
+    <img src="/Resources/Bikes/@bike.Manufacturer/@modelname/@modelname (1).png" style="object-fit: cover" height="50%" class="d-block " alt="Bike 1">
+    <div class="card-body rounded">
+        <h5 class="card-title mb-3" @onclick="NavigateToProduct" >@bike.Manufacturer @bike.Model</h5>
+        <div class="card-text d-flex justify-content-between flex-wrap mb-2">
+            <div class="d-flex align-content-lg-start">
+                <span class=" mb-3">
+                    @CurrentLeasingContract.FROM_DATE.ToString("dd/MM/yyyy")
+                    -
+                    @CurrentLeasingContract.TO_DATE.ToString("dd/MM/yyyy")
+                </span>
+            </div>
+            <span class="mb-lg-3">@CurrentLeasingContract.Insurance</span>
+        </div>
+        <p class="card-text d-flex justify-content-between flex-wrap"><span><small class="text-body-secondary federal-state">#@bike.Federal_State</small></span><span class="pricetag">@CurrentLeasingContract.Price_Per_Day /Tag</span></p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int MotorbikeID { get; set; }
+    [Parameter] public User CurrentUser { get; set; }
+    [Parameter] public LeasingContract CurrentLeasingContract { get; set; }
+
+    private string modelname;
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Console.WriteLine($"CurrentUser: {CurrentUser?.Username}, MotorBikeID: {MotorbikeID}");
+
+        bike = BikeRepository.Read(MotorbikeID);
+        modelname = bike.Model.Split(' ')[0];
+    }
+
+    Motorbike bike = new();
+
+    private void NavigateToProduct()
+    {
+        Console.WriteLine("nagive");
+        NavigationManager.NavigateTo($"product/{MotorbikeID}");
+    }
+
+}

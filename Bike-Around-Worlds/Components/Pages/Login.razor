@@ -1,0 +1,70 @@
+﻿@page "/login"
+@using System.Security.Claims
+@using BAWLib.Configs
+@using BAWLib.ViewModels
+
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.EntityFrameworkCore
+@inject MotorContext Appdbcontext
+@inject NavigationManager NavigationManager
+
+<div class="section-login py-5">
+    <div class="container">
+        <h3 class="text-center mb-4">Login</h3>
+        <div class="row justify-content-center align-items-stretch">
+            <div class="col-lg-4 d-flex me-0 ps-0 pe-0 border border-end-0 align-items-center">
+                <img src="Resources/login.jpeg" class="img-fluid shadow form-height" alt="Bike Pic">
+            </div>
+            <div class="login_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
+                <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm" class="p-4 border rounded shadow">
+                    <div class="mb-4 mt-5 pt-4 border-bottom border-secondary">
+                        <InputText @bind-Value="Model.Username" class="form-control" placeholder="Benutzername" />
+                        <ValidationMessage For="() => Model.Username" />
+                    </div>
+                    <div class="mb-5 mt-3 border-bottom border-secondary">
+                        <InputText @bind-Value="Model.Password" type="password" class="form-control" placeholder="Passwort" />
+                        <ValidationMessage For="() => Model.Password" />
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-danger">@_errorMessage</span>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <span><a href="/signup">Konto erstellen</a></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Login</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+    [SupplyParameterFromForm] public LoginViewModel Model { get; set; } = new();
+    private string? _errorMessage;
+    
+    private async Task Authenticate()
+    {
+        
+        var userAccount = Appdbcontext.Users.Where(x => x.Username == Model.Username).FirstOrDefault();
+        if (userAccount is null || BCrypt.Net.BCrypt.EnhancedVerify(Model.Password, userAccount.Password) == false)
+        {
+            _errorMessage = "Invalid User name or Passwort";
+            return;
+        }
+        
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, userAccount.Username),
+        };
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+        await HttpContext!.SignInAsync(principal);
+        NavigationManager.NavigateTo("/bikeView");
+    }
+
+}

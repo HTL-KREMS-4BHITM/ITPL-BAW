@@ -1,0 +1,51 @@
+@use "colors" as *;
+
+
+
+
+
+%base-override-img{
+  .form-height {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.section-signup {
+  @extend %base-override-img;
+  background-color: $background !important;
+  
+
+  .signup_container{
+    background-color: $footer-bg !important;
+  }
+  h3 {
+    color: white;
+  }
+  button{
+    background-color:$secondary !important;
+    border: none;
+    
+    &:hover{
+      background-color: $hovercolor !important;
+    }
+  }
+  input{
+    background-color: $primary !important;
+    color: white !important;
+    &::placeholder {
+      color: #9E9D9D;
+    }
+  }
+    .signlabels{
+      color:$text;
+    }
+  
+    p{
+      color: white !important;
+    }
+  
+}
+.validation-message{
+  color:$text;
+}

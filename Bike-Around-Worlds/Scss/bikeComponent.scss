@@ -1,0 +1,38 @@
+@use "variables" as *;
+// make toRem function use toRem function todo
+.row{
+  margin: 0 ;
+}
+.bike-element{
+  filter: drop-shadow(0px 0px 10px black);
+  border : none;
+  color: $text;
+  background-color: $bike-bg;
+  height: 100%;
+
+  .card-body{
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    h1{
+      font:{
+        family: "Contrail One", serif;
+        weight: 400;
+        size: 1.2rem;
+      }
+    }
+    p{
+      font:{
+        family: Calibri;
+        weight: 200;
+        size: 1.1rem;
+      }
+    }
+    .price{
+      color: $secondary;
+    }
+      .federal-state{
+      font-style: italic;
+    }
+
+  }
+}

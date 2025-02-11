@@ -1,0 +1,17 @@
+@use "variables" as *;
+.section-footer{
+  background-color: $footer-bg;
+  color: $text;
+  * {
+    margin: 0;
+  }
+  .container-fluid{
+    margin: 0;
+    padding: 1.5rem 0 1.5rem 0;
+    *{
+      align-content: center;
+    }
+  }
+
+  
+}

@@ -1,0 +1,102 @@
+@page "/signup"
+@using BAWLib
+@using BAWLib.Configs
+@using BAWLib.ViewModels
+@inject MotorContext DbContext
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="section-signup py-5">
+    <div class="container">
+        <h3 class="text-center mb-4">Sign Up</h3>
+        <div class="row justify-content-center align-items-stretch">
+            <div class="col-lg-4 d-flex me-0 ps-0 pe-0 border border-end-0 align-items-center">
+                <img src="Resources/signup.jpg" class="img-fluid shadow form-height" alt="Bike Pic">
+            </div>
+            <div class="signup_container col-lg-4 ms-0 me-0 ps-0 pe-0 h-100">
+        <EditForm Model="@Model" OnValidSubmit="RegisterUser" FormName="SinguPForm" class="p-4 border rounded shadow">
+            <div class="row pt-4 mt-5">
+                <div class="col-lg-10 mb-3 mx-0 ps-0 pe-2">
+                    <InputText class="form-control" placeholder="Username" @bind-Value="@Model.Username" />
+                    <ValidationMessage For="() => Model.Username" />
+                </div>
+                <div class="col-lg-2 mb-3 mx-0 px-0">
+                    <InputNumber TValue="int" class="form-control" placeholder="Age" @bind-Value="Model.Age" />
+                    <ValidationMessage For="() => Model.Age" />
+                </div>
+            </div>
+            
+            <div class="mb-4 mt-2 border-bottom border-secondary">
+                <InputText type="password" class="form-control" placeholder="Password" @bind-Value="@Model.Password"/>
+                <ValidationMessage For="() => Model.Password"/>
+            </div>
+            <div class="mb-5 mt-3">
+                <InputText type="password" class="form-control" placeholder="Confirm Password" @bind-Value="@Model.ConfirmPassword"/>
+                <ValidationMessage For="() => Model.ConfirmPassword"/>
+            </div>
+            <div class="mb-3">
+                <span class="text-danger">@errorMessage</span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="w-50 btn text-light w-100 mb-5 mt-3 pb-2">Signup</button>
+            </div>
+        </EditForm>
+    </div></div></div>
+</div>
+
+@code {
+    public SignUpViewModel Model { get; set; } = new();
+    private string? errorMessage;
+
+    protected override bool ShouldRender()
+    {
+        return false;
+    }
+
+    private async Task RegisterUser()
+    {
+        Console.WriteLine("RegisterUser called");
+        Console.WriteLine($"Username: {Model.Username}, Password: {Model.Password}, Age: {Model.Age}, ConfirmPassword: {Model.ConfirmPassword}");
+
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(Model.Username) || string.IsNullOrWhiteSpace(Model.Password) ||Model.Age < 18)
+            {
+                errorMessage = "Alle Felder sind gefordert und das Alter muss mindestens 18 sein.";
+                return;
+            }
+
+            var existingUser = DbContext.Users.FirstOrDefault(u => u.Username == Model.Username);
+            if (existingUser != null)
+            {
+                errorMessage = "Benutzername existiert bereits. Bitte wähle einen anderen.";
+                return;
+            }
+
+            if (Model.Password != Model.ConfirmPassword)
+            {
+                errorMessage = "Passwörter stimmen nicht überein.";
+                return;
+            }
+
+            string passhash = BCrypt.Net.BCrypt.EnhancedHashPassword(Model.Password, 13);
+            var newUser = new User
+            {
+                Username = Model.Username,
+                Password = passhash,
+                Age = Model.Age
+            };
+
+            DbContext.Users.Add(newUser);
+            await DbContext.SaveChangesAsync();
+
+            NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Ein Fehler ist erfolgt. Bitte versuche es später wieder.";
+            Console.WriteLine($"Error during registration: {ex.Message}");
+        }
+    }
+}

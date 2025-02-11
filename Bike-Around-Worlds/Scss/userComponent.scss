@@ -1,0 +1,40 @@
+@use "variables" as *;
+.user-component {
+  background-color: $primary; 
+  color: $text;
+  padding: 15px;
+  border-radius: 10px;
+  .bikee{
+    font-style: normal;
+  }
+  .user-name{
+    font-style: normal;
+    //font-weight: bold;
+  }
+
+  .circle-profile {
+    height: 100%;
+    width: 100%;
+    max-width: 15rem;
+    max-height: 15rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid $text;
+    position: relative;
+  }
+
+  .circle-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-icon {
+    font-size: 3rem;
+  }
+}
+
