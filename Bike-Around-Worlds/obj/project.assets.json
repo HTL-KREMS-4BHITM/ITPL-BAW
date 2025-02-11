@@ -2513,19 +2513,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emilm\\.nuget\\packages\\": {}
+    "C:\\Users\\niglr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
+      "projectUniqueName": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
       "projectName": "Bike-Around-Worlds",
-      "projectPath": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
-      "packagesPath": "C:\\Users\\emilm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emilm\\Documents\\Schule\\ITPP\\4BHITM\\Projekt1SEM_BAW-BikeAcrossWorlds\\ProjectRepo\\ITPL-BAW\\Bike-Around-Worlds\\obj\\",
+      "projectPath": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\Bike-Around-Worlds.csproj",
+      "packagesPath": "C:\\Users\\niglr\\.nuget\\packages\\",
+      "outputPath": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\Bike-Around-Worlds\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\emilm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\niglr\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2537,8 +2537,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {
-              "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj"
+            "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {
+              "projectPath": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj"
             }
           }
         }
@@ -2598,7 +2598,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

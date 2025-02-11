@@ -1,28 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {}
+    "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {}
   },
   "projects": {
-    "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {
+    "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
+        "projectUniqueName": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
         "projectName": "BAWLib",
-        "projectPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
-        "packagesPath": "C:\\Users\\raphael\\.nuget\\packages\\",
-        "outputPath": "D:\\_PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\obj\\",
+        "projectPath": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\BAWLib.csproj",
+        "packagesPath": "C:\\Users\\niglr\\.nuget\\packages\\",
+        "outputPath": "D:\\PRIVATE\\HTL\\4BHITM\\ITPL\\ITPL-BAW\\BAWLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\raphael\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\niglr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -83,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
